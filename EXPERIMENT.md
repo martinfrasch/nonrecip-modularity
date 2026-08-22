@@ -1,7 +1,12 @@
 # Experiment spec: does nonreciprocity move currents without moving structure?
 
-Status: **specified and implemented, not yet run.** Written 2026-08-21, after the α̂ and
-s_II/s_I sweeps were found to be mis-specified instruments (see `RESULTS.md` §4).
+Status: **RUN 2026-08-21.** Results and scoring against the pre-committed thresholds below
+are in `RESULTS.md` §5. Outcome: H1 pass, H3 pass, H2 fail-as-written (decoupling confirmed
+at 16x separation, but the absolute turnover threshold was set too high), H4 partial --
+reciprocity accounts for ~half the mono/bi turnover gap and essentially all of the sigma^2_v gap.
+
+Written after the alpha and s_II/s_I sweeps were found to be mis-specified instruments
+(see `RESULTS.md` section 4).
 
 ---
 
