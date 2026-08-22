@@ -2,6 +2,4 @@ data/
 venv/
 __pycache__/
 *.npz
-*.csv
-*.png
-!pilot/*.png
+.DS_Store

@@ -69,10 +69,16 @@ def sweep():
     s = pd.read_csv("results.csv")
     bi = s[s.case == "bidisperse"]
     fig, ax = plt.subplots(1, 2, figsize=(11, 4.2))
-    for x, a, ttl in [("alpha", ax[0], "vs nonreciprocal coupling \u03b1\u0302"),
-                      ("s_ratio", ax[1], "vs steric ratio s_II/s_I (head\u2192tail-large)")]:
-        g = bi.groupby(x).agg(ej=("edge_jac", "mean"), ejs=("edge_jac", "sem"),
-                              Q=("Q", "mean"), Qs=("Q", "sem")).reset_index()
+    # hold the *other* parameter at its baseline value, else each sweep panel
+    # pools in the runs from the other sweep and both curves get biased
+    SR0, A0 = 1 / 1.5, 0.005
+    panels = [("alpha", (bi.s_ratio - SR0).abs() < 1e-6, ax[0],
+               "vs nonreciprocal coupling \u03b1\u0302 (at s_II/s_I=0.667)"),
+              ("s_ratio", (bi.alpha - A0).abs() < 1e-9, ax[1],
+               "vs steric ratio s_II/s_I (head\u2192tail-large, at \u03b1\u0302=0.005)")]
+    for x, sel, a, ttl in panels:
+        g = bi[sel].groupby(x).agg(ej=("edge_jac", "mean"), ejs=("edge_jac", "sem"),
+                                   Q=("Q", "mean"), Qs=("Q", "sem")).reset_index()
         if len(g) < 2:
             a.set_title(f"{ttl} \u2014 no sweep data"); continue
         a.errorbar(g[x], g.ej, yerr=g.ejs, marker="o", color="#c0392b", label="edge turnover")
