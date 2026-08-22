@@ -65,6 +65,40 @@ def baseline():
     print("wrote snapshots.png")
 
 
+def chi_figure():
+    """The reciprocity test: turnover and Q vs chi, everything else held fixed."""
+    s = pd.read_csv("results.csv")
+    bi = s[(s.case == "bidisperse") & ((s.alpha - 0.005).abs() < 1e-9)
+           & ((s.s_ratio - 1 / 1.5).abs() < 1e-6)]
+    g = bi.groupby("chi").agg(ej=("edge_jac", "mean"), ejs=("edge_jac", "sem"),
+                              Q=("Q", "mean"), Qs=("Q", "sem"),
+                              sv=("sigv2", "mean"), n=("seed", "count")).reset_index()
+    if len(g) < 2:
+        print("no chi sweep data; run: python simulate.py --sweep chi"); return
+    fig, ax = plt.subplots(1, 2, figsize=(11, 4.2))
+    ax[0].errorbar(g.chi, g.ej, yerr=g.ejs, marker="o", color="#c0392b", label="edge turnover")
+    a2 = ax[0].twinx()
+    a2.errorbar(g.chi, g.Q, yerr=g.Qs, marker="s", color="#2c3e50", label="Q")
+    ax[0].set(xlabel="\u03c7 (reciprocity mixing)", ylabel="edge Jaccard turnover",
+              title="Turnover vs \u03c7 at fixed symmetric coupling")
+    a2.set_ylabel("Q")
+    ax[0].legend(loc="upper left", fontsize=8); a2.legend(loc="lower right", fontsize=8)
+    b = g.iloc[0]   # chi = 0 reciprocal control
+    ax[1].plot(g.chi, g.ej / b.ej, "o-", color="#c0392b", label="edge turnover")
+    ax[1].plot(g.chi, g.Q / b.Q, "s-", color="#2c3e50", label="Q")
+    ax[1].plot(g.chi, g.sv / b.sv, "^-", color="#e67e22", label="\u03c3\u00b2_v")
+    ax[1].axhline(1.0, color="k", lw=0.8, ls=":")
+    ax[1].set(xlabel="\u03c7", ylabel="value / value at \u03c7=0", yscale="log",
+              title="Relative change (prediction: Q flat, currents rise)")
+    ax[1].legend(fontsize=8)
+    for a in ax:
+        a.grid(alpha=0.3)
+    plt.suptitle("Reciprocity test: \u03c7 scales the antisymmetric coupling alone")
+    plt.tight_layout()
+    plt.savefig("chi_test.png", dpi=160)
+    print("wrote chi_test.png")
+
+
 def sweep():
     s = pd.read_csv("results.csv")
     bi = s[s.case == "bidisperse"]
@@ -97,8 +131,11 @@ def sweep():
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--sweep", action="store_true")
+    p.add_argument("--chi", action="store_true", help="reciprocity-test figure")
     args = p.parse_args()
-    if args.sweep:
+    if args.chi:
+        chi_figure()
+    elif args.sweep:
         sweep()
     else:
         baseline()

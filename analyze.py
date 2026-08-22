@@ -101,8 +101,11 @@ def analyze_file(path):
     _, l2 = louvain(Gf, seed=99)
     floor = adjusted_rand_score(l1, l2)
     df = pd.DataFrame(rows)
+    # chi absent in runs made before the reciprocity knob existed -> those used chi=1
+    chi = float(d["chi"]) if "chi" in d.files else 1.0
     meta = dict(file=os.path.basename(path), case=str(d["case"]), seed=int(d["seed"]),
-                alpha=float(d["alpha"]), s_ratio=float(d["s_ratio"]), ari_floor=floor)
+                alpha=float(d["alpha"]), s_ratio=float(d["s_ratio"]), chi=chi,
+                ari_floor=floor)
     return df, meta
 
 
@@ -135,12 +138,13 @@ def main():
     pd.DataFrame(summaries).to_csv("results.csv", index=False)
     # seed-aggregated summary per condition
     s = pd.DataFrame(summaries)
-    agg = s.groupby(["case", "alpha", "s_ratio"]).agg(
+    agg = s.groupby(["case", "alpha", "s_ratio", "chi"]).agg(
         Q=("Q", "mean"), Q_sem=("Q", "sem"),
         dQ_null=("dQ_null", "mean"),
         ARI=("ARI", "mean"), ARI_sem=("ARI", "sem"),
         edge_jac=("edge_jac", "mean"), edge_jac_sem=("edge_jac", "sem"),
-        n_cl=("n_cl", "mean"), sigv2=("sigv2", "mean"), n_seeds=("seed", "count"))
+        n_cl=("n_cl", "mean"), sigv2=("sigv2", "mean"), sigv2_sem=("sigv2", "sem"),
+        n_seeds=("seed", "count"))
     agg.to_csv("summary_by_condition.csv")
     print("\n== seed-aggregated ==")
     print(agg.to_string())

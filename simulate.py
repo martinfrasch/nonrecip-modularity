@@ -41,7 +41,7 @@ DEFAULT_DT = 0.05          # conservative on a workstation; container run used 0
 
 
 @njit(cache=True, fastmath=True)
-def _run(pos, svec, lvec, l2, l4, nsteps, dt, Lbox, alpha, sigma, seed, snap_every, snaps):
+def _run(pos, svec, lvec, l2, l4, nsteps, dt, Lbox, alpha, chi, sigma, seed, snap_every, snaps):
     np.random.seed(seed)
     N = pos.shape[0]
     ncell = int(Lbox / RCUT)
@@ -93,12 +93,19 @@ def _run(pos, svec, lvec, l2, l4, nsteps, dt, Lbox, alpha, sigma, seed, snap_eve
                                             F[j, 1] -= fm * ry
                                         t = r2 + l2[j]
                                         gi = alpha * l4[j] / (t * t * np.sqrt(t))
-                                        F[i, 0] -= gi * rx
-                                        F[i, 1] -= gi * ry
                                         t = r2 + l2[i]
                                         gj = alpha * l4[i] / (t * t * np.sqrt(t))
-                                        F[j, 0] += gj * rx
-                                        F[j, 1] += gj * ry
+                                        # reciprocity mixing: chi=1 -> original (Hara et al.),
+                                        # chi=0 -> exactly reciprocal. The symmetric part
+                                        # (gi+gj)/2 is invariant in chi; only the
+                                        # antisymmetric part scales, linearly.
+                                        gbar = 0.5 * (gi + gj)
+                                        ci = gbar + chi * (gi - gbar)
+                                        cj = gbar + chi * (gj - gbar)
+                                        F[i, 0] -= ci * rx
+                                        F[i, 1] -= ci * ry
+                                        F[j, 0] += cj * rx
+                                        F[j, 1] += cj * ry
                                 j = nxt[j]
                     i = nxt[i]
         for i in range(N):
@@ -145,8 +152,9 @@ def run_one(job: dict) -> str:
     case, seed = job["case"], job["seed"]
     N, Lbox, T, dt, alpha, nsnap = job["N"], job["box"], job["T"], job["dt"], job["alpha"], job["nsnap"]
     sr = job.get("s_ratio", 1 / 1.5)
+    chi = job.get("chi", 1.0)
     outdir = job["outdir"]
-    tag = f"{case}_a{alpha:g}_sr{sr:.3f}_N{N}_L{Lbox:g}_T{T:g}_seed{seed}"
+    tag = f"{case}_a{alpha:g}_sr{sr:.3f}_x{chi:g}_N{N}_L{Lbox:g}_T{T:g}_seed{seed}"
     out = os.path.join(outdir, tag + ".npz")
     if os.path.exists(out):
         return f"skip {tag} (exists)"
@@ -161,22 +169,28 @@ def run_one(job: dict) -> str:
     snaps = np.zeros((nkeep, Nc, 2))
     snaps[0] = pos
     t0 = time.time()
-    _run(pos, svec, lvec, lvec**2, lvec**4, nsteps, dt, Lbox, alpha, SIGMA, seed, snap_every, snaps)
+    _run(pos, svec, lvec, lvec**2, lvec**4, nsteps, dt, Lbox, alpha, chi, SIGMA, seed, snap_every, snaps)
     np.savez_compressed(out, snaps=snaps, svec=svec, lvec=lvec, types=types,
                         dt_snap=snap_every * dt, Lbox=Lbox, alpha=alpha, s_ratio=sr,
-                        dt=dt, seed=seed, case=case)
+                        chi=chi, dt=dt, seed=seed, case=case)
     return f"done {tag}  wall={time.time() - t0:.0f}s"
 
 
 def build_jobs(args) -> list[dict]:
     base = dict(N=args.N, box=args.box, T=args.T, dt=args.dt, alpha=args.alpha,
-                nsnap=args.nsnap, outdir=args.outdir)
+                chi=args.chi, nsnap=args.nsnap, outdir=args.outdir)
     if args.sweep == "baseline":
         return [dict(base, case=c, seed=s)
                 for c, s in itertools.product(["monodisperse", "bidisperse"], range(1, 6))]
     if args.sweep == "alpha":
         return [dict(base, case="bidisperse", seed=s, alpha=a)
                 for a, s in itertools.product([0.003, 0.005, 0.010, 0.015], range(1, 4))]
+    if args.sweep == "chi":
+        # THE reciprocity sweep: chi scales the antisymmetric coupling alone,
+        # holding the symmetric part identical. chi=0 is a same-particle
+        # reciprocal control; chi=1 reproduces baseline bidisperse.
+        return [dict(base, case="bidisperse", seed=s, chi=x)
+                for x, s in itertools.product([0.0, 0.25, 0.5, 0.75, 1.0, 1.5], range(1, 6))]
     if args.sweep == "sizeratio":
         # 0.667 = head-large (fragmenting), 1.0 = symmetric steric, 1.5 = tail-large (aggregating)
         return [dict(base, case="bidisperse", seed=s, s_ratio=r)
@@ -188,12 +202,14 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--case", choices=["monodisperse", "bidisperse"], default="bidisperse")
     p.add_argument("--seed", type=int, default=12)
-    p.add_argument("--sweep", choices=["baseline", "alpha", "sizeratio"], default=None)
+    p.add_argument("--sweep", choices=["baseline", "alpha", "sizeratio", "chi"], default=None)
     p.add_argument("--N", type=int, default=1000, help="bidisperse particle count (mono uses N/2); paper scale ~4000")
     p.add_argument("--box", type=float, default=12.0, help="domain edge in units of lambda=9um; paper Fig 4 uses 24")
     p.add_argument("--T", type=float, default=1e5, help="total nondim time (1e5 = 1000 s); paper steady-state stats need >=4e5")
     p.add_argument("--dt", type=float, default=DEFAULT_DT)
     p.add_argument("--alpha", type=float, default=0.005)
+    p.add_argument("--chi", type=float, default=1.0,
+                   help="reciprocity mixing: 0 = exactly reciprocal, 1 = Hara et al. force")
     p.add_argument("--nsnap", type=int, default=100)
     p.add_argument("--outdir", default="data")
     p.add_argument("--workers", type=int, default=max(1, mp.cpu_count() - 1))
