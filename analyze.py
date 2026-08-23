@@ -71,7 +71,7 @@ def null_Q(G, reps=NULL_REPS, seed=0):
     return float(np.mean(qs))
 
 
-def analyze_file(path):
+def analyze_file(path, null_every=NULL_EVERY):
     d = np.load(path, allow_pickle=True)
     snaps, svec, Lbox, dts = d["snaps"], d["svec"], float(d["Lbox"]), float(d["dt_snap"])
     T = len(snaps)
@@ -84,7 +84,7 @@ def analyze_file(path):
         row = dict(t=t * dts, Q=Q,
                    n_cl=len(comps),
                    lcf=max((len(c) for c in comps), default=0) / len(svec),
-                   nullQ=null_Q(G, seed=100 + t) if (t % NULL_EVERY == 0) else np.nan)
+                   nullQ=null_Q(G, seed=100 + t) if (t % null_every == 0) else np.nan)
         edges = set(G.edges())
         if prev_lab is not None:
             row["ARI"] = adjusted_rand_score(prev_lab, lab)
@@ -113,13 +113,17 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--datadir", default="data")
     p.add_argument("--burn", type=float, default=0.5, help="fraction of run discarded as transient")
+    p.add_argument("--null-every", type=int, default=NULL_EVERY,
+                   help="rewired-null cadence in snapshots; the null is O(E) per rep and "
+                        "dominates cost on large graphs")
+    p.add_argument("--prefix", default="", help="prefix for output CSVs")
     args = p.parse_args()
     files = sorted(glob.glob(os.path.join(args.datadir, "*.npz")))
     if not files:
         raise SystemExit(f"no .npz files in {args.datadir}; run simulate.py first")
     all_ts, summaries = [], []
     for f in files:
-        df, meta = analyze_file(f)
+        df, meta = analyze_file(f, args.null_every)
         for k, v in meta.items():
             df[k] = v
         all_ts.append(df)
@@ -134,8 +138,8 @@ def main():
               f"ARI={late.ARI.mean():.3f} (floor {meta['ari_floor']:.3f}) "
               f"edge_jac={late.edge_jac.mean():.3f} n_cl={late.n_cl.mean():.1f} "
               f"sigv2={late.sigv2.mean():.2e}", flush=True)
-    pd.concat(all_ts).to_csv("timeseries.csv", index=False)
-    pd.DataFrame(summaries).to_csv("results.csv", index=False)
+    pd.concat(all_ts).to_csv(f"{args.prefix}timeseries.csv", index=False)
+    pd.DataFrame(summaries).to_csv(f"{args.prefix}results.csv", index=False)
     # seed-aggregated summary per condition
     s = pd.DataFrame(summaries)
     agg = s.groupby(["case", "alpha", "s_ratio", "chi"]).agg(
@@ -145,7 +149,7 @@ def main():
         edge_jac=("edge_jac", "mean"), edge_jac_sem=("edge_jac", "sem"),
         n_cl=("n_cl", "mean"), sigv2=("sigv2", "mean"), sigv2_sem=("sigv2", "sem"),
         n_seeds=("seed", "count"))
-    agg.to_csv("summary_by_condition.csv")
+    agg.to_csv(f"{args.prefix}summary_by_condition.csv")
     print("\n== seed-aggregated ==")
     print(agg.to_string())
 

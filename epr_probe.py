@@ -22,12 +22,13 @@ from simulate import _run, SIGMA
 T_EFF = SIGMA**2 / 2          # D_i/mu_i = sigma^2/2, uniform -> effective temperature
 
 
-def probe(path, dt, T, nwin=20):
+def probe(path, dt, T, nwin=20, chi_override=None):
     d = np.load(path)
     pos = np.ascontiguousarray(d["snaps"][-1]).copy()   # equilibrated config
     svec, lvec, L = d["svec"], d["lvec"], float(d["Lbox"])
     alpha = float(d["alpha"])
     chi = float(d["chi"]) if "chi" in d.files else 1.0
+    chi_run = chi if chi_override is None else chi_override
     seed = int(d["seed"])
     N = len(svec)
     nsteps = int(round(T / dt))
@@ -35,7 +36,7 @@ def probe(path, dt, T, nwin=20):
     nkeep = nsteps // snap_every + 1
     snaps = np.zeros((nkeep, N, 2)); snaps[0] = pos
     heat = np.zeros(nkeep)
-    _run(pos, svec, lvec, lvec**2, lvec**4, nsteps, dt, L, alpha, chi,
+    _run(pos, svec, lvec, lvec**2, lvec**4, nsteps, dt, L, alpha, chi_run,
          SIGMA, seed + 9000, snap_every, snaps, heat)
     lo = nkeep // 2                                     # drop the dt-switch transient
     dQ = heat[-1] - heat[lo]
@@ -55,21 +56,30 @@ def main():
     files = sorted(glob.glob(os.path.join(a.datadir, a.pattern)))
     if not files:
         raise SystemExit(f"no files matching {a.pattern} in {a.datadir}")
+    # PAIRED control: the discretisation bias is driven by the symmetric forces, which
+    # are identical at every chi for a given configuration. So re-probing the SAME
+    # starting config with chi=0 (and the same noise seed) measures that config's own
+    # bias, which cancels on subtraction. Comparing against a differently-structured
+    # chi=0 run does not cancel -- the bias depends on the local packing.
     rows = []
     for f in files:
         r = probe(f, a.dt, a.T)
+        b = probe(f, a.dt, a.T, chi_override=0.0)
+        r["bias"] = b["epr"]
+        r["epr_net"] = r["epr"] - b["epr"]
         rows.append(r)
-        print(f"  chi={r['chi']:<5g} seed={r['seed']}  EPR/particle = {r['epr']:+.4e}", flush=True)
+        print(f"  chi={r['chi']:<5g} seed={r['seed']}  raw={r['epr']:+.3e}  "
+              f"paired-bias={b['epr']:+.3e}  net={r['epr_net']:+.3e}", flush=True)
     df = pd.DataFrame(rows); df.to_csv(a.out, index=False)
-    g = df.groupby("chi").agg(epr=("epr", "mean"), err=("epr", "sem"), n=("seed", "count"))
-    z = g.epr.loc[0.0] if 0.0 in g.index else np.nan
-    print(f"\n== EPR per particle (dt={a.dt:g}, T={a.T:g}) ==")
+    g = df.groupby("chi").agg(net=("epr_net", "mean"), err=("epr_net", "sem"),
+                              raw=("epr", "mean"), bias=("bias", "mean"), n=("seed", "count"))
+    print(f"\n== EPR per particle, paired-bias-subtracted (dt={a.dt:g}, T={a.T:g}) ==")
+    print("  chi    net EPR (physical)        raw        own bias    net/chi^2")
     for chi, r in g.iterrows():
-        excess = r.epr - z
-        q = f"{excess/chi**2:+.3e}" if chi > 0 else "      --"
-        print(f"  chi={chi:<5g} {r.epr:+.4e} +- {r['err']:.2e}   excess over chi=0: {excess:+.3e}   /chi^2: {q}")
-    print(f"\n  chi=0 is the exact-zero reference; its value {z:+.3e} is the residual")
-    print(f"  discretisation bias. Excess over it is the physical entropy production.")
+        q = f"{r.net/chi**2:+.3e}" if chi > 0 else "        --"
+        print(f"  {chi:<5g} {r.net:+.4e} +- {r['err']:.2e}   {r.raw:+.3e}  {r.bias:+.3e}   {q}")
+    print("\n  chi=0 must be consistent with zero (it is its own control).")
+    print("  Theory: entropy production ~ chi^2, so net/chi^2 should be flat.")
 
 
 if __name__ == "__main__":
