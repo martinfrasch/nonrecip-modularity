@@ -41,7 +41,7 @@ DEFAULT_DT = 0.05          # conservative on a workstation; container run used 0
 
 
 @njit(cache=True, fastmath=True)
-def _run(pos, svec, lvec, l2, l4, nsteps, dt, Lbox, alpha, chi, sigma, seed, snap_every, snaps):
+def _run(pos, svec, lvec, l2, l4, nsteps, dt, Lbox, alpha, chi, sigma, seed, snap_every, snaps, heat):
     np.random.seed(seed)
     N = pos.shape[0]
     ncell = int(Lbox / RCUT)
@@ -54,6 +54,13 @@ def _run(pos, svec, lvec, l2, l4, nsteps, dt, Lbox, alpha, chi, sigma, seed, sna
     for i in range(N):
         nstd[i] = sigma * np.sqrt(dt / svec[i])
     isnap = 1
+    # Stratonovich heat  sum_i F_i o dx_i  -- the entropy production / current probe.
+    # Exactly zero (in the mean) under detailed balance; positive iff the dynamics
+    # break time-reversal. Midpoint rule needs F at both ends of a step, so the
+    # accumulation runs one step behind.
+    Fprev = np.zeros((N, 2))
+    dxs = np.zeros((N, 2))
+    acc = 0.0
     for step in range(1, nsteps + 1):
         head[:] = -1
         for i in range(N):
@@ -108,14 +115,24 @@ def _run(pos, svec, lvec, l2, l4, nsteps, dt, Lbox, alpha, chi, sigma, seed, sna
                                         F[j, 1] += cj * ry
                                 j = nxt[j]
                     i = nxt[i]
+        if step > 1:
+            for i in range(N):
+                acc += 0.5 * ((Fprev[i, 0] + F[i, 0]) * dxs[i, 0]
+                              + (Fprev[i, 1] + F[i, 1]) * dxs[i, 1])
+        for i in range(N):
+            Fprev[i, 0] = F[i, 0]
+            Fprev[i, 1] = F[i, 1]
         for i in range(N):
             inv = 1.0 / svec[i]
-            x = pos[i, 0] + dt * inv * F[i, 0] + nstd[i] * np.random.randn()
-            y = pos[i, 1] + dt * inv * F[i, 1] + nstd[i] * np.random.randn()
-            pos[i, 0] = x % Lbox
-            pos[i, 1] = y % Lbox
+            ddx = dt * inv * F[i, 0] + nstd[i] * np.random.randn()
+            ddy = dt * inv * F[i, 1] + nstd[i] * np.random.randn()
+            dxs[i, 0] = ddx
+            dxs[i, 1] = ddy
+            pos[i, 0] = (pos[i, 0] + ddx) % Lbox
+            pos[i, 1] = (pos[i, 1] + ddy) % Lbox
         if step % snap_every == 0:
             snaps[isnap] = pos
+            heat[isnap] = acc
             isnap += 1
     return pos
 
@@ -169,8 +186,10 @@ def run_one(job: dict) -> str:
     snaps = np.zeros((nkeep, Nc, 2))
     snaps[0] = pos
     t0 = time.time()
-    _run(pos, svec, lvec, lvec**2, lvec**4, nsteps, dt, Lbox, alpha, chi, SIGMA, seed, snap_every, snaps)
-    np.savez_compressed(out, snaps=snaps, svec=svec, lvec=lvec, types=types,
+    heat = np.zeros(nkeep)
+    _run(pos, svec, lvec, lvec**2, lvec**4, nsteps, dt, Lbox, alpha, chi, SIGMA, seed,
+         snap_every, snaps, heat)
+    np.savez_compressed(out, snaps=snaps, heat=heat, svec=svec, lvec=lvec, types=types,
                         dt_snap=snap_every * dt, Lbox=Lbox, alpha=alpha, s_ratio=sr,
                         chi=chi, dt=dt, seed=seed, case=case)
     return f"done {tag}  wall={time.time() - t0:.0f}s"
@@ -191,6 +210,13 @@ def build_jobs(args) -> list[dict]:
         # reciprocal control; chi=1 reproduces baseline bidisperse.
         return [dict(base, case="bidisperse", seed=s, chi=x)
                 for x, s in itertools.product([0.0, 0.25, 0.5, 0.75, 1.0, 1.5], range(1, 6))]
+    if args.sweep == "chipaper":
+        # paper-scale reciprocity test: full chi curve at 3 seeds, plus a
+        # monodisperse reference at matched scale (mono runs N/2 particles)
+        jobs = [dict(base, case="bidisperse", seed=s, chi=x)
+                for x, s in itertools.product([0.0, 0.25, 0.5, 0.75, 1.0, 1.5], range(1, 4))]
+        jobs += [dict(base, case="monodisperse", seed=s, chi=1.0) for s in range(1, 4)]
+        return jobs
     if args.sweep == "sizeratio":
         # 0.667 = head-large (fragmenting), 1.0 = symmetric steric, 1.5 = tail-large (aggregating)
         return [dict(base, case="bidisperse", seed=s, s_ratio=r)
@@ -202,7 +228,7 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--case", choices=["monodisperse", "bidisperse"], default="bidisperse")
     p.add_argument("--seed", type=int, default=12)
-    p.add_argument("--sweep", choices=["baseline", "alpha", "sizeratio", "chi"], default=None)
+    p.add_argument("--sweep", choices=["baseline", "alpha", "sizeratio", "chi", "chipaper"], default=None)
     p.add_argument("--N", type=int, default=1000, help="bidisperse particle count (mono uses N/2); paper scale ~4000")
     p.add_argument("--box", type=float, default=12.0, help="domain edge in units of lambda=9um; paper Fig 4 uses 24")
     p.add_argument("--T", type=float, default=1e5, help="total nondim time (1e5 = 1000 s); paper steady-state stats need >=4e5")
