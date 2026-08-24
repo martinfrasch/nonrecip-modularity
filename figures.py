@@ -128,14 +128,49 @@ def sweep():
     print("wrote sweep.png")
 
 
+def coarsening():
+    """The chi=0.25 condensation: arrest at chi=0, unjamming at weak chi, fission at strong chi."""
+    ts = pd.read_csv("paper_timeseries.csv"); ts = ts[ts.case == "bidisperse"]
+    g = ts.groupby(["chi", "t"]).agg(n_cl=("n_cl", "mean"), lcf=("lcf", "mean")).reset_index()
+    fig, ax = plt.subplots(1, 3, figsize=(14, 4.2))
+    cm = plt.cm.viridis(np.linspace(0, 0.9, g.chi.nunique()))
+    for c, chi in zip(cm, sorted(g.chi.unique())):
+        d = g[g.chi == chi]
+        ax[0].plot(d.t, d.lcf, color=c, label=f"χ={chi:g}")
+        ax[1].semilogy(d.t, d.n_cl.clip(lower=1), color=c, label=f"χ={chi:g}")
+    ax[0].set(xlabel="t (nondim)", ylabel="largest-cluster fraction",
+              title="χ=0 arrests at 0.30; weak χ condenses")
+    ax[1].set(xlabel="t (nondim)", ylabel="n_clusters",
+              title="cluster count: dip at χ=0.25")
+    fin = g[g.t == g.t.max()].sort_values("chi")
+    a2 = ax[2].twinx()
+    ax[2].plot(fin.chi, fin.n_cl, "o-", color="#c0392b", label="n_cl")
+    a2.plot(fin.chi, fin.lcf, "s--", color="#2c3e50", label="lcf")
+    ax[2].set(xlabel="χ", ylabel="n_clusters", yscale="log",
+              title="steady state vs χ (non-monotonic)")
+    a2.set_ylabel("largest-cluster fraction")
+    ax[2].legend(loc="upper left", fontsize=8); a2.legend(loc="lower right", fontsize=8)
+    for a in ax[:2]:
+        a.legend(fontsize=7, ncol=2); a.grid(alpha=0.3)
+    ax[2].grid(alpha=0.3)
+    plt.suptitle("Weak nonreciprocity unjams a kinetically arrested gel; strong nonreciprocity fragments it")
+    plt.tight_layout(); plt.savefig("coarsening.png", dpi=160)
+    print("wrote coarsening.png")
+
+
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--sweep", action="store_true")
     p.add_argument("--chi", action="store_true", help="reciprocity-test figure")
+    p.add_argument("--coarsening", action="store_true", help="chi=0.25 condensation figure")
     args = p.parse_args()
-    if args.chi:
+    if args.coarsening:
+        coarsening()
+    elif args.chi:
         chi_figure()
     elif args.sweep:
         sweep()
     else:
         baseline()
+
+
