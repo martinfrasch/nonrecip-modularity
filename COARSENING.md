@@ -144,5 +144,19 @@ python figures.py --coarsening             # -> coarsening.png
 - The local exponent does steepen for the very largest clusters (−0.82 in the top bin versus
   −0.50 overall). Those clusters hold 83% of all particles and span 23 of 24 box slabs, so
   finite-size pinning is the likely cause, but this is not established.
-- χ=0.5 is the only condition still evolving at t=4e5 (+18% in n_cl over the last quarter),
-  sitting right at the crossover. Its steady state is not established.
+- χ=0.5 was flagged as "still evolving at t=4e5 (+18% over the last quarter)". **Resolved:
+  it is steady.** Continuing all three seeds to t=8e5 gives n_cl = 17.3 ± 0.5 in the late half
+  of the first window and 18.8 ± 0.9 in the late half of the second (Welch p=0.23). The
+  apparent trend was a quarter-window slope fit against ~19% intra-run fluctuation.
+
+  Fluctuations are strongly non-uniform across the sweep and peak in the crossover region:
+
+  | χ | 0 | 0.25 | 0.5 | 0.75 | 1.0 | 1.5 |
+  |---|---:|---:|---:|---:|---:|---:|
+  | sd/mean of n_cl (late window) | 7.2% | 29.7% | 18.6% | 11.9% | 9.3% | 7.1% |
+
+  Minimal deep in either regime, maximal where activity-driven coalescence and
+  activity-driven fission balance. (χ=0.25's figure is inflated by its small mean — n_cl≈2,
+  so ±1 cluster is 50% — but the qualitative pattern holds in absolute terms too.) Any
+  convergence test in the crossover region needs a window long enough to average over this;
+  a quarter-window slope will read as a trend when there is none.
