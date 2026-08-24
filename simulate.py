@@ -210,6 +210,13 @@ def build_jobs(args) -> list[dict]:
         # reciprocal control; chi=1 reproduces baseline bidisperse.
         return [dict(base, case="bidisperse", seed=s, chi=x)
                 for x, s in itertools.product([0.0, 0.25, 0.5, 0.75, 1.0, 1.5], range(1, 6))]
+    if args.sweep == "chibox":
+        # box-scaling at fixed density: N/L^2 must match across boxes.
+        # If a finite characteristic cluster size S* exists, largest-cluster fraction
+        # falls as S*/N ~ 1/L^2. If the system truly phase-separates, lcf is L-independent.
+        chis = [float(x) for x in args.chi_list.split(",")]
+        return [dict(base, case="bidisperse", seed=s, chi=c)
+                for c, s in itertools.product(chis, range(1, args.seeds + 1))]
     if args.sweep == "chipaper":
         # paper-scale reciprocity test: full chi curve at 3 seeds, plus a
         # monodisperse reference at matched scale (mono runs N/2 particles)
@@ -228,7 +235,7 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--case", choices=["monodisperse", "bidisperse"], default="bidisperse")
     p.add_argument("--seed", type=int, default=12)
-    p.add_argument("--sweep", choices=["baseline", "alpha", "sizeratio", "chi", "chipaper"], default=None)
+    p.add_argument("--sweep", choices=["baseline", "alpha", "sizeratio", "chi", "chipaper", "chibox"], default=None)
     p.add_argument("--N", type=int, default=1000, help="bidisperse particle count (mono uses N/2); paper scale ~4000")
     p.add_argument("--box", type=float, default=12.0, help="domain edge in units of lambda=9um; paper Fig 4 uses 24")
     p.add_argument("--T", type=float, default=1e5, help="total nondim time (1e5 = 1000 s); paper steady-state stats need >=4e5")
@@ -237,6 +244,8 @@ if __name__ == "__main__":
     p.add_argument("--chi", type=float, default=1.0,
                    help="reciprocity mixing: 0 = exactly reciprocal, 1 = Hara et al. force")
     p.add_argument("--nsnap", type=int, default=100)
+    p.add_argument("--chi-list", default="1.0,1.5", help="chi values for --sweep chibox")
+    p.add_argument("--seeds", type=int, default=2, help="seeds per level for --sweep chibox")
     p.add_argument("--outdir", default="data")
     p.add_argument("--workers", type=int, default=max(1, mp.cpu_count() - 1))
     args = p.parse_args()
