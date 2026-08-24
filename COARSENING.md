@@ -52,29 +52,56 @@ same dispersed configuration is frozen at χ=0 but coarsens at χ=0.25.
 
 That is kinetic arrest, not a distinct nonequilibrium steady state.
 
-## What weak activity does: size-independent cluster propulsion
+## What weak activity does: a uniform ~10× mobility boost (corrected)
 
-Thermal cluster mobility dies as 1/N. Nonreciprocal propulsion does not, because a cluster's
-net driving force grows with its number of nonreciprocal pairs while its drag grows with N.
-Measured cluster-COM speed by size:
+**This section corrects an earlier claim.** I originally reported that active cluster speed is
+*size-independent* up to ~120 particles, and proposed deriving that crossover from a
+propulsion-correlation length. Measuring the driving force directly shows there is no such
+crossover, and the size-independence was a measurement artifact.
 
-| cluster size | χ=0 (thermal) | χ=0.75 | χ=1 |
-|---|---:|---:|---:|
-| 4–12 | — | 2.67e-4 | 2.86e-4 |
-| 12–40 | — | 2.59e-4 | 2.95e-4 |
-| 40–120 | **2.44e-5** | **2.64e-4** | **2.62e-4** |
-| 120–400 | 1.24e-5 | 6.14e-5 | — |
-| 400+ | 7.42e-6 | 7.89e-6 | 6.79e-6 |
+### The propulsions add incoherently at every size
 
-Two things to read off:
+A cluster's drive is the vector sum of its pair propulsions **p**_ij = −χ(G_i−G_j)/2·**r**_ij
+(identical on both members of a pair). Coherence C ≡ |Σ**p**| / Σ|**p**| distinguishes the
+two regimes: C constant ⇒ aligned drive, |F|~N, speed independent of size; C ~ N^−1/2 ⇒
+random-walk drive, |F|~√N, speed ~ N^−1/2.
 
-- Active speed is **flat from N=4 to N=120** — a 30× size range at constant speed, exactly the
-  size-independent propulsion the argument predicts. At matched size (40–120) active clusters
-  move **10.7× faster** than thermal ones. That is the unjamming.
-- Above ~120 particles it crosses back to thermal-like scaling and the largest clusters move
-  identically regardless of χ. Propulsion directions decorrelate inside a big cluster, so net
-  force grows as √N rather than N and velocity falls as N^−0.5 again. This is also why the
-  condensate, once formed, stays put.
+| cluster size | ~5 | ~13 | ~34 | ~80 | ~3316 |
+|---|---:|---:|---:|---:|---:|
+| C | 0.801 | 0.488 | 0.339 | 0.287 | 0.015 |
+| **C·√N** | **1.79** | **1.76** | **1.97** | **2.57** | 0.88 |
+
+C·√N is flat across the whole small-to-medium range: **the pair propulsions add like a random
+walk at every size.** There is no coherently-driven domain and therefore no coherence
+crossover to derive.
+
+### Consequently the drift scales exactly like thermal motion
+
+Instantaneous drift speed from the force, v = |F_net| / Σs_i:
+
+| N | ~5 | ~13 | ~34 | ~80 | ~3316 |
+|---|---:|---:|---:|---:|---:|
+| v_inst (from force) | 5.68e-4 | 4.14e-4 | 2.75e-4 | 2.33e-4 | 1.11e-5 |
+| v_meas (Δt=2000 displacement) | 3.09e-4 | 2.99e-4 | 2.41e-4 | 2.37e-4 | 1.30e-5 |
+
+Overall fit: **v_inst ~ N^−0.50** — the same exponent as thermal cluster diffusion.
+
+### Where the artifact came from
+
+v_inst and v_meas agree for large clusters (1.11e-5 vs 1.30e-5) but diverge for small ones
+(5.68e-4 vs 3.09e-4). Over a Δt=2000 snapshot interval a small cluster reorients many times,
+so its *net displacement* underestimates its instantaneous speed; a large cluster moves
+ballistically over the same window and does not. That size-dependent suppression is what
+flattened the measured curve and produced an apparent plateau. Displacement over a coarse
+interval is not a speed — the same class of error `AUDIT.md` documents for σ²_v.
+
+### What survives
+
+Activity changes the **amplitude**, not the scaling. At matched cluster size (40–120
+particles) active clusters move **10.7× faster** than thermal ones, and that ratio holds
+across sizes because both scale as N^−1/2. A ~10× mobility boost is more than enough to
+restart stalled coalescence, so the unjamming account below is unaffected — only its
+mechanism is corrected from "size-independent propulsion" to "uniform mobility enhancement".
 
 ## The full picture
 
@@ -112,8 +139,10 @@ python figures.py --coarsening             # -> coarsening.png
 
 ## Open
 
-- The crossover size (~120 particles) where propulsion decorrelates is measured, not derived.
-  It should follow from the persistence length of propulsion-direction correlations within a
-  cluster, which is not computed here.
+- The ~120-particle crossover does not exist (see the corrected section above); it was an
+  artifact of coarse-grained displacement. The real scaling is N^−1/2 at all sizes.
+- The local exponent does steepen for the very largest clusters (−0.82 in the top bin versus
+  −0.50 overall). Those clusters hold 83% of all particles and span 23 of 24 box slabs, so
+  finite-size pinning is the likely cause, but this is not established.
 - χ=0.5 is the only condition still evolving at t=4e5 (+18% in n_cl over the last quarter),
   sitting right at the crossover. Its steady state is not established.
