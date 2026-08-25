@@ -137,7 +137,8 @@ def _run(pos, svec, lvec, l2, l4, nsteps, dt, Lbox, alpha, chi, sigma, seed, sna
     return pos
 
 
-def setup(case: str, rng: np.random.Generator, N: int, s_ratio_II_over_I: float = 1 / 1.5):
+def setup(case: str, rng: np.random.Generator, N: int, s_ratio_II_over_I: float = 1 / 1.5,
+          frac_large: float = 0.25):
     """Build particle arrays.
 
     case 'bidisperse': type I (large, l=s=1/6) : type II (small) = 1 : 3, head-large
@@ -147,7 +148,7 @@ def setup(case: str, rng: np.random.Generator, N: int, s_ratio_II_over_I: float 
     case 'monodisperse': all L particles at matched area packing (~30%).
     """
     if case == "bidisperse":
-        NL = N // 4
+        NL = int(round(N * frac_large))     # paper: 5000/22000 = 0.227; our earlier runs used 0.25
         NS = N - NL
         types = np.array([0] * NL + [1] * NS)
         sI = 1 / 6
@@ -170,15 +171,18 @@ def run_one(job: dict) -> str:
     N, Lbox, T, dt, alpha, nsnap = job["N"], job["box"], job["T"], job["dt"], job["alpha"], job["nsnap"]
     sr = job.get("s_ratio", 1 / 1.5)
     chi = job.get("chi", 1.0)
+    fl = job.get("frac_large", 0.25)
     outdir = job["outdir"]
-    tag = f"{case}_a{alpha:g}_sr{sr:.3f}_x{chi:g}_N{N}_L{Lbox:g}_T{T:g}_seed{seed}"
+    # frac_large appears in the tag only when non-default, so earlier runs stay resumable
+    fltag = "" if abs(fl - 0.25) < 1e-9 else f"_fl{fl:g}"
+    tag = f"{case}_a{alpha:g}_sr{sr:.3f}_x{chi:g}{fltag}_N{N}_L{Lbox:g}_T{T:g}_seed{seed}"
     out = os.path.join(outdir, tag + ".npz")
     if os.path.exists(out):
         return f"skip {tag} (exists)"
     rng = np.random.default_rng(seed)
     # monodisperse at matched packing: half the particle count of the bidisperse mix
     Nc = N if case == "bidisperse" else N // 2
-    types, svec, lvec = setup(case, rng, Nc, sr)
+    types, svec, lvec = setup(case, rng, Nc, sr, fl)
     pos = rng.uniform(0, Lbox, (Nc, 2))
     nsteps = int(round(T / dt))
     snap_every = max(1, nsteps // nsnap)
@@ -191,13 +195,13 @@ def run_one(job: dict) -> str:
          snap_every, snaps, heat)
     np.savez_compressed(out, snaps=snaps, heat=heat, svec=svec, lvec=lvec, types=types,
                         dt_snap=snap_every * dt, Lbox=Lbox, alpha=alpha, s_ratio=sr,
-                        chi=chi, dt=dt, seed=seed, case=case)
+                        chi=chi, frac_large=fl, dt=dt, seed=seed, case=case)
     return f"done {tag}  wall={time.time() - t0:.0f}s"
 
 
 def build_jobs(args) -> list[dict]:
     base = dict(N=args.N, box=args.box, T=args.T, dt=args.dt, alpha=args.alpha,
-                chi=args.chi, nsnap=args.nsnap, outdir=args.outdir)
+                chi=args.chi, frac_large=args.frac_large, nsnap=args.nsnap, outdir=args.outdir)
     if args.sweep == "baseline":
         return [dict(base, case=c, seed=s)
                 for c, s in itertools.product(["monodisperse", "bidisperse"], range(1, 6))]
@@ -210,6 +214,9 @@ def build_jobs(args) -> list[dict]:
         # reciprocal control; chi=1 reproduces baseline bidisperse.
         return [dict(base, case="bidisperse", seed=s, chi=x)
                 for x, s in itertools.product([0.0, 0.25, 0.5, 0.75, 1.0, 1.5], range(1, 6))]
+    if args.sweep == "validate":
+        # replicate at the paper's own specification (End Matter / SI Sec. III)
+        return [dict(base, case="bidisperse", seed=s, chi=1.0) for s in range(1, args.seeds + 1)]
     if args.sweep == "chibox":
         # box-scaling at fixed density: N/L^2 must match across boxes.
         # If a finite characteristic cluster size S* exists, largest-cluster fraction
@@ -235,7 +242,7 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--case", choices=["monodisperse", "bidisperse"], default="bidisperse")
     p.add_argument("--seed", type=int, default=12)
-    p.add_argument("--sweep", choices=["baseline", "alpha", "sizeratio", "chi", "chipaper", "chibox"], default=None)
+    p.add_argument("--sweep", choices=["baseline", "alpha", "sizeratio", "chi", "chipaper", "chibox", "validate"], default=None)
     p.add_argument("--N", type=int, default=1000, help="bidisperse particle count (mono uses N/2); paper scale ~4000")
     p.add_argument("--box", type=float, default=12.0, help="domain edge in units of lambda=9um; paper Fig 4 uses 24")
     p.add_argument("--T", type=float, default=1e5, help="total nondim time (1e5 = 1000 s); paper steady-state stats need >=4e5")
@@ -244,6 +251,8 @@ if __name__ == "__main__":
     p.add_argument("--chi", type=float, default=1.0,
                    help="reciprocity mixing: 0 = exactly reciprocal, 1 = Hara et al. force")
     p.add_argument("--nsnap", type=int, default=100)
+    p.add_argument("--frac-large", type=float, default=0.25,
+                   help="fraction of type-I (large) particles; paper uses 5000/22000 = 0.2273")
     p.add_argument("--chi-list", default="1.0,1.5", help="chi values for --sweep chibox")
     p.add_argument("--seeds", type=int, default=2, help="seeds per level for --sweep chibox")
     p.add_argument("--outdir", default="data")
