@@ -1,7 +1,8 @@
 # Is a finite characteristic cluster size selected?
 
-Status as of 2026-08-26. **Two of three points converged and agreeing; the decisive
-composition-corrected replicate is still running.** Treat the conclusion as provisional.
+**Resolved 2026-08-27. No — not in this model, at any composition or box size tested. The
+small-cluster state is a long-lived transient, and it is the state the source paper's
+simulation duration lands on.**
 
 ## The question
 
@@ -43,27 +44,68 @@ slope fit — cluster counts fluctuate ~19% within a run in the crossover region
 |---:|---:|---:|---:|---:|---:|---|
 | 4,000 | 24 | 3,116 | 1.00× | 1.00× | 0.779 | converged (t̂=8e5) |
 | 9,000 | 36 | 7,221 | 2.32× | 2.25× | 0.802 | converged (t̂=8e5) |
-| 16,000 | 48 | 8,335 | 2.68× | 4.00× | 0.521 | **not converged** (t̂=4e5) |
+| 16,000 | 48 | 12,581 | 4.04× | 4.00× | 0.786 | converged (t̂=8e5) |
 
-- **Exponent from the two converged points: 1.04** — the phase-separation value, against 0.00
+- **Three-point fit, all converged: largest ~ N^1.01** — the phase-separation value, against 0.00
   for a finite characteristic size.
-- lcf is flat to slightly rising as the system more than doubles (0.779 → 0.802).
-- Three-point fit reads 0.73, but that is produced entirely by the unconverged N=16000 point.
+- lcf is flat at 0.78–0.80 across a 4× range of system size.
 - Fragment population is extensive: n_cl ∝ N^0.96, median cluster size 3 at every box.
 
-**Reading: no finite characteristic cluster size, at this composition.** The condensate grows in
-proportion to the system, with a system-proportional spray of small fragments alongside it.
+**Reading: no finite characteristic cluster size.** The condensate grows in proportion to the
+system, with a system-proportional spray of small fragments alongside it.
 
-## The caveat that outranks all of the above
+## Resolution: the composition-corrected replicate
+
+The replicate at the paper's own specification (N=22,000, 22.7% large, equal-area square
+L=53.67) was run to the paper's duration and then continued to twice it:
+
+| window | lcf | seed spread | within-run sd | n_cl | largest cluster |
+|---|---:|---:|---:|---:|---:|
+| t̂ = 0 – 3.6e5 (**the paper's duration**) | **0.415** | 0.038 | 0.125 | 431 | 9,140 |
+| t̂ = 3.6e5 – 7.2e5 | **0.831** | 0.021 | 0.019 | 458 | 18,292 |
+
+Both seeds plateau at lcf ≈ 0.83–0.85 over their final third, and the within-run scatter
+collapses from 0.125 to 0.019 — the convergence signature seen at every other box size.
+
+**Two conclusions:**
+
+1. **Composition was not the explanation.** At convergence, 22.7% large gives lcf = 0.831
+   against 0.786 for 25% large — a **+5.8%** difference, not the −47% the unconverged
+   comparison suggested. The 25% composition was still an error worth fixing, but it does not
+   account for the discrepancy with the paper.
+
+2. **At the paper's own simulation duration our reimplementation reproduces the paper's
+   reported state** — lcf = 0.415, a majority of particles outside the largest cluster, median
+   cluster size 3, matching "a significant fraction of particles remain in small clusters".
+   Run for twice as long, the same system phase-separates to lcf = 0.83.
+
+So the small-cluster state is a **long-lived transient of the model**, not its steady state.
+This is simultaneously a validation success (we land where they land, under their conditions)
+and a substantive addition (the state does not persist).
+
+### How far this claim goes, and where it stops
+
+This is a statement about *the published model as we have reimplemented it*, not about the
+experiment. The experiment is the primary result and ran for 3600 s; matching the simulation
+duration to the experiment is methodologically reasonable. The model may simply be an accurate
+description only on that timescale — the paper itself notes it omits many-body hydrodynamics
+(SI S6), which is exactly the kind of ingredient that could stabilise finite clusters
+indefinitely.
+
+Deviations that could matter and are not ruled out: our box is an equal-area **square** where
+theirs is 1.8:1 (72×40 λ); a condensate growing in their shorter 40λ dimension may be
+constrained differently. Only 2 seeds. And our reimplementation could differ in ways not yet
+found, though the force equations and all physical parameters match the published forms
+verbatim.
+
+## The caveat that outranked all of the above (now resolved)
 
 Every run in the table uses **25% large particles**. The source paper uses **5000/22000 =
 22.7%** (`NWAP_ASSESSMENT.md`, validation section). Large particles carry 5.1× the EHD strength
 (l⁴ scaling), so an excess of them biases toward condensation — precisely the effect being
 measured. Our packing fraction is also low (35.4% vs the paper's 38.0%).
 
-A replicate at the paper's own specification is running: N=22,000, 22.7% large, t̂=3.6e5
-(=3600 s, their duration), equal-area square box L=53.67. Until it lands, the conclusion above
-describes *our parameterisation*, not necessarily the published system.
+**Resolved above:** the composition effect at convergence is only +5.8%.
 
 The paper reports that in the head-large geometry a significant fraction of particles remain in
 small clusters, whereas our runs put ~78% in one condensate. Our equal-size and tail-large cases
