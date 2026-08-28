@@ -15,7 +15,7 @@ agent-based model of Hara et al. (PRL 137, 068302, 2026) for size-asymmetric col
 electrohydrodynamic flows, and introduced a control parameter χ that scales the antisymmetric
 (nonreciprocal) part of the pair coupling while leaving the symmetric part bit-identical.
 χ=0 is exactly reciprocal and, we show, satisfies detailed balance; χ=1 recovers the published
-force law. Across 82 simulations at two system sizes we find: (i) nonreciprocity is the causal
+force law. Across 99 simulations spanning four system sizes (N = 1,000 to 22,000) we find: (i) nonreciprocity is the causal
 driver of arrested coarsening — cluster count rises from 11.1 to 137.3 (12.4×, p=9.4×10⁻¹⁰)
 with the reciprocal coupling held fixed; (ii) the antisymmetric sector alters *static*
 structure, contradicting the common assumption that a solenoidal coupling leaves stationary
@@ -26,7 +26,11 @@ prediction; (iv) no circulation is detectable in any network observable, yet ent
 is positive and scales as χ² at fixed configuration, establishing genuine irreversibility;
 (v) the reciprocal reference state is a kinetically arrested gel rather than an equilibrium
 control, and weak nonreciprocity unjams it by boosting cluster mobility ~10.7× at matched size,
-producing a non-monotonic dependence of cluster count on χ. We conclude that the antisymmetric
+producing a non-monotonic dependence of cluster count on χ; and (vi) at a replicate run to the
+source paper's own specification and duration we reproduce its reported small-cluster state
+(largest-cluster fraction 0.415, median cluster size 3), but continuing the same run to twice
+that duration yields phase separation (0.831), identifying the small-cluster state as a
+long-lived transient of the model rather than its steady state. We conclude that the antisymmetric
 sector's measurable signature is a positive quadratic dissipation, not a structure-preserving
 circulation, with consequences for how such couplings should enter variational frameworks.
 
@@ -129,10 +133,22 @@ remove each configuration's own bias.
 
 ### 2.5 Simulation campaign
 
-82 runs. Pilot scale N=1000, box 12, t̂=1×10⁵ (61 runs: baseline 5 seeds × 2 cases, α̂ sweep
+99 runs. Pilot scale N=1000, box 12, t̂=1×10⁵ (61 runs: baseline 5 seeds × 2 cases, α̂ sweep
 4×3, size-ratio sweep 5×3, χ sweep 6×5). Paper scale N=4000, box 24, t̂=4×10⁵, 200 snapshots
-(21 runs: χ sweep 6×3 plus monodisperse reference ×3). Analyses use the late half of each run.
-Seeds are blocked: seed *k* gives the same initial configuration and noise stream at every χ.
+(21 runs: χ sweep 6×3 plus monodisperse reference ×3). Box-scaling series at fixed density
+6.944 particles/area: N=9000/L=36 and N=16000/L=48 at χ ∈ {1, 1.5} (6 runs). Replicate at the
+source paper's specification: N=22,000, 22.7% type-I, equal-area square L=53.67, t̂=3.6×10⁵
+(2 runs). Eleven continuation runs extend selected conditions to t̂=8×10⁵ (or 7.2×10⁵ for the
+replicate). Analyses use the late half of each run. Seeds are blocked: seed *k* gives the same
+initial configuration and noise stream at every χ.
+
+**Convergence.** Equilibration time grows steeply with system size, and an underequilibrated
+large box systematically *understates* the largest cluster — mimicking a finite characteristic
+cluster size. Every continuation run raised the largest-cluster fraction: +3.4% (N=4000),
++8.8% (N=9000, χ=1.5), +50.9% (N=16000), +86.8% (N=9000, χ=1), +100.1% (N=22,000). No
+scale-selection claim below rests on a run that has not been continued and shown to plateau.
+Collapse of the within-run and between-seed scatter is a more reliable convergence indicator
+here than a slope fit, because cluster counts fluctuate by up to 30% within a run.
 
 ## 3. Results
 
@@ -255,6 +271,47 @@ A monotonic trend observed at pilot scale did not survive equilibration.
 steps, during which particles move ~0.6 radius); it is a mobility probe, not an instantaneous
 velocity variance, and is not directly comparable to Fig. 2d of ref. [1].
 
+### 3.8 No characteristic cluster size is selected; the small-cluster state is transient
+
+The E-vs-C tradeoff account of arrested coarsening requires the system to select a finite cluster
+size, which appears as an interior peak in the cluster-size distribution. Testing this requires
+growing the box at fixed density: a finite characteristic size S* holds the largest cluster
+constant (lcf ∝ S*/N ∝ 1/L²), whereas phase separation makes it grow ∝ N.
+
+At χ=1.5, densities matched exactly at 6.944 particles per unit area, all points continued to
+convergence:
+
+| N | L | largest cluster | ratio | (N ratio) | lcf |
+|---:|---:|---:|---:|---:|---:|
+| 4,000 | 24 | 3,116 | 1.00× | 1.00× | 0.779 |
+| 9,000 | 36 | 7,221 | 2.32× | 2.25× | 0.802 |
+| 16,000 | 48 | 12,581 | 4.04× | 4.00× | 0.786 |
+
+**Largest cluster ∝ N^1.01**, against 0.00 for a finite characteristic size and 1.00 for phase
+separation; lcf is flat at 0.78–0.80 across a fourfold range of system size. The fragment
+population is extensive (n_cl ∝ N^0.96) with median cluster size 3 at every box. No interior
+peak appears at any size tested.
+
+**The replicate at the source specification.** Composition was corrected to the published
+5,000:17,000 (22.7% type-I; our earlier runs used 25%, and type-I particles carry 5.1× the EHD
+strength, so the excess biases toward condensation):
+
+| window | lcf | seed spread | within-run sd | n_cl |
+|---|---:|---:|---:|---:|
+| t̂ = 0 – 3.6×10⁵ (**the source paper's duration**) | **0.415** | 0.038 | 0.125 | 431 |
+| t̂ = 3.6×10⁵ – 7.2×10⁵ | **0.831** | 0.021 | 0.019 | 458 |
+
+Two results follow. First, **composition does not explain the discrepancy**: at convergence
+22.7% type-I gives lcf = 0.831 against 0.786 for 25%, a 5.8% difference rather than the 47%
+the underequilibrated comparison suggested. Second, **at the source paper's own simulation
+duration this reimplementation reproduces its reported state** — a majority of particles outside
+the largest cluster, median cluster size 3 — and the same system continued to twice that
+duration phase-separates. Both seeds plateau at lcf ≈ 0.83–0.85 over their final third.
+
+The small-cluster state is therefore a long-lived transient of this model rather than its steady
+state. This is both a validation of the reimplementation (it reaches the published state under
+the published conditions) and a limitation of the model (that state does not persist).
+
 ## 4. Discussion
 
 The central methodological result is that **isolating the antisymmetric sector requires a
@@ -272,6 +329,15 @@ functional form is Onsager–Rayleigh structure rather than action-extremum stru
 suggests such couplings belong in a dissipation functional rather than in an action whose
 extremum is expected to leave the stationary density invariant.
 
+The transience result bears on how arrested coarsening should be described. In this model the
+finite-cluster state is real, reproducible and long-lived — it is what one observes on the
+timescale of the source experiment — but it is not asymptotic. A variational account that
+attributes it to a steady-state balance between energy and connection cost is therefore
+describing a transient, not an attractor. Whether the physical system shares this property is
+open: the experiment ran for 3,600 s, and the model omits many-body hydrodynamics (ref. [1],
+SI S6), which is precisely the class of ingredient that could stabilise finite clusters
+indefinitely. The finding constrains the model, not the experiment.
+
 The gel result carries a caution for the wider literature on this system. Both the reciprocal
 control and the monodisperse reference are *arrested* — kinetically — and are statistically
 indistinguishable from each other (n_cl 11.1 vs 11.2). "Arrested coarsening" therefore does not
@@ -283,12 +349,16 @@ structurally similar and differ absolutely in dissipation.
 
 ## 5. Limitations
 
-- **The condensate is system-scale.** At paper scale the largest cluster holds ~82% of particles
-  and the size distribution decays monotonically (median cluster size 3) with no interior peak.
-  Whether a finite characteristic cluster size is selected cannot be decided in a box this
-  small. A box-scaling series at fixed density (N=9000/L=36 and N=16000/L=48 against the
-  existing N=4000/L=24) is in progress; a finite characteristic size S* requires lcf ∝ S*/N,
-  i.e. falling as 1/L², whereas true phase separation gives L-independent lcf.
+- **Box geometry.** The source domain is 648×360 μm (1.8:1); our kernel assumes a square box, so
+  the replicate uses an equal-area square (L=53.67). A condensate growing in the shorter 40λ
+  dimension of the true domain could be constrained differently. This is a deviation, not a fix.
+- **The replicate used 2 seeds**, and the transience conclusion rests on those two plus the
+  three-box scaling series. It would be strengthened by more seeds and by a third window at
+  t̂ > 7.2×10⁵.
+- **σ²_v is not comparable to the source.** The paper reports 5×10⁻³ (mono) and 2×10⁻² μm²/s²
+  (bidisperse), a ratio of 4; ours is ~90. Ours is the variance of *speed* coarse-grained over
+  one snapshot interval, so the discrepancy is most likely definitional (§3.7), but this cannot
+  be confirmed without the source sampling interval.
 - **χ is a synthetic control parameter**, not an experimental one; χ=1.5 lies outside the
   derived EHD model and is reported as trend evidence only.
 - **Entropy production rests on subtracting a discretisation artifact.** It resolves only for
@@ -313,6 +383,10 @@ structurally similar and differ absolutely in dissipation.
    antisymmetric coupling, establishing genuine irreversibility.
 5. The reciprocal reference state is a kinetically arrested gel; weak nonreciprocity unjams it,
    producing a non-monotonic dependence of cluster count on the antisymmetric coupling.
+6. No finite characteristic cluster size is selected: the largest cluster grows as N^1.01 across
+   a fourfold range of system size. At the source paper's simulation duration the reimplementation
+   reproduces its reported small-cluster state, but that state is a long-lived transient and the
+   model's asymptotic behaviour is phase separation.
 
 ## Figures
 
@@ -323,16 +397,18 @@ structurally similar and differ absolutely in dissipation.
 | `modularity_test.png` | baseline four-panel, seed-averaged |
 | `snapshots.png` | final-frame renders, monodisperse vs bidisperse |
 | `sweep.png` | the two mis-specified sweeps, retained for the record |
+| `coarsening.png` | lcf and n_cl trajectories by χ |
 
 ## Data and code availability
 
 All code, per-run summaries and figures are in the repository. `simulate.py` (model and
 sweeps), `analyze.py` (network observables), `epr_probe.py` (entropy production),
 `arrest_test.py` (configuration-swap test), `crossover.py` (per-cluster propulsive force),
-`continue_run.py` (run continuation), `tests/test_reciprocity.py` (χ validation). Supporting
+`continue_run.py` (run continuation), `crossover.py` (per-cluster propulsive force),
+`tests/test_reciprocity.py` (χ validation). Supporting
 documents: `AUDIT.md` (observable validity), `EXPERIMENT.md` (pre-registered χ protocol with
 thresholds committed before running), `RESULTS.md`, `FINAL_RESULTS.md`, `COARSENING.md`,
-`NWAP_ASSESSMENT.md`. Raw trajectories (~4 GB) are not version-controlled.
+`BOX_SCALING.md` (scale selection and convergence), `NWAP_ASSESSMENT.md`. Raw trajectories (~4 GB) are not version-controlled.
 
 ## References
 
