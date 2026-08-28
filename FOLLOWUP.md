@@ -60,7 +60,44 @@ and hypothesis 1 is affirmed asymptotically in that regime.
 - χ > 1 is outside the derived EHD model, so this is a statement about the minimal model, not
   the colloid system. Say so.
 
-## Experiment T2 — the fission/coalescence balance (the mechanistic version of E-vs-C)
+## Experiment T2 — RESULT: the characteristic size is a critical nucleus, not a stable scale
+
+**Run and answered.** The first attempt failed on existing trajectories: at the production
+snapshot interval (Δt=2000) a small cluster is usually absorbed into the condensate within one
+interval, so its plurality successor *is* the condensate and ⟨dS⟩ merely reports condensate size
+(+280 to +1284 in every bin — nonsense). Repeating from equilibrated configurations with dense
+sampling (Δt=50, 3 seeds, 105,708 cluster-observations) resolves individual merge and split
+events:
+
+| cluster size | n | split rate | merge rate | which dominates |
+|---:|---:|---:|---:|---|
+| ~2 | 63,978 | 0.3326 | 0.3190 | split (marginal) |
+| ~5 | 24,978 | **0.4525** | 0.3118 | **split — clusters dissolve** |
+| ~10 | 10,076 | 0.2542 | **0.3335** | **merge — clusters grow** |
+| ~19 | 3,592 | 0.1812 | 0.2831 | merge |
+| ~45 | 1,832 | 0.0813 | 0.2686 | merge |
+| ~74 | 502 | 0.0857 | 0.1454 | merge |
+
+**The rates cross at S\* ≈ 7–8 particles, and the crossing is a repeller, not an attractor.**
+Below S\* splitting dominates and clusters dissolve; above S\* merging dominates and they grow
+without bound. That is a **critical nucleus**, the classic nucleation signature — an *unstable*
+fixed point.
+
+This is the decisive answer for hypothesis 1. The E-vs-C tradeoff requires a **stable** attractor
+at intermediate size, so that clusters larger than S\* are driven back down by connection cost.
+The system has the opposite: anything above S\* grows without limit. There is no mechanism here
+that caps cluster size.
+
+It also explains T4 exactly. The fragment population (mean ≈ 5) sits **below** the critical
+nucleus — these are subcritical clusters, continually forming and dissolving. Their size
+statistics are N-independent because S\* is set by local energetics, not by system size. The
+steady state is a condensate coexisting with a **subcritical vapour**, and the "characteristic
+scale" is the nucleation barrier separating them.
+
+Caveat: ⟨dS⟩ remains positive in every bin even at Δt=50, because plurality-tracking still
+catches absorption events. The split/merge *rates* are the reliable measure; ⟨dS⟩ is not.
+
+## Experiment T2 (original design, superseded by the result above)
 
 A characteristic size S* exists if and only if the fission rate and coalescence rate cross at
 finite size. This is the measurable form of the energy-versus-connection-cost tradeoff, and it
@@ -85,7 +122,31 @@ independently of χ. At fixed N, vary the box to span packing fractions 10–40%
 - This is also the most experimentally actionable prediction, since colloid density is the
   easiest parameter to vary in the lab.
 
-## Experiment T4 — is the fragment population itself scale-selected?
+## Experiment T4 — RESULT: yes, and it is the subcritical vapour
+
+**Run and answered.** Fragment statistics excluding the largest cluster, late window:
+
+| N | mean fragment | median | p95 | p99 | fragment mass fraction |
+|---:|---:|---:|---:|---:|---:|
+| 4,000 | 5.02 | 3 | 14 | 33 | 17.6% |
+| 9,000 | 4.78 | 3 | 12 | 35 | 15.8% |
+| 16,000 | 5.34 | 3 | 11 | 26 | 16.9% |
+| 22,000 (source spec, χ=1) | 7.15 | 3 | 19 | 53 | 14.7% |
+
+Mean fragment size is constant at ≈5 particles across a **5.5× range of system size**, with an
+N-independent cutoff and a constant ~16% mass fraction. **A scale is selected** — the earlier
+statement that no scale exists anywhere was too strong.
+
+But the distribution is monotonically decaying (11474, 4109, 1225, 314, 76, 28, 25 by octave),
+not peaked, and T2 identifies the scale as the critical nucleus. So the selected scale is a
+nucleation barrier, not a modular cluster size. Hypothesis 1 survives only in the weak sense
+that *something* is scale-selected; the mesoscale attractor its tradeoff requires does not exist.
+
+A secondary test — whether fragment mass fraction rises with χ, as a saturation vapour pressure
+would — is **inconclusive**: 0.212, 0.096, 0.195, 0.457, 0.203 for χ = 0.25…1.5, with errors up
+to ±0.288. Fluctuations dominate at 3 seeds.
+
+## Experiment T4 (original design, superseded by the result above)
 
 We showed the *condensate* has no characteristic size. We have not asked whether the fragments
 do. Median fragment size is 3 at every box and every χ, which is suspiciously stable.

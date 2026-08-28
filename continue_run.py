@@ -12,12 +12,14 @@ from simulate import _run, SIGMA
 
 
 def job(a):
+    a_nsnap = a.get("nsnap")
     src, T, outdir = a["src"], a["T"], a["outdir"]
     z = np.load(src)
     base = os.path.basename(src)[:-4]
     prev = int(base.split("_cont")[1]) if "_cont" in base else 0
     stem = base.split("_cont")[0]
-    out = os.path.join(outdir, f"{stem}_cont{prev+1}.npz")
+    tagx = f"_dense{a_nsnap}" if a_nsnap else ""
+    out = os.path.join(outdir, f"{stem}_cont{prev+1}{tagx}.npz")
     if os.path.exists(out):
         return f"skip {os.path.basename(out)}"
     pos = np.ascontiguousarray(z["snaps"][-1]).copy()
@@ -25,7 +27,7 @@ def job(a):
     dt = float(z["dt"]); alpha = float(z["alpha"])
     chi = float(z["chi"]) if "chi" in z.files else 1.0
     seed = int(z["seed"])
-    nsnap = len(z["snaps"]) - 1
+    nsnap = a_nsnap if a_nsnap else len(z["snaps"]) - 1
     ns = int(round(T / dt)); se = max(1, ns // nsnap); nk = ns // se + 1
     snaps = np.zeros((nk, len(svec), 2)); snaps[0] = pos; heat = np.zeros(nk)
     _run(pos, svec, lvec, lvec**2, lvec**4, ns, dt, L, alpha, chi, SIGMA,
@@ -42,9 +44,10 @@ if __name__ == "__main__":
     p.add_argument("--pattern", required=True)
     p.add_argument("--T", type=float, default=4e5)
     p.add_argument("--workers", type=int, default=3)
+    p.add_argument("--nsnap", type=int, default=None, help="override snapshot count (dense sampling)")
     p.add_argument("--outdir", default="data_paper")
     a = p.parse_args()
-    jobs = [dict(src=f, T=a.T, outdir=a.outdir) for f in sorted(glob.glob(a.pattern))]
+    jobs = [dict(src=f, T=a.T, outdir=a.outdir, nsnap=a.nsnap) for f in sorted(glob.glob(a.pattern))]
     print(f"{len(jobs)} continuation job(s), T={a.T:g}")
     with mp.Pool(a.workers) as pool:
         for m in pool.imap_unordered(job, jobs):

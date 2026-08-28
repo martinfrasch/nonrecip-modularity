@@ -312,6 +312,32 @@ The small-cluster state is therefore a long-lived transient of this model rather
 state. This is both a validation of the reimplementation (it reaches the published state under
 the published conditions) and a limitation of the model (that state does not persist).
 
+### 3.9 The selected scale is a critical nucleus, not a stable cluster size
+
+Two further measurements resolve what the system selects. **Fragments** — all clusters except
+the largest — have size statistics independent of system size: mean 5.02, 4.78, 5.34 particles
+at N = 4,000, 9,000, 16,000, with an N-independent cutoff (p99 = 33, 35, 26) and a constant
+fragment mass fraction of ~16%. A scale is therefore selected.
+
+Its nature follows from resolving merge and split events directly. At the production snapshot
+interval this is impossible — a small cluster is typically absorbed within one interval, so
+tracking reports condensate size rather than a growth increment. Repeating from equilibrated
+configurations at Δt=50 (105,708 cluster-observations, 3 seeds) gives per-cluster rates:
+
+| cluster size | ~2 | ~5 | ~10 | ~19 | ~45 | ~74 |
+|---|---:|---:|---:|---:|---:|---:|
+| split rate | 0.333 | **0.453** | 0.254 | 0.181 | 0.081 | 0.086 |
+| merge rate | 0.319 | 0.312 | **0.334** | 0.283 | 0.269 | 0.145 |
+
+The rates cross at **S\* ≈ 7–8 particles**, with splitting dominant below and merging dominant
+above. This is an *unstable* fixed point — a critical nucleus — so clusters below S\* dissolve
+and clusters above it grow without bound. The fragment population (mean ≈ 5) is the subcritical
+vapour, and its N-independence follows because S\* is set by local energetics.
+
+The steady state is thus a condensate coexisting with a subcritical vapour, separated by a
+nucleation barrier. No mechanism caps cluster size, which is consistent with §3.8: the largest
+cluster grows as N^1.01 and the system phase-separates.
+
 ## 4. Discussion
 
 The central methodological result is that **isolating the antisymmetric sector requires a
@@ -383,7 +409,10 @@ structurally similar and differ absolutely in dissipation.
    antisymmetric coupling, establishing genuine irreversibility.
 5. The reciprocal reference state is a kinetically arrested gel; weak nonreciprocity unjams it,
    producing a non-monotonic dependence of cluster count on the antisymmetric coupling.
-6. No finite characteristic cluster size is selected: the largest cluster grows as N^1.01 across
+6. The scale the system selects is a **critical nucleus** at S\* ≈ 7–8 particles — an unstable
+   fixed point separating a subcritical vapour from an unbounded condensate — not a stable
+   intermediate cluster size. No finite characteristic cluster size is selected: the largest
+   cluster grows as N^1.01 across
    a fourfold range of system size. At the source paper's simulation duration the reimplementation
    reproduces its reported small-cluster state, but that state is a long-lived transient and the
    model's asymptotic behaviour is phase separation.
