@@ -131,7 +131,61 @@ with long-lived structured states — and it is *still* Onsager (A1). So it is a
 "driven but not alive."** Any claimed biological signature must distinguish itself from this,
 not merely from equilibrium.
 
-### C1 — the experiment
+### C1 — REVISED after calibration: the original design is not viable
+
+**Built and calibrated** `irreversibility.py` (estimators + surrogate nulls) and
+`benchmark_irrev.py` (biased ring walk, exact EPR = (p−q)ln(p/q), quadratic in the drive).
+
+Sanity checks pass: reversible white noise and a *correlated but reversible* AR(1) both give
+|z| < 1.3; a deliberately irreversible sawtooth gives z up to +114.
+
+**But no estimator recovers the true exponent at the sample sizes the data provide:**
+
+| series length | ehlers | trev4 | perm_kl | epr_markov | truth |
+|---|---:|---:|---:|---:|---:|
+| 3000 (whole test) | 1.04 | 0.81 | 1.57 | **1.60** | 2.03 |
+| 300 (one stage) | 1.63 | 1.91 | 0.21 | 0.06 | 2.03 |
+| 150 (one stage) | 0.97 | 0.55 | 0.49 | −0.39 | 2.03 |
+
+At 150–300 samples the low-drive z-scores are ≈ −1, i.e. **no detection at all**. Fitting
+I ∝ Pⁿ per subject per stage and comparing n to 2 would have produced a confident and
+meaningless number. A single exercise stage cannot support this measurement.
+
+Two further points the calibration established:
+
+- The skewness-type statistics (ehlers, trev) are **detection** statistics, not quantitative EPR
+  estimators — their magnitude is not proportional to entropy production. Only `epr_markov`
+  (flux asymmetry of the empirical transition matrix) is, and it is the most sample-hungry.
+- An earlier benchmark using a tilted periodic potential was discarded: at any interesting
+  barrier height it sits in the activated-crossing regime, where EPR is exponentially rather
+  than quadratically nonlinear (measured exponent 4.32) and the drift velocity at low drive is
+  buried in diffusive noise.
+
+### C1′ — revised design
+
+**Pool, and calibrate the apparent exponent rather than assuming it.**
+
+1. **Pool transition statistics across subjects at matched relative workload** (normalised by
+   each subject's P_vt1). 18 subjects × ~160 beats gives ~2,900 samples per workload level —
+   the regime where `epr_markov` at least responds monotonically.
+2. **Do not compare the measured exponent to 2.** Compare it to the exponent that a *known
+   quadratic law* produces **at the same sample size, with the same estimator**, from the ring-walk
+   calibration (apparent exponent ≈ 1.6 at N≈3000, not 2). The absolute exponent is biased; the
+   comparison against a matched-N calibration is not.
+3. Surrogate nulls (shuffle and phase-randomised) per pooled level, as before.
+4. Match sample counts across levels, not durations — subject 1 runs 124 bpm at low load and 188
+   bpm at high load, so a fixed-duration window contains 1.52× more beats at high power.
+
+**Read-out:** physiological apparent exponent vs the matched-N quadratic calibration.
+Consistent → tier II, same class as the colloids. Significantly different → beyond linear
+response.
+
+**Honest assessment of power:** even pooled, this is a marginal measurement. The calibration says
+a true quadratic law reads as ≈1.6 at this sample size, so only a substantial departure would be
+detectable. If the pooled analysis is inconclusive, the correct conclusion is that this dataset
+cannot answer the question — not that physiology is tier II.
+
+### C1 — original design (superseded, retained for the record)
 
 **Prediction:** biological systems show **non-quadratic** scaling of entropy production with
 drive, placing them outside tier II. If a driven biological system came out quadratic, it would
