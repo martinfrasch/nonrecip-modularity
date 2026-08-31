@@ -227,6 +227,53 @@ simultaneous beat-to-beat response, exactly parallel to EPR(χ).
 - Non-stationarity within stages; 18 subjects; adolescent athletes — a narrow population.
 - A negative result (n ≈ 2) would be genuinely informative and should be reported as such.
 
+### C1″ — BETTER DATASET FOUND: ciliary beating with ATP titration
+
+[Ciliary beating patterns map onto a low-dimensional behavioural space](https://datadryad.org/dataset/doi:10.5061/dryad.0gb5mkm2j)
+(Howard, Geyer & Sartori, Dryad, CC0, 977 MB) — *Chlamydomonas* axonemes, **498 digitised
+waveforms at 1000 fps**, up to 3000 frames each.
+
+**Why this is better than ACTES on every axis:**
+
+| | ACTES exercise | cilia + ATP |
+|---|---|---|
+| drive | mechanical power — **compound** (metabolic throughput *and* autonomic asymmetry) | **[ATP] — a genuine thermodynamic force**, Δμ = Δμ⁰ + kT ln([ATP]/[ADP][Pi]) |
+| drive levels | ~10 workload steps | **8 ATP levels, 50–1000 μM** (plus temperature and viscosity series) |
+| sampling | ~1–3 Hz (beat-limited) | **1000 Hz** |
+| observable | scalar RR series | **full waveform** → multi-dimensional shape space |
+| method | scalar estimators, which **failed calibration** | **signed area rate in shape-mode space — already built and validated for the colloids** |
+
+**The method changes, and that is the point.** The scalar estimators failed because KL-type
+quantities need sample sizes the data cannot provide. The area rate is a *first-moment* quantity
+and therefore far more sample-efficient — and it is exactly the measurement already implemented
+for the colloid circulation test. Cilia are also a system where broken detailed balance is known
+to be strong, so this is not a marginal detection.
+
+**Design:**
+1. PCA the digitised waveforms into shape modes (the paper reports two modes capture 80% of variance).
+2. Compute the signed area rate in the (mode 1, mode 2) plane per recording — the same estimator
+   used on the colloid observable planes.
+3. Surrogate nulls per recording (phase-randomised shape-mode series must give zero).
+4. Plot area rate vs [ATP]; fit the scaling.
+
+**Prediction, and why it is a sharp test:** the ATP range 50–1000 μM spans the axonemal dynein
+K_m (~100–300 μM). So this should show **quadratic scaling at low ATP (linear response) and
+depart from it at high ATP (Michaelis–Menten saturation)** — a biological system observably
+*leaving* the Onsager tier as the drive increases. Our colloid system, by contrast, stays
+quadratic to χ=8. That contrast is the whole experiment.
+
+**Blocker:** Dryad now sits behind Anubis, a JavaScript proof-of-work anti-scraping challenge, so
+the archive cannot be fetched from the command line. It needs one manual browser download from
+the link above (`Data_Dryad.zip`, 977 MB, CC0).
+
+### Secondary candidate
+
+[Broken detailed balance and entropy production in the human brain](https://www.pnas.org/doi/10.1073/pnas.2109889118)
+(Lynn et al., PNAS 2021) — EPR estimated from fMRI across cognitive tasks, using open Human
+Connectome Project data. Attractive for its scale, but fMRI TR is ~0.7–2 s and runs are ~1200
+timepoints, so it has **the same sample-size limitation that killed C1**, and cognitive task
+demand is not a thermodynamic force. Lower priority than the cilia data.
+
 ### C2 — follow-on if C1 shows n ≠ 2
 
 Then run the biological analogues of A2 and A3: a second drive (posture, temperature, or
