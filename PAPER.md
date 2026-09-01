@@ -1,4 +1,4 @@
-# Which variational principle governs a nonreciprocal active system? Isolating the antisymmetric sector of an electrohydrodynamic colloid model, with a biological comparison
+# Isolating the antisymmetric sector of a nonreciprocal colloidal model: kinetic unjamming, transient arrested coarsening, and hidden irreversibility
 
 **Martin G. Frasch**
 
@@ -8,78 +8,51 @@
 
 ## Abstract
 
-Nonreciprocal interactions, in which the force particle *i* exerts on *j* is not the negative of
-the force *j* exerts on *i*, cannot be derived from a scalar potential. They therefore sit
-outside the reach of the variational principles that organise most of equilibrium and
-near-equilibrium physics, and it is not obvious a priori which, if any, variational description
-survives. The question is sharpened by the Network-Weighted Action Principle (NWAP), a proposed
-cross-scale organising principle in which structure is selected by minimising a functional that
-trades information against energy under network-structural constraints [9]. NWAP's directed-graph
-extension makes a specific, falsifiable prediction about nonreciprocal systems, and this work was
-undertaken to test it. We do so in a specific, experimentally grounded system: the
-agent-based model of Hara et al. (Phys. Rev. Lett. **137**, 068302, 2026) for size-asymmetric
-colloids driven by electrohydrodynamic flows, in which nonreciprocal pair propulsion has been
-identified as the minimal ingredient for arrested coarsening.
+Nonreciprocal interactions do not derive from a scalar potential, which removes the equilibrium
+apparatus — Boltzmann statistics, structure selected by energy minimisation, detailed balance —
+even though a path-space variational representation survives. A widely held intuition holds that
+such a coupling can be split into a symmetric sector that selects structure and an antisymmetric
+sector that merely adds circulation without disturbing it. We test that intuition in the
+agent-based model of Hara et al. [Phys. Rev. Lett. **137**, 068302 (2026)] for size-asymmetric
+colloids driven by electrohydrodynamic flows.
 
-Our central methodological device is a reciprocity mixing parameter χ that scales the
-antisymmetric part of the pair coupling while leaving the symmetric part bit-for-bit unchanged.
-The parameter is constructed so that χ = 0 restores Newton's third law exactly and χ = 1 recovers
-the published force law; we verify that at χ = 0 the fluctuation–dissipation relation holds, the
-stationary state is Boltzmann, and the probability current vanishes identically, so that χ = 0
-furnishes a rigorous equilibrium reference rather than merely a convenient control. Two parameters
-previously proposed for this role are shown to be unsuitable: the coupling strength α̂ cancels
-exactly from the antisymmetric-to-symmetric ratio, and the steric size ratio, as parameterised in
-the source model, varies packing while leaving the electrohydrodynamic radii fixed.
+We introduce a reciprocity mixing parameter χ that scales the antisymmetric part of the pair
+coupling while leaving the symmetric part bit-for-bit unchanged, with χ = 0 restoring Newton's
+third law exactly and χ = 1 recovering the published force law. Two parameters previously used for
+this purpose are shown to be unsuitable: the coupling strength cancels exactly from the
+antisymmetric-to-symmetric ratio, and the steric size ratio, as parameterised in the source model,
+varies packing at fixed electrohydrodynamic radii.
 
-Across 129 simulations spanning four system sizes (N = 1,000 to 22,000) we report the following.
-First, nonreciprocity is the causal driver of arrested coarsening: cluster count rises from 11.1
-to 137.3 (a factor of 12.4, p = 9.4 × 10⁻¹⁰) when the antisymmetric coupling alone is scaled.
-Second, and contrary to the assumption that a solenoidal coupling leaves stationary structure
-invariant, the antisymmetric sector alters *static* structure by an order of magnitude. Third,
-Newman modularity is degenerate on these contact networks: cluster count varies by a factor of 40
-while modularity varies by 14%, the two being statistically uncorrelated, and modularity excess
-over a degree-preserving null *decreases* with nonreciprocity. Fourth, no circulation is
-detectable in any coarse network observable, yet entropy production is positive and scales as χ²,
-establishing genuine irreversibility whose signature does not survive coarse-graining. Fifth, the
-reciprocal reference state proves to be a kinetically arrested gel rather than an equilibrium
-structure, and weak nonreciprocity unjams it, producing a non-monotonic dependence of cluster
-count on χ. Sixth, no finite characteristic cluster size is selected: the largest cluster grows in
-proportion to system size, and the scale that the system does select — approximately eight
-particles — is a critical nucleus, an unstable fixed point, rather than a stable attractor.
-
-We then place the system within the standard hierarchy of variational principles by measuring
-tier-membership signatures directly. Entropy production is quadratic in the antisymmetric coupling
-to within 4.8% across a fourfold range of drive; the Onsager cross-coefficients between two
-independent nonreciprocal channels satisfy reciprocity in its antisymmetric (Casimir) form, with
-the symmetric part of the cross-coupling vanishing at every measurement window; and the
-fluctuation–dissipation ratio returns exactly kT at equilibrium. The third test is inconclusive out
-of equilibrium for a specific and informative reason: the collective coordinate becomes
-superdiffusive, so the fluctuation–dissipation ratio grows with the observation window and is not a
-temperature at all. The system is therefore in the linear-response tier on the two tests that admit
-a definite answer, despite being nonreciprocal, dissipative, and strongly self-organising.
-
-That last finding motivates a comparison with a biological system. Using published high-speed
-recordings of reactivated *Chlamydomonas* axonemes across eight ATP concentrations, we show that
-cilia differ from the colloid suspension on precisely the axis where the colloid is silent: their
-irreversibility *survives coarse-graining*, producing macroscopic circulation in shape space
-(median |z| = 3.2 over 184 axonemes, with 92% exceeding |z| = 2) where the colloid shows none. We
-argue that the discriminating property of biological organisation, at least in this comparison, is
-not directed influence per se — the colloid has ample directed influence — but directed influence
-that persists under coarse-graining.
+Across 133 simulations at four system sizes we find that the antisymmetric sector alters *static*
+structure by an order of magnitude, refuting the solenoidal intuition; that the reciprocal
+reference is a kinetically arrested gel which weak nonreciprocity *unjams*, giving a non-monotonic
+dependence of cluster count on χ; that the finite-cluster state is a long-lived transient rather
+than a steady state, with a crossover time scaling as N^(1/z), z ≈ 0.3; and that no stable
+characteristic cluster size is selected. Entropy production is positive and resolved, yet no
+circulation is detectable in coarse observables — including at single-cluster level, matched to a
+comparison with beating *Chlamydomonas* axonemes, where circulation is strong. Several standard
+network measures, Newman modularity among them, prove unable to detect nonreciprocity at all.
 
 **Keywords:** nonreciprocal interactions, active matter, arrested coarsening, entropy production,
-Onsager reciprocity, effective temperature, kinetic arrest, variational principles
+kinetic arrest, coarse-graining
 
 ---
 ## 1. Introduction
 
-The principle of least action organises much of physics, but it presupposes that forces derive
-from a potential. Nonreciprocal interactions violate that premise by construction. When the force
-that *i* exerts on *j* is not the negative of the force *j* exerts on *i*, the force field is not
-a gradient, no scalar potential exists, and the equilibrium apparatus that follows from one — a
-Boltzmann stationary distribution, structure selected by energy minimisation, detailed balance —
-does not apply. Nonreciprocal systems are consequently a natural place to ask which variational
-description, if any, survives.
+Nonreciprocal interactions, in which the force that *i* exerts on *j* is not the negative of the
+force *j* exerts on *i*, do not derive from a scalar potential. It is worth being precise about
+what this does and does not preclude, because the two are often conflated. It does *not* preclude a
+variational representation of the dynamics: the Onsager–Machlup action is well defined for any
+drift field, gradient or otherwise, and path-space action principles apply to dissipative and
+stochastic systems generally. What it precludes is the *equilibrium corollary* — a Boltzmann
+stationary distribution, structure selected by minimising an energy, and detailed balance.
+
+The questions that are actually at stake are therefore narrower and sharper than "does an action
+principle survive". They are: does the system admit an equilibrium potential governing its
+stationary distribution; does the antisymmetric part of the interaction preserve a reference
+stationary density; and is a near-equilibrium Onsager–Rayleigh construction justified? A
+variational representation of trajectories is not the same object as a physical extremum principle
+that selects stationary structure, and this paper is concerned with the latter.
 
 The question has become concrete rather than merely formal. Hara, Sumino and colleagues recently
 reported a controlled experimental realisation: polystyrene colloids of two radii, confined
@@ -90,26 +63,29 @@ coarsening*: clusters continuously fragment and reorganise rather than growing w
 they do in the monodisperse case. Accompanying agent-based simulations identify nonreciprocal pair
 propulsion as the minimal ingredient for this behaviour.
 
-A specific proposal motivated the present work: the **Network-Weighted Action Principle** (NWAP),
-developed as a candidate cross-scale organising principle in which structure is selected by
-extremising a functional that trades information against energy subject to network-structural
-constraints [9]. In its implemented form the functional is a "Triple-Action" combining an
-information term I_max, an energy term E_min, and a symmetry constraint; schematically
-S_NW = ∫ (E − I + A·C) dt, with C a connection-cost term. The framework's stated ambition is to
-apply across scales, and it has been argued to generate modular architectures of the kind seen in
-evolved systems.
+The intuition we test is a general one, and predates any particular framework: that a nonreciprocal
+coupling may be decomposed into a symmetric part generating the gradient, energy-like component of
+the dynamics, and an antisymmetric part generating a *solenoidal*, circulating component,
+identified with the nonreciprocal propulsion that Hara et al. isolate as their minimal ingredient.
+Variants of this decomposition appear across the nonreciprocal-matter literature [15–18], and one
+specific formulation — a network-weighted action principle whose directed-graph extension makes
+exactly this assignment [9] — supplied the immediate motivation for this study. We return to that
+formulation in Section 4.7; the predictions tested below are consequences of the decomposition
+itself and do not depend on it.
 
-NWAP as originally formulated places its weights on an *undirected* network, which on variation
-yields reciprocal forces and therefore cannot describe the present system at all. The proposed
-remedy — and the object of this study — is a directed-graph extension in which the adjacency G_ij
-is decomposed into symmetric and antisymmetric parts. The symmetric part is held to generate the
-gradient, energy-like component of the dynamics; the antisymmetric part is held to generate a
-*solenoidal*, circulating component, identified with exactly the nonreciprocal propulsion that
-Hara et al. isolate as their minimal ingredient.
+Three consequences follow from that assignment, and all three are testable. We note at the outset
+that the assignment involves a step that is not automatic: antisymmetry under exchange of particle
+labels, violation of Newton's third law, divergence-freedom of a vector field, and circulation of
+the configuration-space probability current are four distinct properties, and a reciprocity
+decomposition of the pair force is not the same object as a Helmholtz–Hodge decomposition of the
+probability-current field. An antisymmetric pair-force component need not be divergence-free in the
+full 2N-dimensional configuration space, and even a divergence-free drift need not preserve a given
+density: the relevant condition is ∇·[ρ_ss(**X**) **v**(**X**)] = 0, not ∇·**v** = 0. Our results
+below bear on whether the identification holds empirically in this system; they do not establish
+that it was ever justified formally.
 
-Three consequences follow from that assignment, and all three are testable. First, because a
-solenoidal field is divergence-free, the antisymmetric sector should not alter any static
-structural observable. Second, its entire signature should therefore appear in probability
+First, because a solenoidal field is divergence-free, the antisymmetric sector should not alter any
+static structural observable. Second, its entire signature should therefore appear in probability
 currents, giving "frozen modularity, circulating partition". Third, the cluster-size distribution
 and reorganisation rate should be set by the ratio of antisymmetric to symmetric coupling
 strength. The appeal of the picture is that it would preserve an action principle: the symmetric
@@ -135,8 +111,7 @@ nucleation barrier rather than a stable organisational level.
 The second question is which variational tier the system occupies. Rather than asserting that some
 principle applies, we treat tier membership as an experimental matter with measurable signatures,
 and test three of them: quadratic dissipation, Onsager reciprocity, and a single effective
-temperature (Section 3.10). The system passes all three despite being nonreciprocal, dissipative
-and strongly self-organising, which places it in the linear-response tier and identifies a
+temperature (Section 3.10). The system passes two of the three, while the third proves ill-posed out of equilibrium, which places it in the linear-response tier on every diagnostic that admits a definite answer and identifies a
 Rayleighian, not an action, as the appropriate variational object for its dynamics.
 
 The third question follows from the second. If nonreciprocity, dissipation and self-organisation
@@ -189,12 +164,21 @@ trajectories at χ=0 and χ=1 to 10⁻¹⁴. Against the pre-χ code at χ=1, tr
 identical for 1000 steps, diverging only to 9.8×10⁻¹⁵ by 5000 steps (floating-point rounding
 amplified by chaos).
 
-### 2.3 χ=0 is an exact equilibrium reference
+### 2.3 χ=0 gives equilibrium-compatible dynamics
 
 At χ=0 all forces are central, pairwise and equal-and-opposite, hence conservative; mobility
 μ_i = 1/s_i with noise variance σ²/s_i gives D_i/μ_i = σ²/2, uniform across particles.
-Fluctuation–dissipation therefore holds, detailed balance holds, and **the probability current
-is exactly zero**. This is a stronger reference than the monodisperse comparison used
+Fluctuation–dissipation therefore holds, detailed balance holds for the χ = 0 *equations of
+motion*, and the stationary probability current vanishes.
+
+A distinction must be maintained throughout, because we later show that it matters. The χ = 0
+*dynamics* are equilibrium-compatible and possess a Boltzmann stationary distribution. The χ = 0
+*configurations realised in finite-duration simulations* are kinetically trapped and demonstrably
+do not sample that distribution (Section 3.5). We use "equilibrium-compatible reciprocal dynamics"
+for the former and "kinetically trapped finite-time ensemble" for the latter, and reserve
+"equilibrium" for the formal long-time distribution. The value of χ = 0 as a reference lies in the
+first sense: it guarantees that any measured current at χ > 0 is attributable to the antisymmetric
+coupling and not to the reference itself. This is a stronger reference than the monodisperse comparison used
 previously, which differs from the bidisperse system in reciprocity *and* polydispersity
 simultaneously.
 
@@ -279,8 +263,11 @@ Paper scale, 3 seeds per level, all other parameters fixed:
 | σ²_v | 4.19e-10 | 4.28e-10 | 3.65e-09 | 1.37e-08 | 2.76e-08 | 5.57e-08 | 3.07e-10 |
 
 Trend tests across χ (18 runs): n_cl ρ=+0.931 (p=2.1×10⁻⁸); σ²_v ρ=+0.975 (p=7.1×10⁻¹²).
-χ=0 → 1.5: n_cl 11.1 → 137.3 (12.4×, Welch t=−302.6, p=9.4×10⁻¹⁰); σ²_v ×133
-(p=2.9×10⁻⁵). Both contrasts *strengthen* at paper scale relative to pilot scale (n_cl 9.8×,
+χ = 0 → 1.5: n_cl 11.1 ± 1.3 → 137.3 ± 0.6 (a factor of 12.4); σ²_v × 133. We quote effect sizes
+with seed-level scatter rather than p-values here: with three blocked seeds per level, and
+within-run fluctuations of up to 30% (Section 2.5), formal significance tests on run-level means
+produce implausibly small p-values that reflect the variance-reduction of the blocked design rather
+than the evidence. The effects are large enough not to need them. Both contrasts *strengthen* at paper scale relative to pilot scale (n_cl 9.8×,
 σ²_v 24×), indicating the pilot runs had not reached steady state.
 
 **The antisymmetric sector therefore alters static structure.** n_cl and lcf are single-snapshot
@@ -411,7 +398,7 @@ The small-cluster state is therefore a long-lived transient of this model rather
 state. This is both a validation of the reimplementation (it reaches the published state under
 the published conditions) and a limitation of the model (that state does not persist).
 
-### 3.9 The selected scale is a critical nucleus, not a stable cluster size
+### 3.9 The selected scale is an event-rate crossover, not a stable cluster size
 
 Two further measurements resolve what the system selects. **Fragments** — all clusters except
 the largest — have size statistics independent of system size: mean 5.02, 4.78, 5.34 particles
@@ -429,8 +416,12 @@ configurations at Δt=50 (105,708 cluster-observations, 3 seeds) gives per-clust
 | merge rate | 0.319 | 0.312 | **0.334** | 0.283 | 0.269 | 0.145 |
 
 The rates cross at **S\* ≈ 7–8 particles**, with splitting dominant below and merging dominant
-above. This is an *unstable* fixed point — a critical nucleus — so clusters below S\* dissolve
-and clusters above it grow without bound. The fragment population (mean ≈ 5) is the subcritical
+above. Splitting therefore dominates below S\* and merging above it. We call this an **event-rate
+crossover scale** rather than a critical nucleus: a crossing of per-cluster event *rates* is not
+by itself a zero of the size drift ⟨ΔS|S⟩/Δt, and a critical nucleus would properly be
+established by that drift changing sign, or by a committor q(S\*) ≈ ½. Both remain to be measured.
+The crossing is nonetheless the scale that separates the subcritical population from the
+condensate. The fragment population (mean ≈ 5) is the subcritical
 vapour, and its N-independence follows because S\* is set by local energetics.
 
 The steady state is thus a condensate coexisting with a subcritical vapour, separated by a
@@ -442,14 +433,16 @@ cluster grows as N^1.01 and the system phase-separates.
 The preceding sections establish what nonreciprocity does to this system. We now ask what kind of
 variational description it admits. The question is easy to render vacuous — a framework asserting
 that "some variational principle applies" forbids nothing — so we treat tier membership as an
-experimental matter. The standard hierarchy for stochastic dynamics carries distinct, falsifiable
-signatures at each level:
+experimental matter. We stress that the following is a working taxonomy of *commonly invoked diagnostics*, not a
+established classification: the existence of a single effective temperature in particular is a
+nonequilibrium construct in the sense of Cugliandolo and Kurchan [11], and is neither necessary
+nor sufficient for near-equilibrium response. With that caveat:
 
 | tier | regime | variational object | signature |
 |---|---|---|---|
 | I | equilibrium | free energy; MaxEnt | EPR = 0; detailed balance; Boltzmann |
-| II | linear response | Rayleighian R = Φ̇ + Ψ, Ψ quadratic in rates | EPR ∝ (drive)²; Onsager reciprocity; single effective temperature |
-| III | far from equilibrium | no general principle | EPR non-quadratic; reciprocity fails; observable-dependent temperature |
+| II | linear response | Rayleighian R = Φ̇ + Ψ, Ψ quadratic in rates | fluxes linear in the forces; Onsager reciprocity among conjugate pairs |
+| III | far from equilibrium | no general principle | nonlinear flux–force relations; reciprocity fails |
 
 It is worth noting at the outset that least action does not fail for nonreciprocal systems in the
 way sometimes supposed. The Onsager–Machlup action S[x] = ∫ (ẋ − μF)²/4D dt is well defined for
@@ -468,7 +461,17 @@ protocol of Section 2.4 and bias-subtracted against a same-configuration χ = 0 
 | EPR/χ² | 2.90e−3 | 3.04e−3 | 2.93e−3 | 2.90e−3 | 2.93e−3 |
 
 EPR = kχ² with k ≈ 2.93 × 10⁻³, flat to **4.8%** across a fourfold range of drive and a fifteenfold
-range of entropy production. The relation could have failed at four independent points and did not.
+range of entropy production.
+
+We are careful about what this does and does not test. At *frozen* configuration the quadratic
+form is close to guaranteed by construction: the antisymmetric force is exactly linear in χ, the
+dynamics are overdamped with configuration-independent mobility, and the Stratonovich heat is
+bilinear in force and velocity, so the leading term is μ⟨F_a²⟩ ∝ χ² with the cross term vanishing
+by the symmetry of the reciprocal sector. The measurement is therefore best read as a **validation
+of the entropy-production estimator** — non-trivial given the discretisation problems documented in
+Section 5 — rather than as an independent test of linear response. The physically informative
+number is the *evolving-structure* exponent, χ^3.01 (Section 3.4), which is not quadratic and which
+reflects the co-variation of structure with drive.
 
 **Onsager reciprocity.** This requires a second, independent drive. A uniform field applied to one
 species is unsuitable: the system is isotropic, so the species drift vanishes at zero field for
@@ -489,9 +492,21 @@ point (χ, χ₂) = (0.5, 0.5) from configurations equilibrated at that point:
 | 800 | −3.96e−7 ± 9.9e−7 | −0.40 | +9.48e−6 ± 9.6e−7 | +9.9 |
 
 The symmetric part of the cross-coupling vanishes at every window length, while the antisymmetric
-part is large and stable. That is, L₁₂ = −L₂₁: reciprocity holds in the Onsager–Casimir
-antisymmetric form, the form appropriate when the conjugate variables carry opposite time-reversal
-signature.
+part is large and stable: **the measured differential cross-response is predominantly
+antisymmetric**, L₁₂ ≈ −L₂₁.
+
+We deliberately stop short of calling this Onsager–Casimir reciprocity. That identification would
+require a defined microscopic time-reversal operation with the parities of all time-odd control
+parameters specified, and it cannot be inferred retrospectively from an observed sign. Three
+further caveats apply. The coefficients are measured about a nonequilibrium operating point rather
+than about equilibrium; χ and χ₂ are internal coupling constants in the equations of motion, not
+thermodynamic affinities, so the bilinear identity above is a definition rather than a derivation;
+and because the two channels were constructed with the same pair-co-propulsion structure, the
+antisymmetry may follow from that construction symmetry rather than from microreversibility. A
+defensible reciprocity test would require either an equilibrium Green–Kubo derivation or an
+explicit Fokker–Planck computation of L_ij for this model, together with a demonstration that the
+antisymmetry survives when the two channels are made structurally dissimilar. We report the
+measurement and its robustness, not a reciprocity relation.
 
 This result is not merely consistent with the preceding one but explains it. Entropy production is
 the quadratic form EPR = Σ L_ij X_i X_j, to which only the symmetric part of L contributes; a purely
@@ -500,12 +515,16 @@ nonreciprocal channels is therefore *reactive* rather than dissipative, which is
 entropy production reduces to a single-coefficient quadratic. Two measurements made by independent
 routes agree on the structure of the response matrix.
 
-We note one unresolved point. The naive parity argument predicts a symmetric relation: both fluxes
-have the form Σ f · v with f a function of positions (even under time reversal) and v odd, making
-both fluxes odd and their signatures equal. The measurement robustly contradicts this across three
-window lengths. Either the effective time-reversal signature of the two channels differs for a
-reason the naive argument misses, or the coupling has a geometric origin outside the standard
-parity assignment. We record this as an open theoretical question rather than resolving it here.
+The naive parity argument predicts a symmetric relation: both fluxes have the form Σ f · v with f
+even under time reversal and v odd, making both fluxes odd and their signatures equal. The
+measurement contradicts this robustly. The most economical hypothesis is that the cross-coupling is
+*gyroscopic* — a reactive, Magnus- or Coriolis-like coupling in the space of collective
+coordinates, which enters a response matrix antisymmetrically without contributing to dissipation.
+That is consistent with the vanishing symmetric part, and it would explain why entropy production
+reduces to a single-coefficient quadratic. We offer it as a hypothesis requiring analytic
+confirmation, not as an established mechanism, and note that the alternative — that the
+antisymmetry is an artifact of having built the two channels with identical structure — is equally
+live until the dissimilar-channel control is run.
 
 **Effective temperature.** At equilibrium the Einstein relation fixes D/μ = kT for every degree of
 freedom; here mobility is 1/s_i and the noise variance σ²/s_i, so D/μ = σ²/2 exactly for both
@@ -569,8 +588,18 @@ entropy production, yet the signed area rate in every coarse observable plane is
 from the equilibrium null at both system sizes. Its irreversibility is real but microscopic: it
 does not survive coarse-graining.
 
+That such circulation exists in beating axonemes is not itself new: Battle et al. [12] demonstrated
+probability-current loops in the phase space of beating *Chlamydomonas* flagella and isolated
+mammalian axonemes a decade ago, establishing broken detailed balance at mesoscopic scales in
+active biological systems, and the subsequent literature has developed both the measurement and its
+coarse-graining caveats extensively [13, 14]. Our contribution here is not the observation of
+circulation in cilia but the *controlled comparison*: the same estimator, the same surrogate
+protocol, and — following the control below — the same level of description, applied to a synthetic
+system whose entropy production is independently known to be positive and whose reciprocal limit is
+a provable equilibrium reference.
+
 We asked whether a biological system differs on that specific axis, using published high-speed
-recordings of reactivated *Chlamydomonas* axonemes [6]: 184 usable axonemes imaged at 1000 frames
+recordings of reactivated *Chlamydomonas* axonemes [6, 22]: 184 usable axonemes imaged at 1000 frames
 per second across eight ATP concentrations from 50 to 1000 µM, 272,974 frames in total. Axoneme
 shapes were converted to tangent-angle representations, removing rigid translation and rotation,
 and reduced by principal component analysis to two dominant shape modes; the signed area rate was
@@ -578,28 +607,67 @@ then computed in that plane against phase-randomised surrogates, using the ident
 applied to the colloid observables.
 
 We first note that the test originally planned for this dataset — whether entropy production is
-quadratic in the ATP drive — is ill-posed. The chemical potential of ATP hydrolysis is
-approximately 20 k_BT at every concentration in the series, so cilia are far from equilibrium by
-construction rather than by measurement, and the linear-response question answers itself.
+quadratic in the ATP drive — is ill-posed. The chemical potential of ATP hydrolysis depends on the
+concentrations of ADP and inorganic phosphate, on temperature and ionic conditions, and on
+standard-state corrections, none of which are reported for these reactivation buffers; it is
+therefore not fixed by the ATP concentration alone. What can be said without those quantities is
+that reactivated axonemes with an ATP-regeneration system are chemically driven far from
+equilibrium under all conditions in the series, so a linear-response question posed in terms of the
+ATP drive answers itself rather than being decided by measurement.
 
 | [ATP] µM | n | beat frequency (Hz) | median \|z\| | fraction \|z\|>2 | \|area per cycle\| |
 |---:|---:|---:|---:|---:|---:|
 | 50 | 10 | 14.5 | 3.3 | 1.00 | 6.07 |
+| 66 | 15 | 23.7 | 3.3 | 1.00 | 6.24 |
 | 100 | 11 | 27.7 | 3.0 | 0.91 | 6.23 |
 | 240 | 19 | 46.3 | 2.7 | 0.89 | 6.15 |
+| 370 | 29 | 58.4 | 3.0 | 0.97 | 5.90 |
 | 500 | 13 | 91.7 | 4.5 | 0.92 | 5.95 |
+| 750 | 44 | 94.8 | 3.2 | 0.89 | 5.71 |
 | 1000 | 43 | 65.0 | 3.3 | 0.91 | 6.09 |
+| **total** | **184** | | | | |
 
 Pooled over all 184 axonemes, the median |z| is 3.2, with 92% exceeding |z| = 2 and 55% exceeding
-|z| = 3. The colloid control, using the same estimator on coarse observables, gives |z| < 1.5 with
-nothing above the null. Both systems are irreversible microscopically; only the biological one has
-irreversibility that survives coarse-graining into macroscopic circulation.
+|z| = 3.
+
+**A matched-level control.** The colloid measurement of Section 3.4 uses system-averaged network
+observables over ~10⁴ particles, whereas the cilia measurement uses the two-mode shape space of a
+single axoneme. These are not commensurate levels of description, and the colloid null could in
+principle arise from ensemble averaging alone: in an isotropic, statistically homogeneous
+suspension most global scalar pairs have vanishing signed area by symmetry, and phase-incoherent
+circulation across many clusters averages to zero — precisely the incoherence documented in
+Section 3.5, where C√N is constant.
+
+We therefore repeated the measurement at a matched level of description: a single tracked cluster,
+represented by a low-order shape descriptor (deviatoric gyration tensor plus normalised third and
+fourth mass multipoles, the closest available analogue of the axoneme tangent-angle
+representation), reduced by PCA to two modes, with the identical estimator and surrogate protocol.
+
+| system | level of description | median \|z\| | fraction \|z\|>2 |
+|---|---|---:|---:|
+| colloid, χ = 0 | single tracked cluster | 0.81 | 0.00 |
+| colloid, χ = 1 | single tracked cluster | 0.85 | 0.00 |
+| colloid, χ = 1.5 | single tracked cluster | 0.94 | 0.00 |
+| *Chlamydomonas* axoneme | single organelle | **3.2** | **0.92** |
+
+Single active colloidal clusters show no circulation either. The contrast therefore does not stem
+from the choice of coarse-graining level, and both systems are irreversible microscopically while
+only the biological one exhibits circulation that survives coarse-graining. We note the limitation
+that only three to six clusters per condition persist long enough to be tracked over the 101-frame
+window, so the colloid side of this control rests on few objects, albeit with a null result that is
+uniform across all of them.
 
 A second and unanticipated result emerges from the same analysis. The area enclosed per beat cycle
 is 5.71 to 6.24 in standardised shape coordinates at every ATP concentration — flat across a
 twentyfold range of concentration and a sixfold range of beat frequency — and that value is
-approximately 2π, the geometric maximum for a circular orbit in these coordinates. The beat
-therefore traces a nearly perfect limit cycle whose *shape* is saturated and ATP-independent, while
+approximately 2π. We are careful about how surprising this is: if two PCA modes of a periodic
+waveform are standardised to unit variance and are close to phase quadrature with near-sinusoidal
+profiles, an enclosed area of 2π follows almost by construction, so the value itself largely
+restates a property of principal component analysis applied to periodic data. The non-trivial
+content is the *invariance* — the tightness of the range, 5.71 to 6.24, across a twentyfold
+concentration range — which says that the beat remains equally close to a clean quadrature limit
+cycle at every drive. On that reading the beat traces a limit cycle whose *shape* is saturated and
+ATP-independent, while
 ATP sets only the *rate* at which the fixed cycle is traversed, with beat frequency rising from
 14.5 to approximately 95 Hz in the Michaelis–Menten manner known for axonemal dynein. Geometry and
 kinetics separate cleanly.
@@ -659,7 +727,7 @@ Several standard network measures fail to detect nonreciprocity here, and they f
 instructive ways.
 
 Newman modularity is degenerate on these contact graphs. Cluster count varies by a factor of forty
-across the conditions we ran while modularity varies by 14%, and the two are uncorrelated; a
+across the pilot-scale conditions while modularity varies by 14%, and the two are uncorrelated; a
 three-cluster and a thirty-three-cluster configuration are indistinguishable. The degeneracy
 survives a fourfold increase in system size, so it is a property of modularity on two-dimensional
 contact networks at this density rather than a finite-size effect. Modularity excess over a
@@ -718,8 +786,9 @@ phase, and the genuinely arrested state is the reciprocal one.
 
 ### 4.6 What the biological comparison does and does not establish
 
-The colloid suspension passes all three tier-II tests while being nonreciprocal, dissipative and
-strongly self-organising. Those ingredients are therefore jointly insufficient to leave linear
+The colloid suspension passes the two tier-II diagnostics that admit a definite answer, while the
+third proves ill-posed out of equilibrium, and it does so while being nonreciprocal, dissipative
+and strongly self-organising. Those ingredients are therefore jointly insufficient to leave linear
 response, and cannot be what distinguishes living organisation.
 
 Cilia differ from the colloid on a specific and measurable axis: their irreversibility survives
@@ -734,19 +803,28 @@ on this axis. Establishing that the axis separates biological from non-biologica
 would require many more systems on both sides, chosen so that the biological ones are not simply
 more strongly driven.
 
-### 4.7 Consequences for the Network-Weighted Action Principle
+### 4.7 Consequences for a network-weighted action principle, and for minimum-action learning
 
-Because this study was undertaken to test a specific NWAP prediction, we state the outcome for
-that framework directly. It is mixed, and the parts that fail and the parts that survive are
+One specific formulation of the decomposition tested above is the Network-Weighted Action Principle
+(NWAP), whose directed-graph extension makes the symmetric/antisymmetric assignment explicit [9].
+*That framework is the present author's own, and this study was undertaken to test one of its
+predictions; we state the outcome directly and note the conflict of interest.* It is mixed, and the parts that fail and the parts that survive are
 informative in different ways.
 
 **The structural proposal is validated.** NWAP's directed-graph extension holds that a
 nonreciprocal coupling should be decomposed into symmetric and antisymmetric sectors, with the
 antisymmetric sector carrying the nonequilibrium content. That decomposition is exactly what this
 system required, and constructing it is what made every subsequent measurement possible. Its
-central quantitative prediction — that cluster statistics are set by the antisymmetric-to-symmetric
-ratio — holds at ρ = +0.931, p = 2 × 10⁻⁸, across two system sizes, with a same-particle reciprocal
-control that the source experiment cannot itself provide. This is, to our knowledge, the first
+central quantitative prediction — that cluster statistics are controlled by the
+antisymmetric-to-symmetric ratio — is borne out across two system sizes, with a same-particle
+reciprocal control that the source experiment cannot itself provide.
+
+We state this more carefully than a rank correlation would suggest. The Spearman coefficient across
+the χ sweep is ρ = +0.931, but the underlying relation is *not monotonic*: cluster count dips to 2.2
+at χ = 0.25, a factor of five below its reciprocal value, before rising by two orders of magnitude
+(Section 3.5). A rank correlation is a poor summary of such a curve. The defensible statement is
+that nonreciprocity strongly controls cluster statistics, that the control is non-monotonic, and
+that no proposed functional form — NWAP's included — predicts the dip. This is, to our knowledge, the first
 NWAP prediction tested in a controlled physical system rather than by meta-analysis, and on this
 point it succeeds.
 
@@ -802,6 +880,29 @@ selection is a non-equilibrium transition that no current variational principle 
 structure selection is precisely what NWAP was built to explain, this identifies the gap that new
 theory would have to fill, and it is a more useful result for the framework than a claim of
 coverage would have been.
+
+**Connection to minimum-action learning.** The same programme has a computational arm, Minimum-Action
+Learning (MAL) [9], which selects symbolic force laws from noisy trajectories by minimising a
+Triple-Action functional whose discriminating component is an energy-conservation term: among
+candidate basis functions, the one that conserves energy under dynamical rollout is selected, and
+this criterion is what lifts raw basis-identification rates to complete identification on the Kepler
+and Hooke benchmarks.
+
+The present results delimit that method's domain in a specific and, we think, useful way. The
+energy-conservation criterion presupposes a conserved energy, which exists precisely when the force
+is reciprocal. At χ = 0 the system studied here satisfies that condition exactly; at χ > 0 it does
+not, and no amount of basis refinement will recover a conserved quantity that the dynamics do not
+possess. MAL applied to trajectories from this model should therefore succeed at χ = 0 and fail
+progressively as χ increases — and, more interestingly, the *manner* of its failure is diagnostic:
+the conservation residual it computes is, up to normalisation, a measure of the very dissipation we
+quantify in Section 3.10, which is quadratic in the antisymmetric coupling at fixed structure.
+
+This suggests a concrete extension rather than merely a limitation. Replacing the
+energy-conservation term with a *dissipation-consistency* term — requiring that the selected force
+law reproduce the measured entropy production, not that it conserve energy — would carry the method
+into nonreciprocal systems while retaining the feature that gives it its discriminating power. The
+trajectories and measured dissipation rates generated here constitute a ready benchmark for that
+test, and we regard it as the most direct way to connect the two arms of the programme.
 
 **A note on the empirical hook.** The reanalysis originally proposed to connect NWAP to this
 literature — computing modularity excess on published trajectory data — should not be attempted;
@@ -867,7 +968,7 @@ estimate and is not monotonic at the top of the ATP range.
    a control.
 
 2. Nonreciprocity causes arrested coarsening in this model: cluster count rises by a factor of 12.4
-   (p = 9.4 × 10⁻¹⁰) at two system sizes with the reciprocal coupling held bit-for-bit fixed.
+   at two system sizes with the reciprocal coupling held bit-for-bit fixed.
 
 3. The antisymmetric sector alters *static* structure and is not structure-preserving. The
    solenoidal premise fails, and would have had to, since it contradicts the source experiment's own
@@ -892,8 +993,10 @@ estimate and is not monotonic at the top of the ATP range.
    transient whose lifetime scales as N^(1/z) with 1/z between 2.4 and 3.7.
 
 8. The system occupies the linear-response tier on the two membership tests that admit a definite
-   answer: entropy production is quadratic to within 4.8%, and Onsager reciprocity holds in its
-   antisymmetric (Casimir) form with the symmetric cross-coupling vanishing at every window. The
+   answer: entropy production is quadratic to within 4.8%, and the differential cross-response between two
+   nonreciprocal channels is predominantly antisymmetric, with the symmetric part vanishing at
+   every measurement window. Whether that constitutes Onsager–Casimir reciprocity is not
+   established here. The
    third test is inconclusive for an informative reason — out of equilibrium the collective
    coordinate is superdiffusive (⟨ΔX²⟩ ~ t^1.8), so the fluctuation–dissipation ratio grows with
    the observation window and is not a temperature. A Rayleighian, not an action, is the
@@ -904,7 +1007,7 @@ estimate and is not monotonic at the top of the ATP range.
    response. This system is consequently a control for systems that are driven but not alive.
 
 10. For the Network-Weighted Action Principle specifically, the structural proposal survives and
-    its quantitative prediction holds (ρ = +0.931, p = 2 × 10⁻⁸), while the mechanism attributed to
+    its quantitative prediction is borne out though non-monotonically, while the mechanism attributed to
     the antisymmetric sector — solenoidality, circulation, and a modularity signature — fails on all
     three counts. The sector's measurable contribution is a quadratic dissipation with a reactive
     cross-coupling, which places it in a dissipation functional rather than an action.
@@ -943,7 +1046,7 @@ available from Dryad under CC0 [6].
 
 ## References
 
-[1] K. Hara, Y. Sumino, et al. *Arrested coarsening in active colloidal suspensions driven by
+[1] S. Hara, Y. Sumino, et al. *Arrested coarsening in active colloidal suspensions driven by
 nonreciprocal electrohydrodynamic interactions.* Phys. Rev. Lett. **137**, 068302 (2026).
 DOI 10.1103/96ky-d1p9; arXiv:2509.23164.
 
@@ -957,8 +1060,8 @@ Nature **592**, 363 (2021).
 [5] K. Sekimoto. *Stochastic Energetics.* Lecture Notes in Physics 799, Springer (2010).
 
 [6] V. F. Geyer, J. Howard, P. Sartori. *Ciliary beating patterns map onto a low-dimensional
-behavioural space.* Dryad dataset, DOI 10.5061/dryad.0gb5mkm2j (2022). Associated publication:
-Nature Physics **18**, 1 (2022), DOI 10.1038/s41567-021-01446-2.
+behavioural space.* Nature Physics **18**, 1465 (2022), DOI 10.1038/s41567-021-01446-2. Dataset:
+Dryad, DOI 10.5061/dryad.0gb5mkm2j.
 
 [7] L. Onsager. *Reciprocal relations in irreversible processes.* Phys. Rev. **37**, 405 (1931).
 
@@ -966,9 +1069,57 @@ Nature Physics **18**, 1 (2022), DOI 10.1038/s41567-021-01446-2.
 343 (1945).
 
 [9] M. G. Frasch. *Minimum-Action Learning: energy-constrained symbolic model selection for
-physical law identification from noisy data.* Preprint (2026). Framework materials and the
-Network-Weighted Action Principle: minAction.net.
+physical law identification from noisy data.* arXiv:2603.16951 (2026). *(Author's own prior work;
+see the disclosure in Section 4.7.)*
 
-[10] E. T. Jaynes. *The minimum entropy production principle.* Annu. Rev. Phys. Chem. **31**, 579
-(1980); and *Macroscopic prediction*, in Complex Systems — Operational Approaches, Springer (1985),
-for Maximum Caliber.
+[10] E. T. Jaynes. *Macroscopic prediction*, in Complex Systems — Operational Approaches, Springer
+(1985), for Maximum Caliber; see also P. D. Dixit et al., J. Chem. Phys. **148**, 010901 (2018).
+
+[11] L. F. Cugliandolo. *The effective temperature.* J. Phys. A **44**, 483001 (2011).
+
+[12] C. P. Broedersz et al. (J. Gladrow, N. Fakhri, F. C. MacKintosh, C. F. Schmidt, D. A. Weitz,
+C. Battle, V. F. Geyer, J. Howard). *Broken detailed balance at mesoscopic scales in active
+biological systems.* Science **352**, 604 (2016).
+
+[13] F. S. Gnesotto, F. Mura, J. Gladrow, C. P. Broedersz. *Broken detailed balance and
+non-equilibrium dynamics in living systems: a review.* Rep. Prog. Phys. **81**, 066601 (2018).
+
+[14] J. Gladrow, C. P. Broedersz, C. F. Schmidt. *Nonequilibrium dynamics of probe filaments in
+actin–myosin networks*, and related work on information loss under coarse-graining of
+irreversibility. Phys. Rev. E **96**, 022408 (2017).
+
+[15] A. V. Ivlev, J. Bartnick, M. Heinen, C.-R. Du, V. Nosenko, H. Löwen. *Statistical mechanics
+where Newton's third law is broken.* Phys. Rev. X **5**, 011035 (2015).
+
+[16] S. Saha, J. Agudo-Canalejo, R. Golestanian. *Scalar active mixtures: the non-reciprocal
+Cahn–Hilliard model.* Phys. Rev. X **10**, 041009 (2020).
+
+[17] Z. You, A. Baskaran, M. C. Marchetti. *Nonreciprocity as a generic route to traveling states.*
+PNAS **117**, 19767 (2020).
+
+[18] S. A. M. Loos, S. H. L. Klapp. *Irreversibility, heat and information flows induced by
+non-reciprocal interactions.* New J. Phys. **22**, 123051 (2020).
+
+[19] É. Fodor, C. Nardini, M. E. Cates, J. Tailleur, P. Visco, F. van Wijland. *How far from
+equilibrium is active matter?* Phys. Rev. Lett. **117**, 038103 (2016).
+
+[20] C. Nardini, É. Fodor, E. Tjhung, F. van Wijland, J. Tailleur, M. E. Cates. *Entropy production
+in field theories without time-reversal symmetry.* Phys. Rev. X **7**, 021007 (2017).
+
+[21] M. Doi. *Onsager's variational principle in soft matter.* J. Phys.: Condens. Matter **23**,
+284118 (2011).
+
+[22] P. Sartori, V. F. Geyer, A. Scholich, F. Jülicher, J. Howard. *Dynamic curvature regulation
+accounts for the symmetric and asymmetric beats of Chlamydomonas flagella.* eLife **5**, e13258
+(2016).
+
+[23] B. H. Good, Y.-A. de Montjoye, A. Clauset. *Performance of modularity maximization in
+practical contexts.* Phys. Rev. E **81**, 046106 (2010).
+
+[24] T. P. Peixoto. *Descriptive vs. inferential community detection in networks.* Cambridge
+University Press (2023).
+
+[25] R. Kubo. *The fluctuation-dissipation theorem.* Rep. Prog. Phys. **29**, 255 (1966).
+
+[26] U. Seifert. *Stochastic thermodynamics, fluctuation theorems and molecular machines.* Rep.
+Prog. Phys. **75**, 126001 (2012).
