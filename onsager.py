@@ -36,7 +36,7 @@ from simulate import SIGMA, RCUT
 
 
 @njit(cache=True, fastmath=True)
-def _run2(pos, svec, l2, l4, nsteps, dt, Lbox, alpha, chi, chi2, sigma, seed):
+def _run2(pos, svec, l2, l4, nsteps, dt, Lbox, alpha, chi, chi2, sigma, seed, mode2):
     np.random.seed(seed)
     N = pos.shape[0]
     ncell = int(Lbox / RCUT); csize = Lbox / ncell
@@ -76,9 +76,18 @@ def _run2(pos, svec, l2, l4, nsteps, dt, Lbox, alpha, chi, chi2, sigma, seed):
                                             fm = (ssum - r) / r
                                             F[i, 0] += fm * rx; F[i, 1] += fm * ry
                                             F[j, 0] -= fm * rx; F[j, 1] -= fm * ry
-                                            # second nonreciprocal channel (unit chi2)
+                                            # second nonreciprocal channel (unit chi2).
+                                            # mode2 = 0: same structure as the EHD channel
+                                            #           (contact range, linear size contrast)
+                                            # mode2 = 1: DISSIMILAR -- cubic size contrast, and
+                                            #           weighted toward the outer part of the
+                                            #           overlap rather than uniform in it
                                             h = (svec[i] - svec[j]) / ssum
-                                            f2c = h * fm
+                                            if mode2 == 1:
+                                                h = h * h * h * 8.0
+                                                f2c = h * fm * (1.0 - (ssum - r) / ssum)
+                                            else:
+                                                f2c = h * fm
                                             F2[i, 0] += f2c * rx; F2[i, 1] += f2c * ry
                                             F2[j, 0] += f2c * rx; F2[j, 1] += f2c * ry
                                             F[i, 0] += chi2 * f2c * rx; F[i, 1] += chi2 * f2c * ry
@@ -121,7 +130,7 @@ def job(a):
     svec, lvec, L = z["svec"], z["lvec"], float(z["Lbox"])
     nsteps = int(round(a["T"] / a["dt"]))
     J1, J2 = _run2(pos, svec, lvec**2, lvec**4, nsteps, a["dt"], L,
-                   float(z["alpha"]), a["chi"], a["chi2"], SIGMA, a["seed"])
+                   float(z["alpha"]), a["chi"], a["chi2"], SIGMA, a["seed"], a.get("mode2", 0))
     return dict(chi=a["chi"], chi2=a["chi2"], seed=a["seed"], J1=J1, J2=J2, N=len(svec))
 
 
@@ -134,6 +143,9 @@ if __name__ == "__main__":
     p.add_argument("--dt", type=float, default=0.05)
     p.add_argument("--seeds", type=int, default=8)
     p.add_argument("--pattern", default="data/*_x1_*N1000_*seed[12345].npz")
+    p.add_argument("--mode2", type=int, default=0,
+                   help="0 = second channel structurally identical to the first; "
+                        "1 = structurally dissimilar (cubic size contrast, outer-weighted)")
     p.add_argument("--nstart", type=int, default=0,
                    help="if >0, use this many short windows from independent snapshots")
     p.add_argument("--workers", type=int, default=8)
@@ -149,10 +161,10 @@ if __name__ == "__main__":
         starts = [(s, si) for s in srcs
                   for si in ([0] if nsnap_each == 1 else
                              np.linspace(50, 99, nsnap_each, dtype=int))]
-        jobs = [dict(src=s, snap=int(si), chi=c, chi2=c2, seed=2000 + k, T=a.T, dt=a.dt)
+        jobs = [dict(src=s, snap=int(si), chi=c, chi2=c2, seed=2000 + k, T=a.T, dt=a.dt, mode2=a.mode2)
                 for k, (s, si) in enumerate(starts) for (c, c2, _) in pts]
     else:
-        jobs = [dict(src=s, chi=c, chi2=c2, seed=1000 + k, T=a.T, dt=a.dt)
+        jobs = [dict(src=s, chi=c, chi2=c2, seed=1000 + k, T=a.T, dt=a.dt, mode2=a.mode2)
                 for k, s in enumerate(srcs) for (c, c2, _) in pts]
     print(f"{len(jobs)} runs ({len(pts)} grid points x {len(srcs)} seeds), {a.workers} workers")
     print(f"operating point (chi, chi2) = ({a.chi0}, {a.chi20}), delta = {d}, T = {a.T:g}")
