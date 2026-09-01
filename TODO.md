@@ -13,7 +13,7 @@ Each tier carries a distinct experimental signature, and membership must be **me
 |---|---|---|---|
 | **A1** | **Quadratic dissipation** | EPR ∝ (drive)² at fixed configuration | ✅ **PASSED** — EPR = kχ², k ≈ 2.93e-3, flat to **4.8%** across χ = 1.5–8 (4× drive range, 15× EPR range) |
 | **A2** | **Onsager reciprocity** | L_ij = L_ji among cross-responses | ✅ **PASSED** — in the antisymmetric (Casimir) form: symmetric part of the cross-coupling is zero (\|t\| ≤ 0.40 at three window lengths), antisymmetric part stable at ≈9.5e−6. See `ONSAGER_RESULT.md` |
-| **A3** | **Single effective temperature** | one T_eff reconciles response with fluctuation across observables | ⬜ not run |
+| **A3** | **Single effective temperature** | one T_eff reconciles response with fluctuation across observables | ⚠️ **INCONCLUSIVE** — exact at equilibrium (0.98, 0.94 kT) but out of equilibrium the collective coordinate is superdiffusive (⟨ΔX²⟩ ~ t^1.8 vs linear response), so T_eff grows as t^0.83 and is not a temperature. See `PAPER.md` §3.10 |
 
 ### A2 — Onsager reciprocity (highest priority)
 

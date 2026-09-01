@@ -48,9 +48,11 @@ tier-membership signatures directly. Entropy production is quadratic in the anti
 to within 4.8% across a fourfold range of drive; the Onsager cross-coefficients between two
 independent nonreciprocal channels satisfy reciprocity in its antisymmetric (Casimir) form, with
 the symmetric part of the cross-coupling vanishing at every measurement window; and the
-fluctuation–dissipation ratio is consistent with a single effective temperature. The system is
-therefore firmly in the linear-response tier despite being nonreciprocal, dissipative, and
-strongly self-organising.
+fluctuation–dissipation ratio returns exactly kT at equilibrium. The third test is inconclusive out
+of equilibrium for a specific and informative reason: the collective coordinate becomes
+superdiffusive, so the fluctuation–dissipation ratio grows with the observation window and is not a
+temperature at all. The system is therefore in the linear-response tier on the two tests that admit
+a definite answer, despite being nonreciprocal, dissipative, and strongly self-organising.
 
 That last finding motivates a comparison with a biological system. Using published high-speed
 recordings of reactivated *Chlamydomonas* axonemes across eight ATP concentrations, we show that
@@ -484,11 +486,38 @@ parity assignment. We record this as an open theoretical question rather than re
 **Effective temperature.** At equilibrium the Einstein relation fixes D/μ = kT for every degree of
 freedom; here mobility is 1/s_i and the noise variance σ²/s_i, so D/μ = σ²/2 exactly for both
 species. Out of equilibrium the ratio defines an effective temperature, and a single T_eff shared
-across degrees of freedom is a tier-II signature. Measuring mobility from the drift under a small
+across degrees of freedom is a tier-II signature. We measured mobility from the drift under a small
 force applied to one species and the conjugate fluctuation from the collective coordinate
-X = Σ_{i∈species} x_i, with perturbed and unperturbed runs sharing a noise stream, the equilibrium
-control returns T_eff/kT = 0.98 ± 0.07 for the large species and 0.94 ± 0.07 for the small, their
-difference consistent with zero (t = 1.01). Results at χ > 0 are reported below.
+X = Σ_{i∈species} x_i, with perturbed and unperturbed runs sharing a noise stream. Linear response
+was verified separately: T_eff is independent of the perturbation strength down to f = 3 × 10⁻⁶.
+
+At equilibrium the estimator behaves as it must, returning T_eff/kT = 0.98 ± 0.07 for the large
+species and 0.94 ± 0.07 for the small, their difference consistent with zero (t = 1.01), and
+independent of the measurement window.
+
+Out of equilibrium, however, **the quantity itself ceases to be well defined**, and this is the
+substantive finding rather than any particular value. Applying the same plateau test used for the
+Onsager coefficients, T_eff at χ = 1.5 approximately doubles between windows of T = 200 and
+T = 400 (from 5.48 to 9.78 kT for the large species). The cause is visible in the exponents:
+
+| condition | ⟨ΔX²⟩ scaling | response scaling | resulting T_eff |
+|---|---|---|---|
+| χ = 0 | t^0.86 | t^0.94 | t^−0.08 — window-independent |
+| χ = 1.5 | **t^1.81** | t^0.99 | **t^+0.83 — grows without bound** |
+
+At equilibrium the fluctuation and response exponents match, so their ratio is a constant and
+equals kT. At χ = 1.5 the collective coordinate is strongly **superdiffusive** (α ≈ 1.8, approaching
+the ballistic value of 2) while the response remains linear in time, so the apparent diffusion
+coefficient grows with the observation window and no window-independent effective temperature
+exists.
+
+A3 is therefore neither passed nor failed as posed: out of equilibrium, in this system, the
+fluctuation–dissipation ratio is not a temperature. The apparent species dependence at χ = 1.5
+(t = 3.44 at a single window) is a symptom of the same non-convergence rather than evidence for two
+distinct temperatures, and we do not interpret it as such. The physical content is that
+nonreciprocity drives the collective coordinate ballistic — directed cluster motion, consistent
+with the unjamming mechanism of Section 3.5 — which is precisely the circumstance under which an
+effective-temperature description breaks down.
 
 **Interpretation.** The system passes the tier-II tests despite being nonreciprocal, dissipative,
 and strongly self-organising. A Rayleighian — minimising Φ̇ + Ψ with Ψ quadratic in the rates — is
@@ -762,12 +791,14 @@ estimate and is not monotonic at the top of the ATP range.
    condensate — rather than a stable organisational level. The finite-cluster state is a long-lived
    transient whose lifetime scales as N^(1/z) with 1/z between 2.4 and 3.7.
 
-8. The system occupies the linear-response tier on all three membership tests: entropy production
-   is quadratic to within 4.8%, Onsager reciprocity holds in its antisymmetric (Casimir) form with
-   the symmetric cross-coupling vanishing at every window, and the fluctuation–dissipation ratio is
-   consistent with a single effective temperature. A Rayleighian, not an action, is the appropriate
-   variational object — and its scope is the dynamics at fixed structure, since structure selection
-   itself remains uncovered.
+8. The system occupies the linear-response tier on the two membership tests that admit a definite
+   answer: entropy production is quadratic to within 4.8%, and Onsager reciprocity holds in its
+   antisymmetric (Casimir) form with the symmetric cross-coupling vanishing at every window. The
+   third test is inconclusive for an informative reason — out of equilibrium the collective
+   coordinate is superdiffusive (⟨ΔX²⟩ ~ t^1.8), so the fluctuation–dissipation ratio grows with
+   the observation window and is not a temperature. A Rayleighian, not an action, is the
+   appropriate variational object, and its scope is the dynamics at fixed structure, since
+   structure selection itself remains uncovered.
 
 9. Nonreciprocity, dissipation and self-organisation are jointly insufficient to leave linear
    response. This system is consequently a control for systems that are driven but not alive.
