@@ -12,7 +12,11 @@ Nonreciprocal interactions, in which the force particle *i* exerts on *j* is not
 the force *j* exerts on *i*, cannot be derived from a scalar potential. They therefore sit
 outside the reach of the variational principles that organise most of equilibrium and
 near-equilibrium physics, and it is not obvious a priori which, if any, variational description
-survives. We address this question in a specific, experimentally grounded system: the
+survives. The question is sharpened by the Network-Weighted Action Principle (NWAP), a proposed
+cross-scale organising principle in which structure is selected by minimising a functional that
+trades information against energy under network-structural constraints [9]. NWAP's directed-graph
+extension makes a specific, falsifiable prediction about nonreciprocal systems, and this work was
+undertaken to test it. We do so in a specific, experimentally grounded system: the
 agent-based model of Hara et al. (Phys. Rev. Lett. **137**, 068302, 2026) for size-asymmetric
 colloids driven by electrohydrodynamic flows, in which nonreciprocal pair propulsion has been
 identified as the minimal ingredient for arrested coarsening.
@@ -86,13 +90,33 @@ coarsening*: clusters continuously fragment and reorganise rather than growing w
 they do in the monodisperse case. Accompanying agent-based simulations identify nonreciprocal pair
 propulsion as the minimal ingredient for this behaviour.
 
-A specific proposal motivated the present work. It held that the antisymmetric part of a directed
-coupling is *solenoidal*, and therefore cannot alter a static structural observable; its entire
-signature should instead appear in probability currents, giving "frozen modularity, circulating
-partition", with sustained excess network modularity in the nonreciprocal case relative to a
-reciprocal null. The appeal of this picture is that it would preserve an action principle: the
-symmetric part of the coupling selects structure by energy minimisation, and the antisymmetric
-part adds circulation on top without disturbing the outcome.
+A specific proposal motivated the present work: the **Network-Weighted Action Principle** (NWAP),
+developed as a candidate cross-scale organising principle in which structure is selected by
+extremising a functional that trades information against energy subject to network-structural
+constraints [9]. In its implemented form the functional is a "Triple-Action" combining an
+information term I_max, an energy term E_min, and a symmetry constraint; schematically
+S_NW = ∫ (E − I + A·C) dt, with C a connection-cost term. The framework's stated ambition is to
+apply across scales, and it has been argued to generate modular architectures of the kind seen in
+evolved systems.
+
+NWAP as originally formulated places its weights on an *undirected* network, which on variation
+yields reciprocal forces and therefore cannot describe the present system at all. The proposed
+remedy — and the object of this study — is a directed-graph extension in which the adjacency G_ij
+is decomposed into symmetric and antisymmetric parts. The symmetric part is held to generate the
+gradient, energy-like component of the dynamics; the antisymmetric part is held to generate a
+*solenoidal*, circulating component, identified with exactly the nonreciprocal propulsion that
+Hara et al. isolate as their minimal ingredient.
+
+Three consequences follow from that assignment, and all three are testable. First, because a
+solenoidal field is divergence-free, the antisymmetric sector should not alter any static
+structural observable. Second, its entire signature should therefore appear in probability
+currents, giving "frozen modularity, circulating partition". Third, the cluster-size distribution
+and reorganisation rate should be set by the ratio of antisymmetric to symmetric coupling
+strength. The appeal of the picture is that it would preserve an action principle: the symmetric
+part selects structure by energy minimisation, and the antisymmetric part adds circulation on top
+without disturbing the outcome.
+
+We test all three predictions. The third is confirmed; the first two are not.
 
 Testing that proposal requires a control parameter that varies the ratio of antisymmetric to
 symmetric coupling and nothing else. We show in Section 3.1 that neither parameter previously
@@ -710,6 +734,82 @@ on this axis. Establishing that the axis separates biological from non-biologica
 would require many more systems on both sides, chosen so that the biological ones are not simply
 more strongly driven.
 
+### 4.7 Consequences for the Network-Weighted Action Principle
+
+Because this study was undertaken to test a specific NWAP prediction, we state the outcome for
+that framework directly. It is mixed, and the parts that fail and the parts that survive are
+informative in different ways.
+
+**The structural proposal is validated.** NWAP's directed-graph extension holds that a
+nonreciprocal coupling should be decomposed into symmetric and antisymmetric sectors, with the
+antisymmetric sector carrying the nonequilibrium content. That decomposition is exactly what this
+system required, and constructing it is what made every subsequent measurement possible. Its
+central quantitative prediction — that cluster statistics are set by the antisymmetric-to-symmetric
+ratio — holds at ρ = +0.931, p = 2 × 10⁻⁸, across two system sizes, with a same-particle reciprocal
+control that the source experiment cannot itself provide. This is, to our knowledge, the first
+NWAP prediction tested in a controlled physical system rather than by meta-analysis, and on this
+point it succeeds.
+
+**The mechanism attributed to that sector does not survive.** Three specific claims fail:
+
+*Solenoidality.* The premise that the antisymmetric sector cannot alter a static structural
+observable is contradicted directly: cluster count, a single-snapshot quantity, changes by a factor
+of 12.4 when the antisymmetric coupling alone is scaled. The premise holds only where
+∇·(ρ_eq **v**) = 0, which generic nonreciprocal couplings do not satisfy. It is also in tension
+with the source experiment, whose central result — nonreciprocity arrests coarsening — is itself a
+statement that nonreciprocity changes steady-state structure.
+
+*Circulation.* No circulation is detectable in any coarse network observable, at either system
+size, against a provable equilibrium null. The "circulating partition" half of the prediction has
+no empirical support in this system, notwithstanding that the system is genuinely irreversible.
+
+*The modularity signature.* The proposed empirical test — sustained excess Newman modularity in the
+nonreciprocal case relative to a reciprocal null — fails with inverted sign. Modularity excess
+*decreases* monotonically with nonreciprocity and is highest in the reciprocal reference. The
+underlying reason is that Newman modularity is degenerate on these contact graphs, so the test
+could not have discriminated in either direction.
+
+**What the antisymmetric sector actually contributes is dissipation.** Section 3.10 establishes
+that it produces a positive entropy production quadratic in the coupling, and that its
+cross-coupling to a second nonreciprocal channel is purely reactive. That functional form —
+a positive quadratic in the drive, with an antisymmetric reactive cross-block — is Onsager–Rayleigh
+structure, not action-extremum structure.
+
+**Where this leaves the framework.** We would draw three conclusions, offered constructively.
+
+First, the broadening that NWAP requires is not ad hoc. There is a standard hierarchy of
+variational principles for stochastic dynamics, and least action does not in fact fail for
+nonreciprocal systems: the Onsager–Machlup action is well defined for any drift field. What fails
+is the equilibrium corollary. NWAP's Triple-Action, with its explicit information term traded
+against an energy term under structural constraints, has the formal shape of a Maximum Caliber
+functional — the path-entropy principle that reduces to MaxEnt statically and to Onsager near
+equilibrium. Placing NWAP as a constrained member of that family, with network-structural rather
+than thermodynamic constraints, would give it a principled home and two checkable reductions: it
+should reduce to a Rayleighian at weak drive and to free-energy minimisation at zero drive.
+
+Second, the discipline that keeps such a broadening falsifiable is that each tier carries its own
+experimental signature and membership must be *measured*. We tested three such signatures here.
+A framework asserting that "some variational principle applies" forbids nothing; one asserting
+tier-II membership predicts quadratic dissipation, Onsager reciprocity, and a single effective
+temperature, each of which can fail independently. In this system the first two hold and the third
+turns out not to be well defined — an outcome that no amount of reinterpretation could have
+produced from the framework alone.
+
+Third, the boundary of applicability should be stated rather than obscured. Entropy production here
+is quadratic *at fixed structure*, while the structural response to the antisymmetric coupling is
+strongly non-linear. A Rayleighian therefore covers the dynamics at fixed structure; structure
+selection is a non-equilibrium transition that no current variational principle covers. Since
+structure selection is precisely what NWAP was built to explain, this identifies the gap that new
+theory would have to fill, and it is a more useful result for the framework than a claim of
+coverage would have been.
+
+**A note on the empirical hook.** The reanalysis originally proposed to connect NWAP to this
+literature — computing modularity excess on published trajectory data — should not be attempted;
+we ran it and it fails with inverted sign for reasons intrinsic to the measure. The analysis that
+does work, and that we would suggest in its place, is the χ decomposition with cluster statistics
+and entropy production as the observables, together with the two-kinds-of-arrest distinction of
+Section 4.4 as the bridge to the biological claim.
+
 ## 5. Limitations
 
 **The reciprocity parameter is synthetic.** χ is a control parameter of our construction rather
@@ -803,7 +903,13 @@ estimate and is not monotonic at the top of the ATP range.
 9. Nonreciprocity, dissipation and self-organisation are jointly insufficient to leave linear
    response. This system is consequently a control for systems that are driven but not alive.
 
-10. Cilia differ from it on a specific measurable axis: their irreversibility survives
+10. For the Network-Weighted Action Principle specifically, the structural proposal survives and
+    its quantitative prediction holds (ρ = +0.931, p = 2 × 10⁻⁸), while the mechanism attributed to
+    the antisymmetric sector — solenoidality, circulation, and a modularity signature — fails on all
+    three counts. The sector's measurable contribution is a quadratic dissipation with a reactive
+    cross-coupling, which places it in a dissipation functional rather than an action.
+
+11. Cilia differ from the colloid on a specific measurable axis: their irreversibility survives
     coarse-graining, producing macroscopic circulation in shape space where the colloid produces
     none. The candidate signature of biological organisation is therefore directed influence that
     persists under coarse-graining, rather than directed influence as such.
@@ -858,3 +964,11 @@ Nature Physics **18**, 1 (2022), DOI 10.1038/s41567-021-01446-2.
 
 [8] H. B. G. Casimir. *On Onsager's principle of microscopic reversibility.* Rev. Mod. Phys. **17**,
 343 (1945).
+
+[9] M. G. Frasch. *Minimum-Action Learning: energy-constrained symbolic model selection for
+physical law identification from noisy data.* Preprint (2026). Framework materials and the
+Network-Weighted Action Principle: minAction.net.
+
+[10] E. T. Jaynes. *The minimum entropy production principle.* Annu. Rev. Phys. Chem. **31**, 579
+(1980); and *Macroscopic prediction*, in Complex Systems — Operational Approaches, Springer (1985),
+for Maximum Caliber.
