@@ -33,10 +33,10 @@ if __name__ == "__main__":
     os.makedirs("data_onsager2", exist_ok=True)
     srcs = sorted(glob.glob("data/*_x1_*N1000_*seed[12345].npz"))
     starts = [(s, si) for s in srcs for si in np.linspace(60, 99, 8, dtype=int)]
-    jobs = [dict(src=s, snap=int(si), T=2e4, dt=0.05, seed=6000 + k, tag=f"{k:03d}")
+    jobs = [dict(src=s, snap=int(si), T=1e5, dt=0.05, seed=7000 + k, tag=f"long{k:03d}")
             for k, (s, si) in enumerate(starts)]
     print(f"equilibrating {len(jobs)} configurations with the dissimilar channel")
-    with mp.Pool(4) as pool:
+    with mp.Pool(2) as pool:
         for i, _ in enumerate(pool.imap_unordered(equilibrate, jobs)):
             if i % 10 == 0:
                 print(f"  {i+1}/{len(jobs)}", flush=True)
