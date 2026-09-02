@@ -650,12 +650,44 @@ representation), reduced by PCA to two modes, with the identical estimator and s
 | colloid, χ = 1.5 | single tracked cluster | 0.94 | 0.00 |
 | *Chlamydomonas* axoneme | single organelle | **3.2** | **0.92** |
 
-Single active colloidal clusters show no circulation either. The contrast therefore does not stem
-from the choice of coarse-graining level, and both systems are irreversible microscopically while
-only the biological one exhibits circulation that survives coarse-graining. We note the limitation
-that only three to six clusters per condition persist long enough to be tracked over the 101-frame
-window, so the colloid side of this control rests on few objects, albeit with a null result that is
-uniform across all of them.
+Single active colloidal clusters show no circulation either, so the contrast does not stem from the
+choice of coarse-graining level. We note the limitation that only three to six clusters per
+condition persist long enough to be tracked over the 101-frame window, so the colloid side of this
+control rests on few objects, albeit with a null result uniform across all of them.
+
+**A synthetic positive control, and it changes the interpretation.** The comparison so far
+confounds two contrasts: biological versus synthetic, and *collectively ordered* versus spatially
+distributed and uncoordinated. To separate them we applied the identical estimator to a Vicsek
+flock, which is synthetic and collectively ordered, in four variants:
+
+| variant | polar order | median \|z\| | fraction \|z\|>2 |
+|---|---:|---:|---:|
+| standard (reciprocal, no chirality) | 0.709 | 0.55 | 0.00 |
+| vision cone (**nonreciprocal**, no chirality) | 0.875 | 0.32 | 0.00 |
+| chiral (reciprocal, limit cycle) | 0.015 | 1.80 | 0.33 |
+| chiral + vision cone | 0.069 | **5.58** | **1.00** |
+
+**A purely synthetic system produces circulation stronger than the cilia signal.** Neither
+collective order alone nor nonreciprocity alone suffices — both give a null — but a chiral variant,
+whose intrinsic turning rate imposes a collective limit cycle, circulates strongly.
+
+Varying the turning rate identifies the origin: the measured area rate is 0.0056, 0.0089, 0.0141
+and 0.0352 for ω = 0.005, 0.01, 0.02 and 0.04, a ratio to ω of ≈0.9 throughout. The signal is
+therefore largely the *rotation of the mean heading vector at the imposed rate*, not an emergent
+property.
+
+We therefore withdraw the interpretation that coarse-grained circulation distinguishes biological
+from non-biological organisation. What the measurement detects is whether the system possesses a
+**cyclic collective mode in the chosen projection** — a structural fact about the observable, which
+may be emergent (the ciliary beat, arising from motor coordination) or imposed (a single-particle
+turning rate), and which the estimator cannot distinguish. The colloid suspension lacks such a mode
+at every level of description we examined; cilia possess one; and a synthetic flock can be given
+one by construction.
+
+What survives is the narrower and better-supported statement: the colloid suspension has provably
+positive entropy production and yet no circulation in any coarse observable, at either the
+system-averaged or single-cluster level. Microscopic irreversibility need not project onto
+macroscopic observables. That is a statement about coarse-graining, not about life.
 
 A second and unanticipated result emerges from the same analysis. The area enclosed per beat cycle
 is 5.71 to 6.24 in standardised shape coordinates at every ATP concentration — flat across a
@@ -791,17 +823,19 @@ third proves ill-posed out of equilibrium, and it does so while being nonrecipro
 and strongly self-organising. Those ingredients are therefore jointly insufficient to leave linear
 response, and cannot be what distinguishes living organisation.
 
-Cilia differ from the colloid on a specific and measurable axis: their irreversibility survives
-coarse-graining. This suggests that the discriminating property is not directed influence as such —
-the colloid has ample directed influence, with provably positive entropy production — but directed
-influence that persists to macroscopic scales. If that generalises, the appropriate measurement for
-claims about biological organisation is whether directed structure survives coarse-graining, rather
-than any static or purely microscopic quantity.
+Cilia differ from the colloid on a measurable axis — their irreversibility survives coarse-graining
+— and it is tempting to read that as a signature of biological organisation. A synthetic control
+shows that it is not. A chiral Vicsek flock, given a collective limit cycle by construction,
+circulates more strongly than cilia do, while a nonreciprocal but non-chiral flock circulates not at
+all despite higher polar order. The discriminating property is therefore the presence of a cyclic
+collective mode, not biology and not nonreciprocity.
 
-We do not claim more than the comparison supports. Two systems demonstrate that a difference exists
-on this axis. Establishing that the axis separates biological from non-biological systems in general
-would require many more systems on both sides, chosen so that the biological ones are not simply
-more strongly driven.
+We regard this as the more useful outcome. It converts a claim we could not have defended into a
+narrower one that the data support: microscopic irreversibility need not project onto macroscopic
+observables, and whether it does is a structural property of the system's collective modes rather
+than of its provenance. It also identifies what a genuine biological signature would have to do —
+distinguish an emergent limit cycle, such as the coordinated ciliary beat, from an imposed one,
+such as a single-particle turning rate — which the area-rate estimator by construction cannot.
 
 ### 4.7 Consequences for a network-weighted action principle, and for minimum-action learning
 
@@ -1012,10 +1046,13 @@ estimate and is not monotonic at the top of the ATP range.
     three counts. The sector's measurable contribution is a quadratic dissipation with a reactive
     cross-coupling, which places it in a dissipation functional rather than an action.
 
-11. Cilia differ from the colloid on a specific measurable axis: their irreversibility survives
-    coarse-graining, producing macroscopic circulation in shape space where the colloid produces
-    none. The candidate signature of biological organisation is therefore directed influence that
-    persists under coarse-graining, rather than directed influence as such.
+11. Cilia show macroscopic circulation in shape space where the colloid, at both system-averaged
+    and single-cluster level, shows none. A synthetic chiral flock, however, circulates more
+    strongly than cilia while a nonreciprocal non-chiral flock shows none at all, so the measured
+    property is the presence of a cyclic collective mode rather than biological organisation. The
+    defensible conclusion is that microscopic irreversibility need not project onto macroscopic
+    observables, and that whether it does is a structural property of the system's collective
+    modes.
 
 ## Figures
 
