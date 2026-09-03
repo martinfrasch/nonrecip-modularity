@@ -495,6 +495,32 @@ The symmetric part of the cross-coupling vanishes at every window length, while 
 part is large and stable: **the measured differential cross-response is predominantly
 antisymmetric**, L₁₂ ≈ −L₂₁.
 
+**A structurally dissimilar second channel does not reproduce this.** Because both channels above
+were built with the same pair-co-propulsion structure, the antisymmetry may follow from that
+construction symmetry rather than from any physical relation. We therefore repeated the
+measurement with a second channel made structurally unlike the first — cubic rather than linear
+size contrast, weighted toward the outer part of the overlap rather than uniform across it — from
+configurations equilibrated at the operating point with that channel:
+
+| window T | symmetric part | t | antisymmetric part | t |
+|---:|---:|---:|---:|---:|
+| 200 | +8.67e−7 | +2.04 | +2.16e−6 | +5.2 |
+| 400 | +1.62e−6 | +3.12 | +1.17e−6 | +2.3 |
+| 800 | +2.70e−6 | +4.57 | **+1.18e−8** | **+0.0** |
+
+The pattern inverts. With dissimilar channels the antisymmetric part *decays to zero* while a
+symmetric part grows and becomes significant — the opposite of the identical-channel case, where
+the antisymmetric part plateaued and the symmetric part remained at zero throughout. The result
+is reproduced at two equilibration lengths (T = 2×10⁴ and 1×10⁵), and neither component has
+plateaued at the longest window, so the dissimilar case is not itself converged; but its direction
+is consistent and unambiguous.
+
+**We therefore do not claim antisymmetry as a general property of the cross-response between
+nonreciprocal channels.** It is observed robustly when the two channels share a structure and is
+absent when they do not, which is what the construction-symmetry explanation predicts. The
+identical-channel measurement stands as a measurement; its interpretation as a physical reciprocity
+relation does not survive this control.
+
 We deliberately stop short of calling this Onsager–Casimir reciprocity. That identification would
 require a defined microscopic time-reversal operation with the parities of all time-odd control
 parameters specified, and it cannot be inferred retrospectively from an observed sign. Three
@@ -973,9 +999,12 @@ directed contact graph — with edges signed by the nonreciprocal force imbalanc
 natural next step for that specific claim.
 
 **Box geometry in the source-specification replicate.** The source domain is 648 × 360 µm, an
-aspect ratio of 1.8; our kernel assumes a square box, so the replicate uses an equal-area square.
-A condensate growing along the shorter dimension of the true domain could behave differently. This
-is a deviation, not a correction.
+aspect ratio of 1.8, whereas the replicate uses an equal-area square. We tested this directly with
+a rectangular-box integrator (`simulate_rect.py`, validated as bitwise identical to the square
+kernel in the L_x = L_y limit): at N = 4000, χ = 1.5, matched area, density and duration, the 1.8:1
+rectangle gives lcf = 0.809 ± 0.009 against 0.779 ± 0.004 for the square, a difference of 3.8%.
+The square approximation is therefore justified at this system size, though we have not repeated
+the test at N = 22,000.
 
 **σ²_v is not comparable to the source definition.** The source reports 5 × 10⁻³ and 2 × 10⁻²
 µm²/s² for monodisperse and bidisperse respectively, a ratio of 4; ours is approximately 90. Ours
