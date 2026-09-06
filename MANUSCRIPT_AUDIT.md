@@ -229,3 +229,175 @@ Peixoto; Kubo; Seifert). All are now cited at the point where the relevant claim
 them strengthen §3.3 materially: the modularity-degeneracy result is a known hazard of modularity
 maximisation [23] and part of why inferential community detection is preferred [24], which makes
 our finding an instance of a documented problem rather than an isolated observation.
+
+---
+
+# Round 2 — three further internal reviews, 2026-09-06
+
+Three reviewers. Substantial overlap on the important points, and two of the three now recommend
+splitting the paper. Everything below was verified before acting; two reviewer claims were checked
+against the code and data rather than accepted.
+
+## I. The χ construction (Rev 1's headline objection) — reviewer correct, code correct
+
+Rev 1 observed that §2.1 writes the source force with the *other* particle's radius,
+F_i ∝ −l_j⁴/(r²+l_j²)^{5/2}, while §2.2 defined g_k ≡ α l_k⁴/(r²+l_k²)^{5/2} and then set
+c_i = (1−χ)ḡ + χ g_i — which at χ=1 gives F_i ∝ −l_i⁴, contradicting §2.1.
+
+Checked against `simulate.py`: the kernel computes `gi = alpha * l4[j] / ...`, i.e. **`gi` is the
+coefficient acting on i and is built from l_j**. The implementation is correct and reproduces the
+source law; the manuscript's notation was wrong. Since the whole paper rests on this construction,
+this was the most serious item in the round.
+
+Fixed by introducing an unambiguous notation: g(r; l) for the kernel, then a_i ≡ g(r; l_j) and
+a_j ≡ g(r; l_i) as the coefficients acting *on* each particle, with the index convention stated in
+bold. §2.1 now writes F^EHD_{i←j}. A comment block was added at the kernel warning against
+"fixing" `l4[j]` to `l4[i]`. `tests/test_reciprocity.py` re-run after the edit: numerics unchanged
+(0.000e0 / 1.975e−2 / 3.950e−2).
+
+## J. The circulation "if and only if" — reviewer correct
+
+§2.4 and §2.6 claimed the signed area rate is "nonzero iff time-reversal symmetry is broken". The
+converse is false, and the paper's own results are the counterexample. Both passages now state the
+one-way implication: detailed balance ⇒ zero area rate for every observable pair, so nonzero is
+sufficient evidence of broken time reversal, but zero establishes nothing because the current may
+lie outside the projection. Propagated to the abstract.
+
+## K. The superdiffusion result was an artifact — the most consequential change
+
+Rev 2 conjectured that ⟨ΔX²⟩ ~ t^1.81 on the unnormalised species coordinate X = Σ_{i∈species} x_i
+might be the condensate simply translating, rather than anomalous diffusion. **Tested, and the
+conjecture is right.** `drift_control.py` and `fdt_driftfree.py` were written for this.
+
+Nonreciprocal forces violate Newton's third law, so the system carries net momentum. Measured
+directly, the system centre of mass goes as t^1.96 at χ = 1.5 against t^1.01 at χ = 0 — ballistic
+against diffusive. The response in `fdt.py` is a *paired* difference under common random numbers,
+so the drift cancels from it; the fluctuation is a single unperturbed realisation, so it does not.
+Removing the system COM displacement from the fluctuation, both quantities from the same 150 starts:
+
+| χ = 1.5, large species | raw | drift removed |
+|---|---:|---:|
+| ⟨ΔX²⟩ exponent | 1.93 | 1.40 |
+| T_eff/kT, T = 200 | 5.18 ± 0.45 | **1.01 ± 0.08** |
+| T_eff/kT, T = 400 | 9.54 ± 0.80 | **1.26 ± 0.10** |
+
+So the "effective temperature does not exist" result — which after the previous round was the
+paper's *only* converged tier diagnostic — was largely a coordinate artifact. On the internal
+coordinate the ratio is close to kT.
+
+A second artifact was found in the same measurement. The species difference at χ = 1.5, previously
+read as a symptom of non-convergence, is a normalisation identity: X_rel(L) + X_rel(S) = 0 exactly,
+so the two drift-removed species coordinates are one degree of freedom up to sign, and their
+apparent temperatures must differ by (n_S/n_L)(μ_S/μ_L) = 6.85. Measured ratio 6.7; the variance
+ratio is 3.0000 to five figures. The single-temperature question cannot be posed by this route.
+
+§3.10's A3 was rewritten, and the correction propagated to §1, the §3.10 interpretation,
+conclusions 8 and 9, the Figure 5 caption and the abstract. One clean piece of physics survives and
+is now reported as such: **nonreciprocity makes the suspension's centre of mass ballistic**, a
+direct consequence of the broken third law.
+
+## L. The χ³ / χ² tension resolved — reviewer's diagnosis half right
+
+Rev 2 suggested the apparent χ^3.01 at low drive might be a residual additive bias in the paired
+subtraction. Fitted EPR = aχ² + bχ + c, weighted by each point's standard error:
+
+| range | pure aχ² | aχ² + bχ | + constant |
+|---|---|---|---|
+| N=1000, χ=0.25–1.5 | χ²/dof = 8.35 | a = 3.96(34)e−3, **b = −1.78(32)e−3**, χ²/dof = 1.13 | c = 4.5(2.5)e−4, 1.8σ |
+| N=4000, χ=2–8 | a = 2.93(2)e−3, χ²/dof = 0.11 | b = −0.7(3.3)e−4, consistent with 0 | consistent with 0 |
+
+So it is *not* an additive bias — the constant is insignificant in both ranges. It is a genuine
+**negative linear cross-term**, resolved at 5.6σ at low drive and unresolvable once the quadratic
+dominates. That is exactly the term the construction argument in §3.10 says must exist, so the
+measurement now confirms a prediction instead of leaving a loose end. The "drive-dependent
+exponent" narrative is replaced by a single two-term form across the whole range.
+
+## M. Other reviewer points acted on
+
+- **"113 independent trajectories"** — Rev 1 correct, and this was an error I introduced in round 1.
+  Seeds are blocked, so runs at different χ are deliberately paired. Now "113 simulation runs", with
+  the common-random-number design stated and continuations excluded from any replicate count.
+- **"Nonreciprocity causes arrested coarsening"** conflicted with the asymptotic result. §3.2 now
+  carries an explicit paragraph defining what the phrase denotes here — the finite-time fragmented
+  morphology — and states that nonreciprocity simultaneously unjams the gel and accelerates the
+  majority phase, with the reciprocal case the genuinely arrested one. Carried into the abstract.
+- **N^1.01 over-precise** — recomputed across all twelve one-seed-per-size combinations:
+  **1.00 ± 0.07**, range 0.93–1.07. Reported with that uncertainty, with the fit-free statement
+  (lcf ≈ 0.79, range 0.71–0.86 over a fourfold range of N) given primacy.
+- **Convergence language** — "converged" replaced by "no detectable drift over the final observation
+  window", with the four-way distinction Rev 1 asked for made explicit.
+- **Crossover extrapolation** — the 250–5000× factor is now labelled an extrapolation under the
+  observed growth law, and "operationally empty" softened.
+- **Entropy production definition** — §2.4 now gives Q̇ = Σ F_i ∘ ẋ_i, the relation Ṡ_med = Q̇/T with
+  T = σ²/2, the per-particle normalisation and its units, and states that the paired subtraction is
+  a numerical control and not equivalent to a path-probability calculation. The quantity is called
+  **excess dissipation over the reciprocal control** where the distinction matters.
+- **"Places it in a dissipation functional rather than an action"** — too exclusive; now says the
+  form is naturally represented by a dissipation functional and does not exclude an action.
+- **§3.10 retitled** "The limits of three commonly used nonequilibrium diagnostics".
+- **Vicsek "flock"** — Rev 1 correct: the chiral variants have polar order 0.015 and 0.069, an order
+  of magnitude *below* the non-chiral ones, so the strongest circulation occurs where the mean
+  heading is smallest. Now "Vicsek-type ensemble with an imposed turning rate" throughout, with an
+  explicit note that the control shows circulation is not biological but does *not* show that
+  collective order plus chirality generates it.
+- **Single-cluster null** — de-categorised, with the selection-bias caveat Rev 1 raised (a cluster
+  with strong shape dynamics is less likely to survive the tracking window).
+- **§3.12 / §4.2 overreach** — Rev 2 correct, and §1 warns against exactly this conflation. A Hodge
+  curl of a static edge flow and a probability current in 2N dimensions are different objects. The
+  "most transferable result in the paper" claim is withdrawn; the dominance result is now labelled a
+  structural analogy that the paper rests nothing on.
+- **Hodge methods** — smoothing (Jeffreys ½), empty-dyad handling, gauge, unweighted Frobenius norm,
+  200 null replicates, completeness of all four graphs, and the un-propagated rank uncertainty now
+  stated. "Spurious" made precise: the raw-count cyclicity is real in the count-flow field and
+  spurious only as evidence of intransitivity.
+- **"The structural proposal is validated"** → "the decomposition proved experimentally useful",
+  with an explicit statement that this validates the instrument, not the NWAP functional.
+- **"No current variational principle covers structure selection"** → "not explained by the
+  constructions tested here", naming quasipotentials, large deviations and MFT as untested.
+- **Conclusion 1** "rigorous equilibrium reference" → equilibrium-compatible dynamics, matching §2.3.
+- **Q span 14% vs 15%** — §4.3 corrected to 15%.
+- **Ref [1]** — verified against arXiv:2509.23164; "S. Hara" was right, but the author list is now
+  given in full rather than "S. Hara, Y. Sumino, et al." (Sumino is last author).
+- **Mobility and diffusion in standard notation** (Rev 3) — μ_ij = s_i⁻¹δ_ij**I**, D_i = σ²/(2s_i)
+  now stated in §2.1.
+- **Figure 5(b)** (Rev 3) — caption now specifies the identical- and dissimilar-channel curves are
+  plotted on the same axes.
+- **MAL paragraph** compressed from three paragraphs to five sentences, ending "we test none of this".
+
+## N. The unreported density series — reported, not deleted
+
+Rev 2 noted a declared series that appeared nowhere in the results. Rather than delete it, it was
+analysed. Holding N = 4000 and χ = 1.5 while diluting from 6.944 to 1.736 particles per unit area:
+
+| density | 6.944 | 4.444 | 2.770 | 1.736 |
+|---|---:|---:|---:|---:|
+| largest-cluster fraction | 0.779 | 0.534 | 0.130 | 0.038 |
+| mean fragment size | 5.0 | 5.6 | 6.9 | 6.3 |
+
+The condensate is strongly density-dependent; the fragment scale is not. That brackets the selected
+scale from a second independent direction and materially strengthens §3.9, so the series is now
+reported there. The lowest-density point was not continued and is flagged as least converged.
+
+## O. Not acted on, and why
+
+- **The lcf reconciliation** Rev 2 asked for is a note, not a table: §3.2's 0.753 and §3.8's 0.779
+  are the same runs at t̂ = 4×10⁵ and 8×10⁵. §3.8 now says so. The third value Rev 2 listed (0.786)
+  is N = 16,000, not N = 4,000 — but that exposed a real problem in the composition comparison,
+  which was confounding N and χ with composition. Now stated as the coarse comparison it is.
+- **Split/merge error bars** cannot be produced: the analysis that generated that table did not
+  retain per-bin counts and no script for it survives in the repository. §3.9 now says the crossing
+  is bracketed by the size-5 and size-10 bins, that 7–8 is an interpolation, and that the absence of
+  uncertainties is a gap in our reporting.
+- **Splitting the paper into two.** Two of three reviewers recommend it, with compatible cuts. This
+  is the author's call and has not been made — see the note below.
+
+## P. Journal recommendation — reviewers disagree
+
+Rev 1 and Rev 2 both explicitly withdraw PRX ("this version's central moves are three withdrawals");
+Rev 3 recommends PRX. Rev 1 and Rev 2 converge on **Physical Review E** for a single paper, with
+Physical Review Research as the near-equivalent alternative. If split: Paper A (colloid physics) to
+Soft Matter or PRE, Paper B (diagnostics) to NJP or JSTAT. Rev 2 additionally suggests the
+transience result would stand as a Comment on Hara et al.
+
+Given that this round removed one further positive result (the effective temperature), the majority
+view against PRX looks right.

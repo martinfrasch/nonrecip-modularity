@@ -98,10 +98,14 @@ def _run(pos, svec, lvec, l2, l4, nsteps, dt, Lbox, alpha, chi, sigma, seed, sna
                                             F[i, 1] += fm * ry
                                             F[j, 0] -= fm * rx
                                             F[j, 1] -= fm * ry
+                                        # INDEX CONVENTION: gi is the coefficient acting ON i,
+                                        # and it is built from l[j] -- the OTHER particle's EHD
+                                        # radius. That asymmetry IS the nonreciprocity of the
+                                        # source model; do not "fix" it to l[i].
                                         t = r2 + l2[j]
-                                        gi = alpha * l4[j] / (t * t * np.sqrt(t))
+                                        gi = alpha * l4[j] / (t * t * np.sqrt(t))   # acts on i
                                         t = r2 + l2[i]
-                                        gj = alpha * l4[i] / (t * t * np.sqrt(t))
+                                        gj = alpha * l4[i] / (t * t * np.sqrt(t))   # acts on j
                                         # reciprocity mixing: chi=1 -> original (Hara et al.),
                                         # chi=0 -> exactly reciprocal. The symmetric part
                                         # (gi+gj)/2 is invariant in chi; only the
