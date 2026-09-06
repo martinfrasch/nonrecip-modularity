@@ -412,3 +412,101 @@ transience result would stand as a Comment on Hara et al.
 
 Given that this round removed one further positive result (the effective temperature), the majority
 view against PRX looks right.
+
+---
+
+# Round 3 — three further reviews, 2026-09-06
+
+Reviewers now split 2–1 in favour of dividing the manuscript (Rev 2 and Rev 3 for; Rev 1 against,
+arguing the diagnostic lessons lose their physical anchor without the colloid). That decision is
+the author's and has **not** been taken. Everything below is technical and was applied.
+
+## Q. Two substantive objections tested, both upheld against us
+
+**Q1 — the ballistic centre of mass is a finite-size, window-limited effect.** Rev 2 pointed out
+that §3.5's incoherence result (C ~ N^−0.53) implies a net internal force ~ √N, hence V_com ~
+N^−1/2, so the exponent would be ≈2 at every finite N while the effect vanishes in the
+thermodynamic limit — and separately that if the drift direction decorrelates, t^1.96 is
+window-limited. `com_scaling.py` was written to test both from existing trajectories at
+N = 4000, 9000, 16,000 and 22,000.
+
+Both hold:
+
+| check | result |
+|---|---|
+| d(log V_com)/d(log N), 16 runs, N = 4000–22,000 | **−0.42**, bootstrap 95% CI [−0.78, −0.03] — consistent with −1/2, N-independence only marginally excluded |
+| V_com·√N across the same runs | constant to 48% relative sd (vs 53% for V_com alone) |
+| drift-direction autocorrelation between run halves | mean **+0.50**, range [−0.64, +1.00]; reverses outright in 4 of 16 runs |
+| COM MSD exponent over full production runs | **1.72 ± 0.11**, against 1.96 over the short FDT windows |
+
+So the drift is near-ballistic only over the windows where the effective temperature is measured,
+crosses over toward diffusive at long lag, and has an amplitude consistent with vanishing as
+N^−1/2. The previous round called this "one clean physical result standing on its own"; that is
+withdrawn. It is now reported as a bounded finite-size observation, and the seed scatter within a
+condition (up to 2.4×) is stated as comparable to the effect across the range tested.
+
+**Q2 — "a single two-term form across the whole range" is not what the fits show.** Rev 2 is
+correct: the low-drive fit (a = 3.96(34)×10⁻³) and the high-drive fit (a = 2.93(2)×10⁻³) differ by
+35%, far more than their errors; system size is confounded with drive range; and over a narrow
+window a and b are strongly anticorrelated, so a larger a is exactly how a spurious negative b gets
+absorbed. §3.10 now says the data *require* a term beyond the pure quadratic at low drive, that its
+sign is negative, and that its magnitude is bounded rather than sharply determined — and the
+abstract no longer asserts the cross-term flatly. A run of `epr_probe.py` over the N = 4000 low-χ
+configurations was launched to permit the clean single-N joint fit Rev 2 asks for; if it supports a
+shared a and b at 3σ+, the stronger framing becomes available.
+
+## R. Corrections applied
+
+- **N^1.01 survived in three places** after the round-2 fix (§3.9, Conclusion 7, Figure 3 caption).
+  All now N^1.00 ± 0.07.
+- **§3.1 still used the pre-fix notation** |g_i−g_j|/|g_i+g_j| — the very notation whose ambiguity
+  was round 2's headline correction. Now |a_i−a_j|/|a_i+a_j|.
+- **"Net momentum" is wrong for overdamped dynamics** (Rev 3): there is no momentum state variable.
+  Replaced everywhere with net *internal force* and centre-of-mass *drift*, with the distinction
+  stated once explicitly.
+- **Conclusion 2 and §4.1 reverted to unqualified "arrested coarsening"** after §3.2 defined it
+  operationally. Qualifier carried into both. Conclusion 2 also no longer says "at two system
+  sizes" for the 12.4× factor, which is the N = 4000 number; the pilot gives 9.8× and is now quoted
+  separately.
+- **§3.4's EPR table had no N label** — labelled N = 1000.
+- **The dissimilar-channel table had no error bars** while the identical-channel one did, though it
+  is the sole basis for a withdrawal. Errors recovered from the reported t-values and added.
+- **Density bracket overstated.** Mean fragment size moves 5.0 → 6.9, a 38% swing, and at
+  ρ = 1.736 there is no condensate so "fragments" and "all clusters" coincide. Claim restricted to
+  the three densities with a condensate and downgraded from "independent" to "within a narrow band".
+- **Mouse matrix sits 1.6σ below its own floor** — now noted that a sub-floor value more often
+  indicates an over-dispersed null (compressed fitted rank spacing) than an unusually transitive
+  group.
+- **§2.4 units** — Q̇/(TN) is inverse time with entropy in units of k_B; said explicitly.
+- **"Subcritical vapour"** reintroduced nucleation language through the back door; replaced with
+  "below-crossover population", with the nucleation reading labelled an analogy.
+- **Conclusion 7's lifetime scaling** presented a conditional extrapolation as established; now
+  explicitly conditional.
+- **"Entropy production" vs "excess dissipation"** — main claims now use the latter consistently,
+  with the former reserved for qualified discussion.
+- **"Static" vs "stationary" structure** (Rev 3) — a terminology paragraph added to §3.2 fixing
+  *equal-time structure* for the observable class, *late-time morphology* for finite-duration
+  output, and *stationary distribution* only for a genuine stationary ensemble, which at χ > 0 we
+  do not claim to have sampled.
+- **Abstract run count** now reads "113 blocked-design simulation runs — typically three shared-seed
+  realisations per principal condition", so the trajectory count cannot be read as a replicate count.
+
+## S. Pre-registration table added (§5.1)
+
+Rev 2 called this the cheapest credibility gain available, and it is. `EXPERIMENT.md` committed
+thresholds for H1–H4 before any χ run. Setting them against outcomes: H1 passed at pilot scale and
+**failed** at paper scale (turnover is non-monotonic); H2 failed informatively (Q stayed inside
+threshold, but because Q is degenerate, not because structure is preserved — so the pre-committed
+"prediction confirmed" reading would have been wrong); H3 passed cleanly; H4 came out as the
+pre-committed failure reading, which explicitly said the headline interpretation dies. The one
+hypothesis that passed is the one whose observable survived scrutiny. The withdrawals throughout
+this paper are the pre-registration working, and the table makes that legible.
+
+## T. Reviewer disagreement not resolved here
+
+- **Split or not.** Rev 2 and Rev 3 for, Rev 1 against. Rev 3 adds a sequencing proposal: finalise
+  and submit Paper A now, rebuild Paper B around a positive methodological thesis rather than
+  posting it as the remainder, and hold the dominance/Hodge material out of both until it is its own
+  note. Not acted on — author's decision.
+- **Journal.** All three now agree PRE for the (or a) colloid paper; the earlier PRX suggestion is
+  withdrawn by every reviewer who made it.
