@@ -57,27 +57,43 @@ system, with a system-proportional spray of small fragments alongside it.
 ## Resolution: the composition-corrected replicate
 
 The replicate at the paper's own specification (N=22,000, 22.7% large, equal-area square
-L=53.67) was run to the paper's duration and then continued to twice it:
+L=53.67) was run to the paper's duration and then continued to twice it, and in two cases three times it:
 
-| window | lcf | seed spread | within-run sd | n_cl | largest cluster |
-|---|---:|---:|---:|---:|---:|
-| t̂ = 0 – 3.6e5 (**the paper's duration**) | **0.415** | 0.038 | 0.125 | 431 | 9,140 |
-| t̂ = 3.6e5 – 7.2e5 | **0.831** | 0.021 | 0.019 | 458 | 18,292 |
+**Updated 2026-09-05 to four seeds.** The original two-seed figures (0.415 → 0.831) are superseded;
+they overstated the magnitude and, more importantly, missed that the converged state is not unique.
 
-Both seeds plateau at lcf ≈ 0.83–0.85 over their final third, and the within-run scatter
-collapses from 0.125 to 0.019 — the convergence signature seen at every other box size.
+| seed | t̂ = 0 – 3.6e5 (**the paper's duration**) | 3.6 – 7.2e5 | 7.2e5 – 1.08e6 | drift in final window |
+|---:|---:|---:|---:|---:|
+| 1 | 0.381 | **0.811** | — | +1.1% |
+| 2 | 0.479 | **0.853** | — | +0.8% |
+| 3 | 0.441 | 0.536 | **0.549** | +0.0% |
+| 4 | 0.554 | 0.708 | **0.870** | −0.0% |
+| mean | **0.464 ± 0.037** | | **0.771 ± 0.075** | |
+
+Seeds 3 and 4 were still drifting after the second window and were extended to a third. All four
+are converged at the values shown. The paired rise from the source duration is **+0.307 ± 0.070, a
+66% increase** (paired t = +4.4, p = 0.022), with every seed moving in the same direction, by
+between 24% and 113%.
+
+**The converged state is not unique.** Three seeds settle at 0.81–0.87 while seed 3 settles at
+0.549 and stays there. That heterogeneity is consistent with the kinetic-arrest picture in
+`COARSENING.md`: a configuration that has separated into two large clusters which then cannot find
+each other has no route to a single condensate on any accessible timescale. The asymptotic
+largest-cluster fraction is therefore configuration-dependent — itself a statement about arrest
+rather than about coarsening.
 
 **Two conclusions:**
 
-1. **Composition was not the explanation.** At convergence, 22.7% large gives lcf = 0.831
-   against 0.786 for 25% large — a **+5.8%** difference, not the −47% the unconverged
-   comparison suggested. The 25% composition was still an error worth fixing, but it does not
-   account for the discrepancy with the paper.
+1. **Composition was not the explanation.** At convergence, 22.7% large gives
+   lcf = 0.771 ± 0.075 against 0.786 for 25% large — a difference of about 2%, and of the
+   opposite sign, not the −47% the unconverged comparison suggested. The 25% composition was
+   still an error worth fixing, but it does not account for the discrepancy with the paper.
 
 2. **At the paper's own simulation duration our reimplementation reproduces the paper's
-   reported state** — lcf = 0.415, a majority of particles outside the largest cluster, median
+   reported state** — lcf = 0.464, a majority of particles outside the largest cluster, median
    cluster size 3, matching "a significant fraction of particles remain in small clusters".
-   Run for twice as long, the same system phase-separates to lcf = 0.83.
+   Run for twice as long, the same system phase-separates, to lcf ≈ 0.81–0.87 in three of four
+   seeds and to 0.549 in the fourth.
 
 So the small-cluster state is a **long-lived transient of the model**, not its steady state.
 This is simultaneously a validation success (we land where they land, under their conditions)
@@ -94,7 +110,10 @@ indefinitely.
 
 Deviations that could matter and are not ruled out: our box is an equal-area **square** where
 theirs is 1.8:1 (72×40 λ); a condensate growing in their shorter 40λ dimension may be
-constrained differently. Only 2 seeds. And our reimplementation could differ in ways not yet
+constrained differently — though a direct rectangular-box test at N=4000 (`simulate_rect.py`,
+bitwise identical to the square kernel at L_x = L_y) gives lcf = 0.804 ± 0.008 for the 1.8:1
+rectangle against 0.779 ± 0.004 for the square, a 3% effect, so the square approximation looks
+safe at that size. Four seeds at N=22,000. And our reimplementation could differ in ways not yet
 found, though the force equations and all physical parameters match the published forms
 verbatim.
 

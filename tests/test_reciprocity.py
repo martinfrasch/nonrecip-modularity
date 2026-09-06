@@ -16,9 +16,10 @@ def pair_com_drift(chi, nsteps=2000, dt=0.05, L=6.0):
     svec = np.array([1 / 6, 1 / 6])          # equal steric -> equal mobility
     lvec = np.array([1 / 6, 1 / 9])          # unequal EHD  -> nonreciprocal at chi>0
     snaps = np.zeros((2, 2, 2)); snaps[0] = pos
+    heat = np.zeros(2)
     com0 = pos.mean(axis=0).copy()
     _run(pos, svec, lvec, lvec**2, lvec**4, nsteps, dt, L, 0.005, chi,
-         0.0, 1, nsteps, snaps)                # sigma=0
+         0.0, 1, nsteps, snaps, heat)          # sigma=0
     d = pos.mean(axis=0) - com0
     d -= L * np.round(d / L)
     return float(np.hypot(*d))
@@ -42,7 +43,8 @@ def main():
         pos = np.array([[3.0, 3.0], [3.3, 3.0]])
         s = np.array([1 / 6, 1 / 6]); l = np.array([1 / 6, 1 / 6])
         snaps = np.zeros((2, 2, 2)); snaps[0] = pos
-        _run(pos, s, l, l**2, l**4, 500, 0.05, 6.0, 0.005, chi, 0.0, 1, 500, snaps)
+        heat = np.zeros(2)
+        _run(pos, s, l, l**2, l**4, 500, 0.05, 6.0, 0.005, chi, 0.0, 1, 500, snaps, heat)
         return pos.copy()
     a, b = same_particles(0.0), same_particles(1.0)
     assert np.allclose(a, b, atol=1e-14), "chi changed dynamics of an identical pair"

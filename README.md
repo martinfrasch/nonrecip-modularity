@@ -7,12 +7,12 @@ Eqs. 7–9) — plus a network-analysis pipeline built to test the NWAP directed
 prediction. **Note:** the pipeline as written builds *undirected* contact graphs
 (`nx.Graph`) throughout, so the directed content of that prediction remains untested.
 
-## Results (82 runs, N=1000 and paper scale N=4000; see FINAL_RESULTS.md)
+## Results (113 independent trajectories + 25 continuations, N=1000 to N=22,000; see `PAPER.md`, `FINAL_RESULTS.md`)
 
 **Nonreciprocity causes arrested coarsening, and that is a change in *static* structure.**
 Scaling the antisymmetric coupling alone (χ, see below) with the reciprocal part held
-bit-identical takes the system from 11 clusters to 137 at paper scale — 12.4×,
-p = 9.4e-10 — and raises activity σ²_v by 133×. This reproduces the paper's central
+bit-identical takes the system from 11 clusters to 137 at paper scale — 12.4× —
+and raises activity σ²_v by 133×. This reproduces the paper's central
 mechanism with a control the paper does not have: a same-particle, same-packing,
 same-symmetric-coupling reciprocal reference.
 
@@ -40,9 +40,10 @@ circulating partition"* — fails on both halves:
   zero under detailed balance; measured at both scales, every plane at every χ is
   indistinguishable from the equilibrium null (all p ≥ 0.38).
 - **The system *is* genuinely irreversible.** Entropy production — which unlike edge turnover
-  and σ²_v is exactly zero under detailed balance — is positive for χ ≳ 0.75 and scales as
-  χ² once structure is held fixed. So a current exists; it simply does not appear as
-  circulation in any network observable measured here.
+  and σ²_v is exactly zero under detailed balance — is positive for χ ≳ 0.75 and scales
+  quadratically in χ at high drive. So a current exists; it simply does not appear as
+  circulation in any network observable measured here. See `PAPER.md` §3.10 for what this does
+  and does not establish about near-equilibrium response — in short, less than we first thought.
 
 ### Why the original sweeps could not test the refined prediction
 
@@ -59,8 +60,9 @@ for its validation.
 ### Metric health
 
 `n_cl` and σ²_v are the robust observables. **Edge Jaccard turnover is not**: it correlates
-with morphology (ρ=+0.795 with n_cl), 52% of its mono-vs-bi gap is polydispersity rather than
-reciprocity, ~74% of its value survives in the provably current-free χ=0 system, and it turns
+with morphology (ρ=+0.77 pilot, +0.62 paper scale, against n_cl), 52% of its mono-vs-bi gap is
+polydispersity rather than reciprocity, ~70% of its value survives in the provably current-free
+χ=0 system, and it turns
 **non-monotonic** in χ at paper scale. Newman Q should not be used as a discriminator on
 these graphs at all. `AUDIT.md` documents this in full.
 
@@ -136,7 +138,7 @@ python epr_probe.py                             # entropy production (the curren
   should not be used to discriminate conditions; its resolution limit merges anything below
   ~√(2E) nodes. Report the same-graph two-seed ARI noise floor next to any ARI, and note the
   floor is itself condition-dependent (0.35–0.87 observed).
-- Edge Jaccard turnover is algorithm-free but **not** a current: ~74% of it survives at χ=0,
+- Edge Jaccard turnover is algorithm-free but **not** a current: ~70% of it survives at χ=0,
   where detailed balance makes the probability current exactly zero. It is also
   morphology-correlated and non-monotonic in χ at paper scale. Entropy production
   (`epr_probe.py`) is the current probe; σ²_v is the robust activity probe.

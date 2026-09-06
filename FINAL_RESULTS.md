@@ -49,8 +49,9 @@ from equilibrium.
 **Everything structural got stronger; the turnover story broke.**
 
 - **n_cl contrast grew** 9.8× → **12.4×**. The H_A falsification is firmer at steady state.
-- **σ²_v contrast grew** 24× → **133×**. At pilot scale the runs had not converged; the
-  activity difference was being badly underestimated.
+- **σ²_v contrast grew** 54× → **133×** (χ=1.5 against χ=0; the often-quoted 24–26× is the
+  *monodisperse-vs-bidisperse* pilot contrast, a different comparison). At pilot scale the runs
+  had not converged; the activity difference was being badly underestimated.
 - **Q stayed degenerate at 4× the system size.** 0.930 → 0.901, a 3.1% swing against a 12.4×
   swing in n_cl. Larger graphs did not rescue Louvain's resolution limit.
 - **Edge turnover is NON-MONOTONIC.** It peaks at χ=0.75 (0.384) and *falls* 9% by χ=1.5.

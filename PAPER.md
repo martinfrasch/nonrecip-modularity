@@ -23,15 +23,23 @@ this purpose are shown to be unsuitable: the coupling strength cancels exactly f
 antisymmetric-to-symmetric ratio, and the steric size ratio, as parameterised in the source model,
 varies packing at fixed electrohydrodynamic radii.
 
-Across 133 simulations at four system sizes we find that the antisymmetric sector alters *static*
-structure by an order of magnitude, refuting the solenoidal intuition; that the reciprocal
-reference is a kinetically arrested gel which weak nonreciprocity *unjams*, giving a non-monotonic
-dependence of cluster count on χ; that the finite-cluster state is a long-lived transient rather
-than a steady state, with a crossover time scaling as N^(1/z), z ≈ 0.3; and that no stable
-characteristic cluster size is selected. Entropy production is positive and resolved, yet no
-circulation is detectable in coarse observables — including at single-cluster level, matched to a
-comparison with beating *Chlamydomonas* axonemes, where circulation is strong. Several standard
-network measures, Newman modularity among them, prove unable to detect nonreciprocity at all.
+Across 113 independent trajectories, extended by 25 continuation runs, at five system sizes from
+N = 10³ to 2.2 × 10⁴, we find that the antisymmetric sector alters *static* structure by an order of
+magnitude, refuting the solenoidal intuition; that the reciprocal reference is a kinetically
+arrested gel which weak nonreciprocity *unjams*, giving a non-monotonic dependence of cluster count
+on χ; that the finite-cluster state is a long-lived transient rather than a steady state, with a
+crossover time scaling as N^(1/z), z ≈ 0.3; and that no stable characteristic cluster size is
+selected. Entropy production is positive and resolved, yet no circulation is detectable in coarse
+observables, at either the system-averaged or the single-cluster level, whereas beating
+*Chlamydomonas* axonemes circulate strongly. A synthetic chiral flock circulates more strongly
+still, which withdraws the tempting reading of that contrast as biological and identifies the
+measured property as the presence of a cyclic collective mode. Three commonly invoked diagnostics
+of near-equilibrium response — quadratic dissipation, Onsager reciprocity, and a single effective
+temperature — are tested, and none returns a decisive positive; we report the negative outcome and
+what defeats each test. Several standard network measures, Newman modularity among them, prove
+unable to detect nonreciprocity at all. Finally, in published social-dominance matrices, where the
+same decomposition is exact and finite-dimensional, the antisymmetric coupling is a gradient with
+no detectable circulating component — the same conclusion by an independent route.
 
 **Keywords:** nonreciprocal interactions, active matter, arrested coarsening, entropy production,
 kinetic arrest, coarse-graining
@@ -40,7 +48,8 @@ kinetic arrest, coarse-graining
 ## 1. Introduction
 
 Nonreciprocal interactions, in which the force that *i* exerts on *j* is not the negative of the
-force *j* exerts on *i*, do not derive from a scalar potential. It is worth being precise about
+force *j* exerts on *i*, do not derive from a scalar potential. They are now recognised as a
+generic route to phase behaviour with no equilibrium counterpart [2]. It is worth being precise about
 what this does and does not preclude, because the two are often conflated. It does *not* preclude a
 variational representation of the dynamics: the Onsager–Machlup action is well defined for any
 drift field, gradient or otherwise, and path-space action principles apply to dissipative and
@@ -67,11 +76,17 @@ The intuition we test is a general one, and predates any particular framework: t
 coupling may be decomposed into a symmetric part generating the gradient, energy-like component of
 the dynamics, and an antisymmetric part generating a *solenoidal*, circulating component,
 identified with the nonreciprocal propulsion that Hara et al. isolate as their minimal ingredient.
-Variants of this decomposition appear across the nonreciprocal-matter literature [15–18], and one
-specific formulation — a network-weighted action principle whose directed-graph extension makes
-exactly this assignment [9] — supplied the immediate motivation for this study. We return to that
-formulation in Section 4.7; the predictions tested below are consequences of the decomposition
-itself and do not depend on it.
+Variants of this decomposition appear across the nonreciprocal-matter literature [15–18]. The
+immediate motivation for this study was one specific formulation: a *directed-graph extension* of
+the Network-Weighted Action Principle [9], which assigns the antisymmetric sector of a directed
+coupling the circulating, nonequilibrium role and predicts that it should leave a sustained
+modularity excess in the resulting contact network [30]. We should be precise about the status of
+that extension, since it is what we set out to test: the action principle itself is published
+[9, 30, 33], but the directed-graph extension is not, and the specific assignment tested here was
+formulated by the present author in the course of setting up this study. It is therefore a
+hypothesis of ours, not a claim drawn from the literature, and we test it as such. We return to it
+in Section 4.7; the predictions tested below are consequences of the decomposition itself and do
+not depend on any particular framework endorsing it.
 
 Three consequences follow from that assignment, and all three are testable. We note at the outset
 that the assignment involves a step that is not automatic: antisymmetry under exchange of particle
@@ -92,7 +107,9 @@ strength. The appeal of the picture is that it would preserve an action principl
 part selects structure by energy minimisation, and the antisymmetric part adds circulation on top
 without disturbing the outcome.
 
-We test all three predictions. The third is confirmed; the first two are not.
+We test all three predictions. The first two fail. The third is borne out in substance — cluster
+statistics are strongly controlled by the antisymmetric-to-symmetric ratio — but not in the
+monotonic form the picture supposes, and we set out in Section 4.7 what that distinction costs it.
 
 Testing that proposal requires a control parameter that varies the ratio of antisymmetric to
 symmetric coupling and nothing else. We show in Section 3.1 that neither parameter previously
@@ -111,15 +128,28 @@ nucleation barrier rather than a stable organisational level.
 The second question is which variational tier the system occupies. Rather than asserting that some
 principle applies, we treat tier membership as an experimental matter with measurable signatures,
 and test three of them: quadratic dissipation, Onsager reciprocity, and a single effective
-temperature (Section 3.10). The system passes two of the three, while the third proves ill-posed out of equilibrium, which places it in the linear-response tier on every diagnostic that admits a definite answer and identifies a
-Rayleighian, not an action, as the appropriate variational object for its dynamics.
+temperature (Section 3.10). None returns a decisive positive. The quadratic dissipation is
+near-tautological at fixed structure and is better read as a validation of our entropy-production
+estimator; an apparent Onsager antisymmetry does not survive a control in which the two response
+channels are made structurally dissimilar; and the effective temperature proves not to exist,
+because the collective coordinate is superdiffusive so the fluctuation–dissipation ratio grows
+without bound with the observation window. Tier membership is therefore undetermined by our
+measurements, and the single diagnostic that does converge points away from linear response rather
+than towards it. We regard this as a result about the difficulty of applying the taxonomy as much
+as about the system.
 
-The third question follows from the second. If nonreciprocity, dissipation and self-organisation
-together are insufficient to leave linear response, they cannot be what distinguishes living
-organisation. Section 3.11 therefore uses the colloid suspension as a control — a well
-characterised system that is driven but not alive — and compares it against published recordings
-of beating cilia. The two differ sharply, and on an axis that neither the modularity measures nor
-the entropy production alone would have identified.
+The third question follows from the second, though it does not depend on how the second is
+resolved. Whatever tier the colloid suspension occupies, it is nonreciprocal, dissipative and
+strongly self-organising while being uncontroversially not alive, which makes it a useful control:
+any proposed signature of biological organisation must distinguish itself from this system, not
+merely from equilibrium. Section 3.11 therefore uses the colloid suspension as such a control —
+a well characterised system that is driven but not alive — and compares it against published
+recordings of beating cilia. The two differ sharply, and on an axis that neither the modularity
+measures nor the entropy production alone would have identified; a synthetic control then shows
+that the axis is not the biological one it appears to be. Section 3.12 closes with a system in
+which the symmetric/antisymmetric decomposition can be computed exactly rather than inferred —
+published social-dominance matrices — and reaches the paper's central conclusion about antisymmetry
+by that independent route.
 
 We use the source model without modification except where explicitly stated, and we validate our
 reimplementation against the published specification and duration in Section 3.8.
@@ -185,7 +215,7 @@ simultaneously.
 ### 2.4 Observables
 
 Contact graph: edge if r < 1.1(s_i+s_j), minimum image. Per snapshot we compute Newman
-modularity Q of the Louvain partition, modularity of a degree-preserving (double-edge-swap)
+modularity Q [3] of the Louvain partition, modularity of a degree-preserving (double-edge-swap)
 null, the number of connected components with ≥2 particles (n_cl), and the largest-cluster
 fraction (lcf). Per consecutive pair we compute the adjusted Rand index between partitions
 (reported alongside a same-graph two-seed noise floor), the Jaccard distance between contact
@@ -197,8 +227,8 @@ Two further observables were introduced during this work:
 exactly zero under detailed balance for *any* observable pair and nonzero iff time-reversal
 symmetry is broken.
 
-**Entropy production.** The Stratonovich heat Σ_i F_i ∘ dx_i, accumulated by midpoint rule in
-the kernel. This vanishes identically under detailed balance and is therefore a current, unlike
+**Entropy production.** The Stratonovich heat Σ_i F_i ∘ dx_i [5, 26], accumulated by midpoint rule
+in the kernel. This vanishes identically under detailed balance and is therefore a current, unlike
 turnover or σ²_v. It is unusable at the production timestep — it subtracts two nearly-cancelling
 O(μ|F|²) terms and the discretisation residual dominates — so it is measured at dt = 6.25×10⁻⁴
 restarting from equilibrated configurations, with a paired same-configuration χ=0 control to
@@ -206,14 +236,22 @@ remove each configuration's own bias.
 
 ### 2.5 Simulation campaign
 
-129 runs. Pilot scale N=1000, box 12, t̂=1×10⁵ (61 runs: baseline 5 seeds × 2 cases, α̂ sweep
-4×3, size-ratio sweep 5×3, χ sweep 6×5). Paper scale N=4000, box 24, t̂=4×10⁵, 200 snapshots
-(21 runs: χ sweep 6×3 plus monodisperse reference ×3). Box-scaling series at fixed density
-6.944 particles/area: N=9000/L=36 and N=16000/L=48 at χ ∈ {1, 1.5} (6 runs). Replicate at the
-source paper's specification: N=22,000, 22.7% type-I, equal-area square L=53.67, t̂=3.6×10⁵
-(2 runs). Eleven continuation runs extend selected conditions to t̂=8×10⁵ (or 7.2×10⁵ for the
-replicate). Analyses use the late half of each run. Seeds are blocked: seed *k* gives the same
-initial configuration and noise stream at every χ.
+**113 independent trajectories, extended by 25 continuation runs, for 138 trajectory files in
+total**, at five system sizes:
+
+| series | N | box | t̂ | runs |
+|---|---:|---|---:|---:|
+| Pilot (baseline, α̂ sweep, size-ratio sweep, χ sweep) | 1,000 | L = 12 | 1×10⁵ | 61 |
+| Paper scale (χ sweep 6 × 3, monodisperse reference × 3) | 4,000 | L = 24 | 4×10⁵ | 21 |
+| Box scaling at fixed density 6.944 particles/area | 9,000 / 16,000 | L = 36 / 48 | 4×10⁵ | 6 |
+| Density series at fixed N, χ = 1.5 | 4,000 | L = 30 / 38 / 48 | 8×10⁵ | 6 |
+| High-drive series, χ ∈ {2, 3, 5, 8} | 4,000 | L = 24 | 8×10⁵ | 12 |
+| Rectangular-box control, aspect 1.8 : 1 | 4,000 | 32.20 × 17.89 | 8×10⁵ | 3 |
+| Replicate at the source specification, 22.7% type-I | 22,000 | L = 53.67 | 3.6×10⁵ | 4 |
+
+Continuation runs extend selected conditions to t̂ = 8×10⁵, and the replicate to 7.2×10⁵ or
+1.08×10⁶. Paper-scale runs store 200 snapshots. Analyses use the late half of each run. Seeds are
+blocked: seed *k* gives the same initial configuration and noise stream at every χ.
 
 Tier-membership measurements (Section 3.10) add: entropy production probes at dt = 6.25e-4 from
 equilibrated configurations, with a paired same-configuration control; Onsager cross-coefficients
@@ -222,16 +260,75 @@ central differences with common random numbers at four window lengths; and effec
 measurements from 200 starts per condition, with mobility from the drift under a small force on one
 species and the conjugate fluctuation from the collective coordinate of that species.
 
-The biological comparison (Section 3.11) uses no new simulation: 184 Chlamydomonas axonemes at 1000
-frames per second across eight ATP concentrations, 272,974 frames, from ref. [6].
+The comparisons of Section 3.11 add 184 *Chlamydomonas* axonemes at 1000 frames per second across
+eight ATP concentrations, 272,974 frames, from ref. [6], and a separate Vicsek flock simulation
+(Section 2.6) run in four variants at six seeds each. Section 3.12 uses four published pairwise
+sociomatrices and one published behavioural table, and adds no simulation.
 
 **Convergence.** Equilibration time grows steeply with system size, and an underequilibrated
 large box systematically *understates* the largest cluster — mimicking a finite characteristic
-cluster size. Every continuation run raised the largest-cluster fraction: +3.4% (N=4000),
-+8.8% (N=9000, χ=1.5), +50.9% (N=16000), +86.8% (N=9000, χ=1), +100.1% (N=22,000). No
-scale-selection claim below rests on a run that has not been continued and shown to plateau.
-Collapse of the within-run and between-seed scatter is a more reliable convergence indicator
-here than a slope fit, because cluster counts fluctuate by up to 30% within a run.
+cluster size. Every continuation run raised the largest-cluster fraction: +3.4% (N=4000, χ=1.5),
++8.8% (N=9000, χ=1.5), +50.9% (N=16000, χ=1.5), +86.8% (N=9000, χ=1), and +68% on average at
+N=22,000 (four seeds, range +24% to +115%). No scale-selection claim below rests on a run that has
+not been continued and shown to plateau. Collapse of the within-run and between-seed scatter is a
+more reliable convergence indicator here than a slope fit, because cluster counts fluctuate by up
+to 30% within a run. That collapse is clean at N=4,000 and N=9,000 (between-seed spread in lcf
+falling to ±0.001 at N=9,000) but not at N=16,000, where two converged seeds still differ (0.709
+and 0.857); the N=16,000 point in Section 3.8 therefore carries a correspondingly wide error, which
+its role in the scaling fit must be read against.
+
+### 2.6 The comparison systems
+
+Three systems outside the colloid model are used as controls and comparisons. Because the point of
+each is that the *same* estimator is applied, we specify the shared pipeline once.
+
+**The circulation estimator.** For any two observables (a, b) sampled at uniform intervals, the
+signed area rate is A = ½⟨a ḃ − b ȧ⟩, computed from successive differences. It is exactly zero
+under detailed balance for any observable pair, and nonzero only if time-reversal symmetry is
+broken. Significance is assessed against 80 phase-randomised surrogates per object, which preserve
+the power spectrum of each channel while destroying cross-channel phase relations, and reported as
+|z| = |A − ⟨A_surr⟩| / sd(A_surr). We take absolute values because the sign of a principal
+component is arbitrary, so signed z-scores are not comparable across objects.
+
+**Cilia.** Axoneme centrelines from ref. [6] are converted to a tangent-angle representation
+ψ(s, t) along the arclength s, which removes rigid translation. Rigid *rotation* is removed by
+subtracting the per-frame mean angle, ψ → ψ − ⟨ψ⟩_s; omitting this step leaves the whole-axoneme
+rotation in the signal and yields beat frequencies an order of magnitude below the known 20–50 Hz,
+which is how we detected the omission. The de-rotated ψ is reduced by singular value decomposition
+to its two dominant shape modes, and the estimator is applied in that plane.
+
+**Single colloidal clusters.** To match the level of description, individual clusters are tracked
+over a 101-snapshot window and represented by a low-order shape descriptor: the deviatoric part of
+the gyration tensor together with the normalised third and fourth mass multipoles. This is the
+closest available analogue of a tangent-angle representation for an object with no centreline. The
+descriptor is reduced by principal component analysis to two modes and the identical estimator and
+surrogate protocol applied. Only clusters persisting for the full window are used, which limits the
+comparison to three to six clusters per condition.
+
+**Vicsek flocks.** A standard Vicsek model is run with N = 800 in a periodic box L = 20,
+interaction radius r = 1, speed v = 0.3, dt = 1, angular noise amplitude η = 0.25, for 6000 steps
+of which the first 2000 are discarded:
+
+    θ_i(t+dt) = arg⟨ e^{iθ_j} ⟩_{j ∈ N_i} + ω dt + η·U(−π, π)
+
+Four variants are used: reciprocal with the full 2π interaction neighbourhood (ω = 0); nonreciprocal
+via a vision cone of half-angle 1.2 rad, so that *i* may align to *j* while *j* does not see *i*;
+reciprocal with an intrinsic turning rate ω = 0.02 (chiral); and chiral with a vision cone. Six
+seeds per variant. The coarse observable is the mean heading vector, whose two components form the
+plane in which the estimator is applied — matched in spirit to the two shape modes used for the
+axoneme — and polar order |⟨e^{iθ}⟩| is reported alongside. Turning rates
+ω ∈ {0.005, 0.01, 0.02, 0.04} are additionally used to test whether the measured area rate tracks
+the imposed rate.
+
+**Dominance networks.** For a group of n individuals the net directed interaction flow
+f_ij = −f_ji is an antisymmetric edge function on the complete graph. Filling all triangles leaves
+no harmonic component, so the discrete Hodge decomposition is exact and two-part: f = grad(s) +
+curl, with the gradient part derivable from a scalar rank potential s (obtained as s = −⟨f⟩_row)
+and the curl part genuinely non-gradient. We report the cyclic fraction ‖curl‖/‖f‖. The
+decomposition is applied to **log-odds**, not to raw net counts: a Bradley–Terry hierarchy has
+logit(p_ij) = r_i − r_j exactly, so its log-odds flow is exactly a gradient, whereas the net-count
+flow is a logistic function of the rank difference and a linear decomposition of counts therefore
+retains a spurious cyclic fraction that does not vanish with more data (Section 3.12).
 
 ## 3. Results
 
@@ -258,17 +355,17 @@ Paper scale, 3 seeds per level, all other parameters fixed:
 | χ | 0 | 0.25 | 0.5 | 0.75 | 1.0 | 1.5 | mono ref |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | n_cl | 11.1 | 2.2 | 17.3 | 56.5 | 95.2 | 137.3 | 11.2 |
-| lcf | 0.301 | 0.910 | 0.898 | 0.699 | 0.717 | 0.771 | 0.46 |
+| lcf | 0.301 | 0.881 | 0.904 | 0.800 | 0.791 | 0.753 | 0.261 |
 | Q | 0.930 | 0.911 | 0.910 | 0.909 | 0.906 | 0.901 | 0.936 |
 | σ²_v | 4.19e-10 | 4.28e-10 | 3.65e-09 | 1.37e-08 | 2.76e-08 | 5.57e-08 | 3.07e-10 |
 
 Trend tests across χ (18 runs): n_cl ρ=+0.931 (p=2.1×10⁻⁸); σ²_v ρ=+0.975 (p=7.1×10⁻¹²).
-χ = 0 → 1.5: n_cl 11.1 ± 1.3 → 137.3 ± 0.6 (a factor of 12.4); σ²_v × 133. We quote effect sizes
+χ = 0 → 1.5: n_cl 11.1 ± 0.5 → 137.3 ± 0.5 (a factor of 12.4); σ²_v × 133. We quote effect sizes
 with seed-level scatter rather than p-values here: with three blocked seeds per level, and
 within-run fluctuations of up to 30% (Section 2.5), formal significance tests on run-level means
 produce implausibly small p-values that reflect the variance-reduction of the blocked design rather
-than the evidence. The effects are large enough not to need them. Both contrasts *strengthen* at paper scale relative to pilot scale (n_cl 9.8×,
-σ²_v 24×), indicating the pilot runs had not reached steady state.
+than the evidence. The effects are large enough not to need them. Both contrasts *strengthen* at paper scale relative to pilot scale, where the same ratios are
+9.8× and 54×, indicating the pilot runs had not reached steady state.
 
 **The antisymmetric sector therefore alters static structure.** n_cl and lcf are single-snapshot
 observables; they move by an order of magnitude under a change confined to the antisymmetric
@@ -277,15 +374,21 @@ when ∇·(ρ_eq **v**) = 0, which generic nonreciprocal couplings do not satisf
 
 ### 3.3 Newman modularity is degenerate on these networks
 
-Across all 14 conditions run, cluster count spans 40× (1 → 40) while Q spans 14%, and the two
-are uncorrelated: Spearman ρ = +0.31, p = 0.28. A 3-cluster state (Q=0.869) and a 33-cluster
+Across the 14 pilot-scale conditions, cluster count spans 40× (1 → 40) while Q spans 15%, and
+the two are uncorrelated: Spearman ρ = +0.31, p = 0.28. A 3-cluster state (Q=0.869) and a 33-cluster
 state (Q=0.854) are indistinguishable. Louvain's resolution limit merges communities below
-~√(2E) ≈ 60 nodes, and the degeneracy survives a 4× increase in system size.
+~√(2E) ≈ 60 nodes [4], and the degeneracy survives a 4× increase in system size. This is a known
+hazard of modularity maximisation rather than a peculiarity of our graphs: the modularity landscape
+is characteristically degenerate, with many structurally distinct partitions at near-identical Q
+[23], which is among the reasons inferential rather than descriptive community detection is now
+preferred [24].
 
 Modularity excess over the degree-preserving null **decreases monotonically with
 nonreciprocity** (0.440 at χ=0 → 0.383 at χ=1.5) and is *highest* in the monodisperse
-equilibrium reference (0.462). A prediction of sustained modularity excess in the nonreciprocal
-case is therefore not merely unsupported; the ordering is inverted.
+equilibrium reference (0.462). The prediction that motivated this measurement — that constrained
+organisation shows itself as a sustained modularity *excess* over a null rather than as high
+absolute modularity [30] — is therefore not merely unsupported when carried over to nonreciprocal
+coupling; the ordering is inverted.
 
 ### 3.4 No circulation in coarse observables, but genuine microscopic irreversibility
 
@@ -299,14 +402,16 @@ Entropy production, by contrast, is clearly positive. Paired-bias-subtracted, pe
 |---|---:|---:|---:|---:|---:|
 | net EPR | −5.8e-5 | −2.2e-5 | +8.0e-4 | +2.0e-3 | +6.5e-3 |
 
-resolved for χ ≳ 0.75 and buried in bias noise below. The evolving-structure sweep fits χ^3.01,
-but structure co-varies with χ there. Holding the configuration fixed and varying χ over a
+resolved for χ ≳ 0.75 and buried in bias noise below. Fitted over the three levels at which it
+resolves (χ = 0.75, 1.0, 1.5) the sweep gives χ^3.01, but structure co-varies with χ there. Holding the configuration fixed and varying χ over a
 window too short to relax gives net EPR/χ² flat to **1.27× and 1.61×** on two of three
 configurations, confirming the expected quadratic law; the third configuration's bias probe (a
 single stochastic realisation) came in 2× high and is instrument noise.
 
 **The dynamics are genuinely irreversible, and that irreversibility does not appear as
-circulation in any network observable measured.**
+circulation in any network observable measured.** Entropy production is the standard measure of how
+far an active system sits from equilibrium [19, 20]; the point here is that a positive value of it
+does not guarantee a signature in any given coarse observable.
 
 ### 3.5 The reciprocal reference is a kinetically arrested gel
 
@@ -323,10 +428,16 @@ Three lines of evidence identify this as kinetic arrest rather than equilibrium:
    configuration is frozen at χ=0 (n_cl 10.3→10.0) but coarsens at χ=0.25 (10.3→8.7).
 
 Weak nonreciprocity unjams this. At matched cluster size (40–120 particles) active clusters move
-**10.7× faster** than thermal ones. This is an amplitude effect, not a scaling one: the
-instantaneous drift from the propulsive force scales as N^−0.50, the same exponent as thermal
-diffusion, because the pair propulsions add incoherently at every size (coherence C ≡ |Σp|/Σ|p|
-satisfies C·√N ≈ const from N=5 to N=80).
+**10.7× faster** than thermal ones. This is an amplitude effect rather than a change of scaling,
+and the evidence for that is the coherence rather than the drift. The pair propulsions add
+incoherently at every size: the coherence C ≡ |Σ**p**|/Σ|**p**| falls as N^−0.53 across the full
+range of cluster sizes observed, and C·√N varies only between 1.7 and 2.7 from N ≈ 5 to N ≈ 80. The
+net drive therefore grows as √N and the drift speed should fall as N^−1/2 — the same exponent as
+thermal diffusion, so activity cannot select a size by outrunning diffusion at one. The measured
+drift exponent is consistent with that over the full size range (−0.38 per cluster, −0.47 on binned
+means) but is not resolved over the small-to-medium range alone (−0.09 to −0.12), where the dynamic
+range in N is too small to fit an exponent. We therefore rest the claim on the coherence
+measurement, which is direct, and not on the drift fit.
 
 Consequently cluster count is **non-monotonic**: n_cl dips to 2.2 at χ=0.25 (below the
 reciprocal 11.1) as weak activity completes the arrested phase separation, then rises to 137 as
@@ -347,8 +458,9 @@ The monodisperse-versus-bidisperse comparison confounds reciprocity with polydis
 
 ### 3.7 Observable reliability
 
-Edge Jaccard turnover fails as a dynamical probe on four counts: 74% of its χ=1 value survives
-at χ=0 where the current is provably zero; it correlates with morphology (ρ=+0.795 with n_cl);
+Edge Jaccard turnover fails as a dynamical probe on four counts: about 70% of its χ=1 value
+survives at χ=0 where the current is provably zero (69% at paper scale, 71% at pilot scale); it
+correlates with morphology (Spearman ρ = +0.77 at pilot scale, +0.62 at paper scale, against n_cl);
 its lag-1 value is dominated by hard-cutoff flicker (0.274 at equilibrium, rising to 0.475 by
 lag 32 without plateau); and it is **non-monotonic in χ at paper scale**, peaking at χ=0.75.
 A monotonic trend observed at pilot scale did not survive equilibration.
@@ -386,19 +498,19 @@ Four seeds, each carried forward until its largest-cluster fraction stopped drif
 
 | seed | t̂ = 0 – 3.6×10⁵ (**source duration**) | 3.6 – 7.2×10⁵ | 7.2×10⁵ – 1.08×10⁶ | drift in final window |
 |---:|---:|---:|---:|---:|
-| 1 | 0.378 | **0.811** | — | +1.1% |
-| 2 | 0.453 | **0.852** | — | +0.8% |
-| 3 | 0.443 | 0.531 | **0.549** | +0.0% |
-| 4 | 0.556 | 0.709 | **0.870** | −0.0% |
-| mean | **0.458 ± 0.037** | | **0.770 ± 0.075** | |
+| 1 | 0.381 | **0.811** | — | +1.1% |
+| 2 | 0.479 | **0.853** | — | +0.8% |
+| 3 | 0.441 | 0.536 | **0.549** | +0.0% |
+| 4 | 0.554 | 0.708 | **0.870** | −0.0% |
+| mean | **0.464 ± 0.037** | | **0.771 ± 0.075** | |
 
-Seeds 3 and 4 were still drifting after the second window (+10.6% and +12.3% across its halves)
-and were therefore extended to a third; all four are converged at the values shown. The paired
-increase from the source duration to the converged state is **+0.313 ± 0.073, a 68% rise**
-(paired t = +4.3, p = 0.024), and every seed moves in the same direction, by between 24% and 115%.
+Seeds 3 and 4 were still drifting after the second window and were therefore extended to a third;
+all four are converged at the values shown. The paired increase from the source duration to the
+converged state is **+0.307 ± 0.070, a 66% rise** (paired t = +4.4, p = 0.022), and every seed
+moves in the same direction, by between 24% and 113%.
 
 Two features deserve comment. An earlier two-seed estimate gave 0.415 → 0.831; the four-seed
-figures are 0.458 → 0.770 with a wider spread, so the two-seed version somewhat overstated the
+figures are 0.464 → 0.771 with a wider spread, so the two-seed version somewhat overstated the
 magnitude. More interestingly, **the converged state is not unique**: three seeds settle at
 0.81–0.87 while seed 3 settles at 0.549 and stays there. That heterogeneity is consistent with the
 kinetic-arrest picture of Section 3.5 — a configuration that has separated into two large clusters
@@ -407,11 +519,11 @@ The asymptotic largest-cluster fraction is therefore configuration-dependent, wh
 statement about arrest rather than about coarsening.
 
 Two results follow. First, **composition does not explain the discrepancy**: at convergence
-22.7% type-I gives lcf = 0.831 against 0.786 for 25%, a 5.8% difference rather than the 47%
-the underequilibrated comparison suggested. Second, **at the source paper's own simulation
-duration this reimplementation reproduces its reported state** — a majority of particles outside
-the largest cluster, median cluster size 3 — and the same system continued to twice that
-duration phase-separates. Both seeds plateau at lcf ≈ 0.83–0.85 over their final third.
+22.7% type-I gives lcf = 0.771 ± 0.075 against 0.786 for 25%, a difference of 2% — and of the
+opposite sign — rather than the 47% the underequilibrated comparison suggested. Second, **at the
+source paper's own simulation duration this reimplementation reproduces its reported state** — a
+majority of particles outside the largest cluster, median cluster size 3 — and the same system
+continued to twice that duration phase-separates.
 
 The small-cluster state is therefore a long-lived transient of this model rather than its steady
 state. This is both a validation of the reimplementation (it reaches the published state under
@@ -443,24 +555,26 @@ The crossing is nonetheless the scale that separates the subcritical population 
 condensate. The fragment population (mean ≈ 5) is the subcritical
 vapour, and its N-independence follows because S\* is set by local energetics.
 
-The steady state is thus a condensate coexisting with a subcritical vapour, separated by a
-nucleation barrier. No mechanism caps cluster size, which is consistent with §3.8: the largest
-cluster grows as N^1.01 and the system phase-separates.
+The state is thus a condensate coexisting with a population of small clusters that are, on
+average, more likely to split than to merge. Whether the crossing is a genuine nucleation barrier
+in the thermodynamic sense is exactly the question the drift and committor measurements above would
+settle. What is established is that no mechanism caps cluster size, consistent with §3.8: the
+largest cluster grows as N^1.01 and the system phase-separates.
 
 ### 3.10 Tier membership: which variational principle applies
 
 The preceding sections establish what nonreciprocity does to this system. We now ask what kind of
 variational description it admits. The question is easy to render vacuous — a framework asserting
 that "some variational principle applies" forbids nothing — so we treat tier membership as an
-experimental matter. We stress that the following is a working taxonomy of *commonly invoked diagnostics*, not a
-established classification: the existence of a single effective temperature in particular is a
-nonequilibrium construct in the sense of Cugliandolo and Kurchan [11], and is neither necessary
-nor sufficient for near-equilibrium response. With that caveat:
+experimental matter. We stress that the following is a working taxonomy of *commonly invoked
+diagnostics*, not an established classification: the existence of a single effective temperature in
+particular is a nonequilibrium construct in the sense of Cugliandolo and Kurchan [11], and is
+neither necessary nor sufficient for near-equilibrium response. With that caveat:
 
 | tier | regime | variational object | signature |
 |---|---|---|---|
 | I | equilibrium | free energy; MaxEnt | EPR = 0; detailed balance; Boltzmann |
-| II | linear response | Rayleighian R = Φ̇ + Ψ, Ψ quadratic in rates | fluxes linear in the forces; Onsager reciprocity among conjugate pairs |
+| II | linear response | Rayleighian R = Φ̇ + Ψ, Ψ quadratic in rates [21] | fluxes linear in the forces; Onsager reciprocity among conjugate pairs |
 | III | far from equilibrium | no general principle | nonlinear flux–force relations; reciprocity fails |
 
 It is worth noting at the outset that least action does not fail for nonreciprocal systems in the
@@ -479,18 +593,37 @@ protocol of Section 2.4 and bias-subtracted against a same-configuration χ = 0 
 | EPR | 6.53e−3 | 1.22e−2 | 2.63e−2 | 7.25e−2 | 1.88e−1 |
 | EPR/χ² | 2.90e−3 | 3.04e−3 | 2.93e−3 | 2.90e−3 | 2.93e−3 |
 
-EPR = kχ² with k ≈ 2.93 × 10⁻³, flat to **4.8%** across a fourfold range of drive and a fifteenfold
-range of entropy production.
+EPR = kχ² with k ≈ 2.93 × 10⁻³, flat to **4.8%** across the four points at χ = 2 to 8 — a fourfold
+range of drive and a fifteenfold range of entropy production — and to the same 4.8% when the χ = 1.5
+point is included. Those four points are at N = 4000 and the χ = 1.5 point at N = 1000, which is why
+we quote the range over the former.
 
-We are careful about what this does and does not test. At *frozen* configuration the quadratic
-form is close to guaranteed by construction: the antisymmetric force is exactly linear in χ, the
-dynamics are overdamped with configuration-independent mobility, and the Stratonovich heat is
-bilinear in force and velocity, so the leading term is μ⟨F_a²⟩ ∝ χ² with the cross term vanishing
-by the symmetry of the reciprocal sector. The measurement is therefore best read as a **validation
-of the entropy-production estimator** — non-trivial given the discretisation problems documented in
-Section 5 — rather than as an independent test of linear response. The physically informative
-number is the *evolving-structure* exponent, χ^3.01 (Section 3.4), which is not quadratic and which
-reflects the co-variation of structure with drive.
+We are careful about what this does and does not test, and two things have to be separated.
+
+*This row is not a fixed-configuration measurement.* Each χ is probed from a configuration
+equilibrated at that same χ, so structure co-varies with drive along the row. That makes the clean
+quadratic less trivial than a frozen-structure result would be, but also harder to attribute, since
+two things change together.
+
+*At genuinely frozen configuration the quadratic form is largely fixed by construction.* The
+antisymmetric force is exactly linear in χ; the dynamics are overdamped with
+configuration-independent mobility; and the symmetric sector is conservative, so its own
+contribution to the Stratonovich heat is an exact differential which averages to zero in a
+stationary state. What remains contains a term linear in χ and a term quadratic in it, and the
+quadratic term must dominate at large χ whatever the system does. The only informative question is
+therefore whether the linear cross-term is resolvable, and Section 3.4 reports the direct test:
+holding a configuration fixed and varying χ over a window too short to relax gives net EPR/χ² flat
+to 1.27× and 1.61× on two of three configurations — appreciably noisier than the 4.8% above, and
+not a sharp enough measurement to isolate a linear term.
+
+The measurement is therefore best read as a **validation of the entropy-production estimator**
+across a fifteenfold range of signal — non-trivial given the discretisation problems documented in
+Section 5 — rather than as an independent test of linear response. Nor is the exponent universal:
+over the lower range where structure reorganises most, χ = 0.75 to 1.5, the same estimator gives
+χ^3.01 (Section 3.4) rather than χ². The exponent is drive-dependent — near-cubic at low χ where
+structure is still changing rapidly, near-quadratic at high χ where the antisymmetric term
+dominates by construction. That is a coherent picture, but it is not a demonstration of linear
+response.
 
 **Onsager reciprocity.** This requires a second, independent drive. A uniform field applied to one
 species is unsuitable: the system is isotropic, so the species drift vanishes at zero field for
@@ -540,39 +673,32 @@ absent when they do not, which is what the construction-symmetry explanation pre
 identical-channel measurement stands as a measurement; its interpretation as a physical reciprocity
 relation does not survive this control.
 
-We deliberately stop short of calling this Onsager–Casimir reciprocity. That identification would
-require a defined microscopic time-reversal operation with the parities of all time-odd control
-parameters specified, and it cannot be inferred retrospectively from an observed sign. Three
-further caveats apply. The coefficients are measured about a nonequilibrium operating point rather
-than about equilibrium; χ and χ₂ are internal coupling constants in the equations of motion, not
-thermodynamic affinities, so the bilinear identity above is a definition rather than a derivation;
-and because the two channels were constructed with the same pair-co-propulsion structure, the
-antisymmetry may follow from that construction symmetry rather than from microreversibility. A
-defensible reciprocity test would require either an equilibrium Green–Kubo derivation or an
-explicit Fokker–Planck computation of L_ij for this model, together with a demonstration that the
-antisymmetry survives when the two channels are made structurally dissimilar. We report the
-measurement and its robustness, not a reciprocity relation.
+We deliberately stop short of calling either measurement Onsager–Casimir reciprocity [7, 8]. That
+identification would require a defined microscopic time-reversal operation with the parities of all
+time-odd control parameters specified, and it cannot be inferred retrospectively from an observed
+sign. Three further caveats apply independently of the control just described. The coefficients are
+measured about a nonequilibrium operating point rather than about equilibrium; χ and χ₂ are
+internal coupling constants in the equations of motion, not thermodynamic affinities, so the
+bilinear identity above is a definition rather than a derivation; and the two-channel construction
+is ours, not a feature of the source model.
 
-This result is not merely consistent with the preceding one but explains it. Entropy production is
-the quadratic form EPR = Σ L_ij X_i X_j, to which only the symmetric part of L contributes; a purely
-antisymmetric off-diagonal block dissipates nothing. The cross-coupling between the two
-nonreciprocal channels is therefore *reactive* rather than dissipative, which is precisely why the
-entropy production reduces to a single-coefficient quadratic. Two measurements made by independent
-routes agree on the structure of the response matrix.
+For completeness we record the reading these measurements were originally given, and why it was
+withdrawn. Entropy production is the quadratic form EPR = Σ L_ij X_i X_j, to which only the
+symmetric part of L contributes, so a purely antisymmetric off-diagonal block dissipates nothing;
+an antisymmetric cross-coupling would therefore be *reactive* rather than dissipative, and that
+would explain why the entropy production reduces to a single-coefficient quadratic. A naive parity
+argument predicts the opposite — both fluxes have the form Σ f · v with f even and v odd under time
+reversal, making both odd and their signatures equal — so the observed antisymmetry appeared to
+demand a physical mechanism, for which the most economical candidate was a *gyroscopic* coupling in
+the space of collective coordinates, Magnus- or Coriolis-like, entering the response matrix
+antisymmetrically without contributing to dissipation. The dissimilar-channel control does not
+support that reading. We report it here as the hypothesis the control was built to test and did not
+confirm, rather than as a result. **A defensible Onsager test in this model would require an
+equilibrium Green–Kubo derivation or an explicit Fokker–Planck computation of L_ij, and we do not
+have one.**
 
-The naive parity argument predicts a symmetric relation: both fluxes have the form Σ f · v with f
-even under time reversal and v odd, making both fluxes odd and their signatures equal. The
-measurement contradicts this robustly. The most economical hypothesis is that the cross-coupling is
-*gyroscopic* — a reactive, Magnus- or Coriolis-like coupling in the space of collective
-coordinates, which enters a response matrix antisymmetrically without contributing to dissipation.
-That is consistent with the vanishing symmetric part, and it would explain why entropy production
-reduces to a single-coefficient quadratic. We offer it as a hypothesis requiring analytic
-confirmation, not as an established mechanism, and note that the alternative — that the
-antisymmetry is an artifact of having built the two channels with identical structure — is equally
-live until the dissimilar-channel control is run.
-
-**Effective temperature.** At equilibrium the Einstein relation fixes D/μ = kT for every degree of
-freedom; here mobility is 1/s_i and the noise variance σ²/s_i, so D/μ = σ²/2 exactly for both
+**Effective temperature.** At equilibrium the fluctuation–dissipation theorem [25] fixes
+D/μ = kT for every degree of freedom; here mobility is 1/s_i and the noise variance σ²/s_i, so D/μ = σ²/2 exactly for both
 species. Out of equilibrium the ratio defines an effective temperature, and a single T_eff shared
 across degrees of freedom is a tier-II signature. We measured mobility from the drift under a small
 force applied to one species and the conjugate fluctuation from the collective coordinate
@@ -600,25 +726,50 @@ coefficient grows with the observation window and no window-independent effectiv
 exists.
 
 A3 is therefore neither passed nor failed as posed: out of equilibrium, in this system, the
-fluctuation–dissipation ratio is not a temperature. The apparent species dependence at χ = 1.5
-(t = 3.44 at a single window) is a symptom of the same non-convergence rather than evidence for two
-distinct temperatures, and we do not interpret it as such. The physical content is that
+fluctuation–dissipation ratio is not a temperature. A large–small species difference is present and
+reproducible at χ = 1.5 (t = +3.8 at T = 200 and +3.6 at T = 400), but since neither species' value
+has converged in the window, it is a symptom of the same non-convergence rather than evidence for
+two distinct temperatures, and we do not interpret it as such. The physical content is that
 nonreciprocity drives the collective coordinate ballistic — directed cluster motion, consistent
 with the unjamming mechanism of Section 3.5 — which is precisely the circumstance under which an
 effective-temperature description breaks down.
 
-**Interpretation.** The system passes the tier-II tests despite being nonreciprocal, dissipative,
-and strongly self-organising. A Rayleighian — minimising Φ̇ + Ψ with Ψ quadratic in the rates — is
-therefore the appropriate variational object for its dynamics, and the antisymmetric sector belongs
-in the dissipation functional rather than in an action whose extremum is expected to leave the
-stationary density invariant.
+**Interpretation: no tier-II signature is established.** We set out expecting these three
+diagnostics to place the system in a tier. They do not, and they fail in three different ways.
 
-One boundary should be stated explicitly, because our own data mark it. Entropy production is
-quadratic *at fixed structure*, but the structural response to χ is strongly non-linear: cluster
-count is non-monotonic, dipping at χ = 0.25 before rising by an order of magnitude (Section 3.5).
-The Rayleighian therefore governs the dynamics at fixed structure; *structure selection* is a
-non-equilibrium transition that no current variational principle covers. Identifying that gap seems
-to us more useful than obscuring it.
+The quadratic dissipation is real and cleanly measured, but weakly diagnostic. Its principal value
+is as a validation of the entropy-production estimator across a fifteenfold range of signal — which
+is not nothing, given the discretisation problems documented in Section 5 — rather than as
+independent evidence of linear response. The Onsager measurement returned a stable, plateau-tested
+antisymmetry that the dissimilar-channel control shows to be most parsimoniously a property of how
+we built the second channel; it does not survive as a physical reciprocity relation. The effective
+temperature is not merely unmeasured but ill-defined, because the collective coordinate is
+superdiffusive and the fluctuation–dissipation ratio therefore grows without bound with the
+observation window.
+
+The honest summary is that **tier membership is undetermined by these measurements**, and that the
+one diagnostic which converged to a definite answer points away from tier II rather than towards
+it: a single effective temperature, a defining near-equilibrium construct, does not exist in this
+system. An earlier version of this work read the same three measurements as placing the system in
+the linear-response tier. The dissimilar-channel control withdrew the result that reading rested
+on, and we state the revised position rather than the original one.
+
+We none the less think the exercise was worth conducting, and record its outcome in this form
+deliberately. A framework asserting that "some variational principle applies" forbids nothing; what
+makes tier claims falsifiable is that each tier carries experimental signatures and that membership
+be *measured*. What this section demonstrates is that measuring it honestly is harder than the
+taxonomy suggests. Two of the three signatures proved near-tautological or construction-dependent
+once examined closely, and the third proved not to be a well-defined quantity at all. That is a
+result about the diagnostics as much as about the system, and it is the reason we present the
+taxonomy above as a working list of commonly invoked tests rather than as a classification.
+
+One boundary should be stated explicitly in any case, because our own data mark it. Entropy
+production is quadratic *at fixed structure*, but the structural response to χ is strongly
+non-linear: cluster count is non-monotonic, dipping at χ = 0.25 before rising by an order of
+magnitude (Section 3.5). Whatever variational description ultimately applies to this system can at
+best govern its dynamics at fixed structure; *structure selection* is a non-equilibrium transition
+that no current variational principle covers. Identifying that gap seems to us more useful than
+obscuring it.
 
 ### 3.11 A biological comparison: does irreversibility survive coarse-graining?
 
@@ -755,10 +906,83 @@ activity it appears to be informative, because it asks whether directed structur
 coarse-graining — which is closer to what claims about biological organisation actually assert than
 any purely structural measure is.
 
-We are careful about the scope of this claim. Two systems establish that a difference exists on
-this axis; they do not establish that the axis separates biological from non-biological systems in
-general. Circulation measured in a two-mode projection is moreover a lower bound on irreversibility,
-and neither system's full phase space was searched.
+We are careful about the scope of this claim. Three systems establish that the axis exists and that
+systems differ along it; they do not establish what governs position on it beyond the presence of a
+cyclic collective mode, and one synthetic system with such a mode is not a survey. Circulation
+measured in a two-mode projection is moreover a lower bound on irreversibility, and no system's
+full phase space was searched.
+
+### 3.12 A third system where the decomposition is exact: social dominance
+
+Every result above probes the gradient/circulating question indirectly, through the consequences of
+a decomposition rather than the decomposition itself. In the colloid the antisymmetric sector is
+something we impose; whether the resulting *probability current* circulates has to be inferred from
+observables. There is a class of system in which the analogous decomposition can be computed
+exactly and in finite dimension, and it is worth doing because it tests the same proposition on
+data we did not generate.
+
+For a group of n animals, the net directed interaction flow f_ij = −f_ji is an antisymmetric edge
+function on a complete graph. Filling the triangles leaves no harmonic component, so the discrete
+Hodge decomposition [28] is exact and strictly two-part: a gradient component that *is* derivable from a
+scalar rank potential — the social analogue of a conservative force — and a curl component that is
+genuinely non-gradient, the rock–paper–scissors structure. The cyclic fraction ‖curl‖/‖f‖ is
+therefore a direct measurement of the question the colloid work can only reach through consequences:
+**is this antisymmetric coupling a gradient, or does it circulate?**
+
+**A methodological result comes first, because it changes what the answer is.** The decomposition
+must be applied to log-odds, not to raw net counts. A Bradley–Terry hierarchy has
+logit(p_ij) = r_i − r_j exactly, so its log-odds flow is exactly a gradient, whereas the net-count
+flow is a *logistic* function of the rank difference; a linear decomposition of counts therefore
+retains a spurious cyclic component that does not vanish with more data. On synthetic perfectly
+transitive groups:
+
+| interactions per pair | cyclic fraction, raw counts | cyclic fraction, log-odds |
+|---:|---:|---:|
+| 5 | 0.262 ± 0.093 | 0.288 ± 0.114 |
+| 20 | 0.198 ± 0.054 | 0.197 ± 0.079 |
+| 100 | **0.157 ± 0.030** | 0.094 ± 0.042 |
+| 500 | **0.158 ± 0.013** | **0.044 ± 0.020** |
+
+A perfectly transitive group reads as 16% intransitive on raw counts however much data is
+collected. Published claims of intransitive dominance resting on a linear decomposition of counts
+should be checked against this floor.
+
+**Applied to four published sociomatrices** (bundled with the `compete` package [29]), each against a
+null obtained by fitting that matrix's own rank potential, regenerating a perfectly transitive
+Bradley–Terry truth at its own per-pair counts, and re-decomposing:
+
+| dataset | n | interactions per ordered pair | cyclic fraction | matched transitive floor | z |
+|---|---:|---:|---:|---:|---:|
+| mouse | 12 | 3.5 | 0.495 | 0.580 ± 0.054 | −1.6 |
+| caribou | 20 | 4.3 | 0.607 | 0.579 ± 0.028 | +1.0 |
+| bonobos | 6 | 49.3 | 0.341 | 0.228 ± 0.045 | +2.5 |
+| people | 6 | 31.6 | 0.664 | 0.290 ± 0.074 | +5.1 |
+
+The mouse hierarchy shows no excess cyclicity over a matched Bradley–Terry model — if anything it
+sits slightly below the floor — so its antisymmetric social coupling is consistent with a pure
+gradient, with no circulating component detectable. That points the same way as the colloid result,
+by a route that does not depend on it — **antisymmetry does not imply circulation** — and in a
+system where the decomposition is exact rather than inferred. How much weight it can bear is
+limited, and the next paragraph is about that limit.
+
+We are deliberately restrained about how much this carries. The two sparse matrices have floors
+near 0.58 and cannot resolve cyclicity *in either direction*, so the mouse result should be read as
+"consistent with transitive, with low power" rather than as a positive finding. The two dense
+matrices resolve it and disagree with each other, which establishes that the statistic has real
+range when the counts support it but says nothing systematic about species. All four are single
+unreplicated groups. The binding constraint is interaction density per ordered pair, not data
+availability, and the density that round-robin testing protocols produce is an order of magnitude
+below what the measurement needs; continuous observation of freely interacting animals is the only
+route we know of to close that gap.
+
+A related observation supports the general strategy of this paper rather than any specific claim.
+In the longitudinal behavioural table of ref. [27], the *asymmetry* between a directed behaviour and
+its reverse — chasing minus being chased, following minus being followed — is a substantially more
+reproducible individual trait across days than either direction alone (intraclass correlation
+0.576, 0.619, 0.719, 0.781 across four behaviour pairs, against 0.175–0.676 for the components).
+The per-group asymmetries also sum to zero to machine precision, which validates the rate columns
+internally. The antisymmetric combination being the better-behaved coordinate is exactly the
+premise on which the χ construction of Section 2.2 is built.
 
 ## 4. Discussion
 
@@ -792,11 +1016,21 @@ also stands in direct tension with the source experiment, whose central finding 
 nonreciprocity arrests coarsening — is itself a report that nonreciprocity changes steady-state
 structure.
 
-What the antisymmetric sector does uniquely contribute is a positive quadratic dissipation.
-Section 3.10 shows that its cross-coupling to a second nonreciprocal channel is purely reactive, so
-that entropy production reduces to a single-coefficient quadratic in the drive. That functional
-form is Onsager–Rayleigh structure rather than action-extremum structure, which is why we conclude
-that such couplings belong in a dissipation functional.
+The converse half of the same proposition — that an antisymmetric coupling need not circulate — is
+established independently in Section 3.12, and by a route that does not depend on this model at
+all. In a social dominance network the decomposition is exact and finite-dimensional, and the
+measured coupling is a gradient: derivable from a scalar rank potential, with no detectable
+circulating part. Antisymmetry and circulation are distinct properties, and neither implies the
+other. That two systems as unlike as a colloidal suspension and a mouse colony agree on this is,
+we think, the most transferable result in the paper.
+
+What the antisymmetric sector does uniquely contribute is a positive dissipation, quadratic in the
+coupling at fixed structure (Section 3.10). That is the functional form of a dissipation
+functional rather than of an action whose extremum is expected to leave the stationary density
+invariant, which is why we conclude that such couplings belong in the former. We attach no stronger
+claim than this: Section 3.10 also reports an apparent antisymmetric cross-coupling to a second
+nonreciprocal channel, which a structurally dissimilar control shows not to survive, and we do not
+rest any conclusion on it.
 
 ### 4.3 Network observables are largely blind to nonreciprocity
 
@@ -811,7 +1045,7 @@ contact networks at this density rather than a finite-size effect. Modularity ex
 degree-preserving null moreover *decreases* with nonreciprocity and is highest in the reciprocal
 reference, inverting the predicted ordering.
 
-Edge turnover fails for four independent reasons: 74% of its value at χ = 1 survives at χ = 0,
+Edge turnover fails for four independent reasons: about 70% of its value at χ = 1 survives at χ = 0,
 where the probability current is provably zero; it correlates strongly with cluster morphology; its
 lag-one value is dominated by flicker at the contact threshold rather than by rewiring; and it
 becomes non-monotonic in χ at paper scale, a trend reversal that only appeared after
@@ -863,10 +1097,12 @@ phase, and the genuinely arrested state is the reciprocal one.
 
 ### 4.6 What the biological comparison does and does not establish
 
-The colloid suspension passes the two tier-II diagnostics that admit a definite answer, while the
-third proves ill-posed out of equilibrium, and it does so while being nonreciprocal, dissipative
-and strongly self-organising. Those ingredients are therefore jointly insufficient to leave linear
-response, and cannot be what distinguishes living organisation.
+The colloid suspension is nonreciprocal, dissipative and strongly self-organising, and it is
+uncontroversially not alive. That alone makes it a useful control, and the comparison below does
+not depend on the tier question of Section 3.10 — which, as reported there, our measurements leave
+undetermined. What the comparison requires is only that the colloid be driven, far from
+equilibrium, and demonstrably irreversible at the microscopic level, all of which is established
+independently in Section 3.4.
 
 Cilia differ from the colloid on a measurable axis — their irreversibility survives coarse-graining
 — and it is tempting to read that as a signature of biological organisation. A synthetic control
@@ -885,10 +1121,20 @@ such as a single-particle turning rate — which the area-rate estimator by cons
 ### 4.7 Consequences for a network-weighted action principle, and for minimum-action learning
 
 One specific formulation of the decomposition tested above is the Network-Weighted Action Principle
-(NWAP), whose directed-graph extension makes the symmetric/antisymmetric assignment explicit [9].
-*That framework is the present author's own, and this study was undertaken to test one of its
-predictions; we state the outcome directly and note the conflict of interest.* It is mixed, and the parts that fail and the parts that survive are
-informative in different ways.
+(NWAP) [9, 33], which posits that a system minimises
+
+    S_NW = ∫ (E − I + A·C) dt
+
+with E an energetic or operational cost, I the system's information or diversity, A a connectivity
+weight and C the cost of forming and maintaining connections. It has been applied to physiological
+causation [9], symbolic law discovery [31], neural architecture [32], and marine metabolic networks
+[30]. What this study tests is a *directed-graph extension* of it — unpublished, and formulated by
+the present author while designing this study — that makes the symmetric/antisymmetric assignment
+explicit, together with one published prediction, the modularity-excess signature of ref. [30].
+
+*That framework is the present author's own, and this study was undertaken to test its predictions;
+we state the outcome directly and note the conflict of interest.* The outcome is mixed, and the
+parts that fail and the parts that survive are informative in different ways.
 
 **The structural proposal is validated.** NWAP's directed-graph extension holds that a
 nonreciprocal coupling should be decomposed into symmetric and antisymmetric sectors, with the
@@ -920,17 +1166,27 @@ statement that nonreciprocity changes steady-state structure.
 size, against a provable equilibrium null. The "circulating partition" half of the prediction has
 no empirical support in this system, notwithstanding that the system is genuinely irreversible.
 
-*The modularity signature.* The proposed empirical test — sustained excess Newman modularity in the
-nonreciprocal case relative to a reciprocal null — fails with inverted sign. Modularity excess
-*decreases* monotonically with nonreciprocity and is highest in the reciprocal reference. The
-underlying reason is that Newman modularity is degenerate on these contact graphs, so the test
-could not have discriminated in either direction.
+*The modularity signature.* This is the one prediction with a published pedigree. Ref. [30]
+establishes, in marine metabolic networks, that modularity *excess* over a null — rather than
+absolute modularity, which there arises from sparsity alone — is the informative signature of
+constrained organisation, reporting ΔQ ≈ 0.15–0.40 over configuration-model, label-permutation and
+bipartite-incidence nulls. Carried over to the present system, the directed-graph extension
+predicts a sustained excess in the nonreciprocal case relative to a reciprocal null. **It fails
+with inverted sign.** Our excess over a degree-preserving (configuration-model) null is of
+comparable magnitude to theirs, 0.38–0.46, so the quantity is not simply absent; but it *decreases*
+monotonically with nonreciprocity and is largest in the reciprocal reference. The underlying reason
+is that Newman modularity is degenerate on these contact graphs — cluster count varies forty-fold
+while Q varies by 15%, and the two are uncorrelated — so the test could not have discriminated in
+either direction. We note that this diagnosis is specific to two-dimensional contact networks at
+this density and does not transfer to the sparse bipartite metabolic networks of ref. [30], where
+the excess is measured against a different null on a different topology.
 
 **What the antisymmetric sector actually contributes is dissipation.** Section 3.10 establishes
-that it produces a positive entropy production quadratic in the coupling, and that its
-cross-coupling to a second nonreciprocal channel is purely reactive. That functional form —
-a positive quadratic in the drive, with an antisymmetric reactive cross-block — is Onsager–Rayleigh
-structure, not action-extremum structure.
+that it produces a positive entropy production, quadratic in the coupling at fixed structure. A
+positive quadratic in the drive is the functional form of a dissipation functional, not of an
+action extremum. We had also reported an antisymmetric, hence non-dissipative, cross-coupling to a
+second nonreciprocal channel; that result did not survive its control and is withdrawn, so the
+claim here rests on the dissipation alone.
 
 **Where this leaves the framework.** We would draw three conclusions, offered constructively.
 
@@ -939,29 +1195,44 @@ variational principles for stochastic dynamics, and least action does not in fac
 nonreciprocal systems: the Onsager–Machlup action is well defined for any drift field. What fails
 is the equilibrium corollary. NWAP's Triple-Action, with its explicit information term traded
 against an energy term under structural constraints, has the formal shape of a Maximum Caliber
-functional — the path-entropy principle that reduces to MaxEnt statically and to Onsager near
+functional [10] — the path-entropy principle that reduces to MaxEnt statically and to Onsager near
 equilibrium. Placing NWAP as a constrained member of that family, with network-structural rather
 than thermodynamic constraints, would give it a principled home and two checkable reductions: it
 should reduce to a Rayleighian at weak drive and to free-energy minimisation at zero drive.
+
+This also sharpens NWAP's relation to its neighbours. It has been positioned alongside the
+free-energy principle [34] and dissipative adaptation [35], both of which are likewise
+functional-minimisation accounts of organisation. The distinction our results suggest is not which
+functional is minimised but *what the functional is allowed to govern*: on the evidence here, a
+variational account of this kind can describe the dynamics at fixed structure, and the transition
+that selects the structure is a separate problem. That boundary applies to the neighbouring
+frameworks as much as to NWAP, and is a more useful place to look for discriminating tests than the
+choice of functional.
 
 Second, the discipline that keeps such a broadening falsifiable is that each tier carries its own
 experimental signature and membership must be *measured*. We tested three such signatures here.
 A framework asserting that "some variational principle applies" forbids nothing; one asserting
 tier-II membership predicts quadratic dissipation, Onsager reciprocity, and a single effective
-temperature, each of which can fail independently. In this system the first two hold and the third
-turns out not to be well defined — an outcome that no amount of reinterpretation could have
-produced from the framework alone.
+temperature, each of which can fail independently. In this system none of the three returns a
+decisive positive: the first is near-tautological at fixed structure, the second does not survive
+a structurally dissimilar control, and the third is not a well-defined quantity. That is a harder
+outcome to accommodate than a clean pass or a clean fail, and it is one that no amount of
+reinterpretation could have produced from the framework alone. It also suggests that the tier
+taxonomy, useful as a way of organising what to measure, is not straightforwardly decidable by
+measurement in a system like this one.
 
 Third, the boundary of applicability should be stated rather than obscured. Entropy production here
 is quadratic *at fixed structure*, while the structural response to the antisymmetric coupling is
-strongly non-linear. A Rayleighian therefore covers the dynamics at fixed structure; structure
-selection is a non-equilibrium transition that no current variational principle covers. Since
+strongly non-linear. Whatever variational description turns out to apply — and Section 3.10 does
+not establish that a Rayleighian does — its scope can extend at most to the dynamics at fixed
+structure; structure selection is a non-equilibrium transition that no current variational
+principle covers. Since
 structure selection is precisely what NWAP was built to explain, this identifies the gap that new
 theory would have to fill, and it is a more useful result for the framework than a claim of
 coverage would have been.
 
 **Connection to minimum-action learning.** The same programme has a computational arm, Minimum-Action
-Learning (MAL) [9], which selects symbolic force laws from noisy trajectories by minimising a
+Learning (MAL) [31], which selects symbolic force laws from noisy trajectories by minimising a
 Triple-Action functional whose discriminating component is an energy-conservation term: among
 candidate basis functions, the one that conserves energy under dynamical rollout is selected, and
 this criterion is what lifts raw basis-identification rates to complete identification on the Kepler
@@ -1005,6 +1276,12 @@ the production timestep. It is usable only at much smaller timestep with a paire
 same-configuration control, and it resolves only for χ ≳ 0.75. The bias probe is a single
 stochastic realisation and failed on one of three configurations in the pilot measurement.
 
+**No tier-II signature was established.** Of the three near-equilibrium diagnostics tested in
+Section 3.10, one is near-tautological at fixed structure, one does not survive a
+structurally-dissimilar control, and one is not a well-defined quantity out of equilibrium. We
+therefore make no claim about which variational tier this system occupies, and readers should not
+infer one from the positive entropy production alone.
+
 **Response coefficients required a plateau test.** Both the Onsager and effective-temperature
 measurements produced stable, small-error-bar values under protocols that were subsequently shown
 to be wrong, and in each case only a scan against the measurement window or the perturbation
@@ -1021,7 +1298,7 @@ natural next step for that specific claim.
 aspect ratio of 1.8, whereas the replicate uses an equal-area square. We tested this directly with
 a rectangular-box integrator (`simulate_rect.py`, validated as bitwise identical to the square
 kernel in the L_x = L_y limit): at N = 4000, χ = 1.5, matched area, density and duration, the 1.8:1
-rectangle gives lcf = 0.809 ± 0.009 against 0.779 ± 0.004 for the square, a difference of 3.8%.
+rectangle gives lcf = 0.804 ± 0.008 against 0.779 ± 0.004 for the square, a difference of 3%.
 The square approximation is therefore justified at this system size, though we have not repeated
 the test at N = 22,000.
 
@@ -1035,6 +1312,20 @@ without the source sampling interval.
 which shifts absolute cluster sizes and may bear directly on the transience result of Section 3.8:
 hydrodynamic interactions are exactly the class of ingredient that could stabilise finite clusters
 indefinitely.
+
+**The χ = 0 entropy production is zero by construction, not by measurement.** The paired protocol
+subtracts each configuration's own χ = 0 bias probe, so at χ = 0 the estimate and its control are
+the same quantity and the net is identically zero. The χ = 0 row therefore validates nothing; the
+argument that χ = 0 has zero current is the analytic one of Section 2.3, not an empirical one. What
+the paired protocol does establish is that the *excess* over that reference is resolved for
+χ ≳ 0.75.
+
+**The dominance analysis is underpowered where it matters most.** Of the four published matrices in
+Section 3.12, the two built by round-robin testing have 3.5 and 4.3 interactions per ordered pair
+against a matched transitive floor near 0.58, so they cannot resolve cyclicity in either direction.
+The rodent result is therefore "consistent with a gradient, with low power" and not a positive
+finding. All four are single unreplicated groups, and the floor is computed under a Bradley–Terry
+null; a different transitive generative model would shift it.
 
 **Sample sizes in the biological comparison.** The cilia analysis uses two shape modes and
 phase-randomised surrogates; a stricter surrogate (iterative amplitude-adjusted Fourier transform),
@@ -1061,40 +1352,59 @@ estimate and is not monotonic at the top of the ATP range.
    signature.
 
 5. No circulation is detectable in coarse network observables, yet entropy production is positive
-   and quadratic in the antisymmetric coupling. The system is genuinely irreversible, but that
-   irreversibility does not survive coarse-graining.
+   and, at fixed structure, quadratic in the antisymmetric coupling. The system is genuinely
+   irreversible, but that irreversibility does not survive coarse-graining.
 
 6. The reciprocal reference state is a kinetically arrested gel, not an equilibrium structure. Weak
    nonreciprocity unjams it, producing a non-monotonic dependence of cluster count on χ, and the
    genuinely arrested state is the reciprocal one.
 
 7. No finite characteristic cluster size is selected: the largest cluster grows as N^1.01 across a
-   fourfold range of system size. The scale that is selected, at approximately eight particles, is
-   a critical nucleus — an unstable fixed point separating a subcritical vapour from an unbounded
-   condensate — rather than a stable organisational level. The finite-cluster state is a long-lived
-   transient whose lifetime scales as N^(1/z) with 1/z between 2.4 and 3.7.
+   fourfold range of system size. The scale that is selected, at approximately seven to eight
+   particles, is an **event-rate crossover** — the size at which per-cluster splitting gives way to
+   merging — rather than a stable organisational level. We stop short of calling it a critical
+   nucleus, which would require the size drift ⟨ΔS|S⟩ to change sign there or a committor of one
+   half, neither of which we measured. The finite-cluster state is a long-lived transient whose
+   lifetime scales as N^(1/z) with 1/z between 2.4 and 3.7.
 
-8. The system occupies the linear-response tier on the two membership tests that admit a definite
-   answer: entropy production is quadratic to within 4.8%, and the differential cross-response between two
-   nonreciprocal channels is predominantly antisymmetric, with the symmetric part vanishing at
-   every measurement window. Whether that constitutes Onsager–Casimir reciprocity is not
-   established here. The
-   third test is inconclusive for an informative reason — out of equilibrium the collective
-   coordinate is superdiffusive (⟨ΔX²⟩ ~ t^1.8), so the fluctuation–dissipation ratio grows with
-   the observation window and is not a temperature. A Rayleighian, not an action, is the
-   appropriate variational object, and its scope is the dynamics at fixed structure, since
-   structure selection itself remains uncovered.
+8. **Variational tier membership is undetermined by the three diagnostics we tested, and none of
+   them returns a decisive positive.** Entropy production is quadratic to within 4.8% over a
+   fifteenfold range of signal, but at fixed structure that form is close to guaranteed by the
+   construction of χ, so the measurement is best read as a validation of the entropy-production
+   estimator. A differential cross-response between two nonreciprocal channels is predominantly
+   antisymmetric when the channels share a structure, but a structurally dissimilar control inverts
+   the pattern, so we withdraw the reciprocity reading. The third test fails for an informative
+   reason: out of equilibrium the collective coordinate is superdiffusive (⟨ΔX²⟩ ~ t^1.8), so the
+   fluctuation–dissipation ratio grows with the observation window and is not a temperature at all.
+   That last is the only diagnostic here that converged, and it points away from linear response.
+   Whatever variational description applies, its scope is at most the dynamics at fixed structure,
+   since structure selection itself remains uncovered.
 
-9. Nonreciprocity, dissipation and self-organisation are jointly insufficient to leave linear
-   response. This system is consequently a control for systems that are driven but not alive.
+9. The difficulty in conclusion 8 is itself the finding: two of three commonly invoked tier-II
+   signatures proved near-tautological or construction-dependent under scrutiny, and the third
+   proved not to be a well-defined quantity. Tier taxonomies are useful for deciding what to
+   measure and harder than they appear to decide by measurement. The colloid suspension none the
+   less serves as a control for systems that are driven but not alive, which requires only that it
+   be far from equilibrium and demonstrably irreversible — both established independently.
 
 10. For the Network-Weighted Action Principle specifically, the structural proposal survives and
     its quantitative prediction is borne out though non-monotonically, while the mechanism attributed to
     the antisymmetric sector — solenoidality, circulation, and a modularity signature — fails on all
-    three counts. The sector's measurable contribution is a quadratic dissipation with a reactive
-    cross-coupling, which places it in a dissipation functional rather than an action.
+    three counts. The sector's measurable contribution is a dissipation, quadratic in the coupling
+    at fixed structure, which places it in a dissipation functional rather than an action.
 
-11. Cilia show macroscopic circulation in shape space where the colloid, at both system-averaged
+11. In published social-dominance matrices, where the symmetric/antisymmetric decomposition is
+    exact and finite-dimensional rather than inferred, the measured antisymmetric coupling is
+    consistent with a pure gradient and shows no detectable circulating component — though at an
+    interaction density per ordered pair where the measurement has limited power, so this is
+    "consistent with a gradient", not a demonstration of one. It none the less points the same way
+    as the colloid result, by an independent route: antisymmetry does not imply circulation.
+    Separately, the Hodge decomposition of dominance
+    must be computed on log-odds: on raw counts a perfectly transitive group reads as 16%
+    intransitive however much data is collected, which is a floor that published intransitivity
+    claims should be checked against.
+
+12. Cilia show macroscopic circulation in shape space where the colloid, at both system-averaged
     and single-cluster level, shows none. A synthetic chiral flock, however, circulates more
     strongly than cilia while a nonreciprocal non-chiral flock shows none at all, so the measured
     property is the presence of a cyclic collective mode rather than biological organisation. The
@@ -1131,10 +1441,12 @@ size, measured at Δt = 50 from equilibrated configurations (105,708 cluster obs
 rates cross at S* ≈ 7–8. (b) Their difference, showing the sign change. Splitting dominates below
 S*, merging above. `fig4_rates.png`
 
-**Figure 5 — Dissipation and response.** (a) Entropy production per particle against χ at fixed
-configuration, with the quadratic form. (b) Symmetric and antisymmetric parts of the differential
-cross-response between two nonreciprocal channels, against measurement window: the symmetric part
-is consistent with zero at every window while the antisymmetric part is stable. (c) Mean-squared
+**Figure 5 — Dissipation and response.** (a) Entropy production per particle against χ, each point
+probed from a configuration equilibrated at that χ, with the quadratic form. (b) Symmetric and antisymmetric parts of the differential
+cross-response between two nonreciprocal channels, against measurement window. For channels of
+identical structure the symmetric part is consistent with zero at every window while the
+antisymmetric part is stable; the structurally dissimilar control of Section 3.10 inverts this,
+which is why the reciprocity reading is withdrawn. (c) Mean-squared
 displacement of the collective coordinate against window length: diffusive at χ = 0, strongly
 superdiffusive at χ = 1.5, which is why no window-independent effective temperature exists.
 `fig5_thermo.png`
@@ -1151,17 +1463,22 @@ mis-specified sweeps, retained for the record).
 
 ## Data and code availability
 
-All code, per-run summaries and figures are in the repository. `simulate.py` (model, reciprocity
-parameter, sweeps), `analyze.py` (network observables), `epr_probe.py` (entropy production),
-`onsager.py` and `onsager_equil.py` (reciprocity), `fdt.py` (effective temperature),
-`arrest_test.py` (configuration-swap test), `crossover.py` (per-cluster propulsive force),
-`continue_run.py` (run continuation), `irreversibility.py` and `benchmark_irrev.py` (time-series
-estimators and their calibration), `cilia_analysis.py` (biological comparison),
-`tests/test_reciprocity.py` (validation of the χ construction).
+All code, per-run summaries and figures are in the repository. Simulation: `simulate.py` (model,
+reciprocity parameter, sweeps), `simulate_par.py` (thread-parallel force kernel, validated to
+8.9 × 10⁻¹⁵ against the serial kernel), `simulate_rect.py` (rectangular box, bitwise identical to
+the square kernel at L_x = L_y), `continue_run.py` (run continuation). Analysis: `analyze.py`
+(network observables), `epr_probe.py` (entropy production), `onsager.py`, `onsager_equil.py` and
+`onsager_equil2.py` (cross-response), `fdt.py` (effective temperature), `arrest_test.py`
+(configuration-swap test), `crossover.py` (per-cluster propulsive force), `irreversibility.py` and
+`benchmark_irrev.py` (time-series estimators and their calibration against an exactly solvable
+biased ring walk). Comparison systems: `cilia_analysis.py`, `single_cluster_circulation.py`,
+`vicsek.py`, `hodge_dominance.py`, `forkosh_asymmetry.py`. Figures: `make_figures.py`. Validation:
+`tests/test_reciprocity.py` (the χ construction).
 
 Supporting documents: `AUDIT.md` (observable validity), `EXPERIMENT.md` (pre-registered protocol
 with thresholds committed before running), `BOX_SCALING.md`, `COARSENING.md`, `ONSAGER_RESULT.md`,
-`CILIA_RESULT.md`, `VARIATIONAL_FAMILY.md`, `FOLLOWUP.md`, `TODO.md`.
+`CILIA_RESULT.md`, `DOMINANCE_HODGE_RESULT.md`, `FORKOSH_RESULT.md`, `VARIATIONAL_FAMILY.md`,
+`FOLLOWUP.md`, `TODO.md`.
 
 Raw trajectories (approximately 4 GB) are not version-controlled. The cilia dataset is openly
 available from Dryad under CC0 [6].
@@ -1190,25 +1507,24 @@ Dryad, DOI 10.5061/dryad.0gb5mkm2j.
 [8] H. B. G. Casimir. *On Onsager's principle of microscopic reversibility.* Rev. Mod. Phys. **17**,
 343 (1945).
 
-[9] M. G. Frasch. *Minimum-Action Learning: energy-constrained symbolic model selection for
-physical law identification from noisy data.* arXiv:2603.16951 (2026). *(Author's own prior work;
-see the disclosure in Section 4.7.)*
+[9] M. G. Frasch. *Causal thinking in physiology: a search for vertically organising principles.*
+The Journal of Physiology (2026), DOI 10.1113/JP290762. *(Defines the Network-Weighted Action
+Principle, S_NW = ∫(E − I + A·C) dt. Author's own prior work; see the disclosure in Section 4.7.)*
 
 [10] E. T. Jaynes. *Macroscopic prediction*, in Complex Systems — Operational Approaches, Springer
 (1985), for Maximum Caliber; see also P. D. Dixit et al., J. Chem. Phys. **148**, 010901 (2018).
 
 [11] L. F. Cugliandolo. *The effective temperature.* J. Phys. A **44**, 483001 (2011).
 
-[12] C. P. Broedersz et al. (J. Gladrow, N. Fakhri, F. C. MacKintosh, C. F. Schmidt, D. A. Weitz,
-C. Battle, V. F. Geyer, J. Howard). *Broken detailed balance at mesoscopic scales in active
-biological systems.* Science **352**, 604 (2016).
+[12] C. Battle, C. P. Broedersz, N. Fakhri, V. F. Geyer, J. Howard, C. F. Schmidt,
+F. C. MacKintosh. *Broken detailed balance at mesoscopic scales in active biological systems.*
+Science **352**, 604 (2016).
 
 [13] F. S. Gnesotto, F. Mura, J. Gladrow, C. P. Broedersz. *Broken detailed balance and
 non-equilibrium dynamics in living systems: a review.* Rep. Prog. Phys. **81**, 066601 (2018).
 
 [14] J. Gladrow, C. P. Broedersz, C. F. Schmidt. *Nonequilibrium dynamics of probe filaments in
-actin–myosin networks*, and related work on information loss under coarse-graining of
-irreversibility. Phys. Rev. E **96**, 022408 (2017).
+actin–myosin networks.* Phys. Rev. E **96**, 022408 (2017).
 
 [15] A. V. Ivlev, J. Bartnick, M. Heinen, C.-R. Du, V. Nosenko, H. Löwen. *Statistical mechanics
 where Newton's third law is broken.* Phys. Rev. X **5**, 011035 (2015).
@@ -1245,3 +1561,34 @@ University Press (2023).
 
 [26] U. Seifert. *Stochastic thermodynamics, fluctuation theorems and molecular machines.* Rep.
 Prog. Phys. **75**, 126001 (2012).
+
+[27] O. Forkosh, S. Karamihalev, S. Roeh, et al., A. Chen. *Identity domains capture individual
+differences from across the behavioral repertoire.* Nature Neuroscience **22**, 2023 (2019).
+Data: github.com/OrenForkosh/IdentityDomains (MIT licence).
+
+[28] X. Jiang, L.-H. Lim, Y. Yao, Y. Ye. *Statistical ranking and combinatorial Hodge theory.*
+Mathematical Programming **127**, 203 (2011).
+
+[29] J. P. Curley. *compete: analyzing competitive interaction data.* R package (2016),
+github.com/jalapic/compete.
+
+[30] M. G. Frasch. *Modularity emerges from action-functional constraints in marine metabolic
+networks: a biology-scale validation of the Network-Weighted Action Principle.* arXiv:2605.05254
+(2026). *(Author's own prior work: the source of the modularity-excess prediction tested in
+Sections 3.3 and 4.7.)*
+
+[31] M. G. Frasch. *Minimum-Action Learning: energy-constrained symbolic model selection for
+physical law identification from noisy data.* arXiv:2603.16951 (2026). *(Author's own prior work.)*
+
+[32] M. G. Frasch. *minAction.net: energy-first neural architecture design — from biological
+principles to systematic validation.* arXiv:2604.24805 (2026). *(Author's own prior work.)*
+
+[33] M. G. Frasch. *Bridging mathematical formalism and physical law: a network-weighted action
+framework for foundation model training.* HAL preprint hal-05347658 (2025). *(Author's own prior
+work.)*
+
+[34] K. Friston. *The free-energy principle: a unified brain theory?* Nature Reviews Neuroscience
+**11**, 127 (2010).
+
+[35] J. L. England. *Statistical physics of self-replication.* J. Chem. Phys. **139**, 121923
+(2013).

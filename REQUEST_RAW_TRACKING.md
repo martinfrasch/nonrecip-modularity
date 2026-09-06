@@ -1,6 +1,9 @@
 # Item 3: raw dyadic data request — scientific case and specific ask
 
-Prepared 2026-09-03. Companion analysis: `hodge_dominance.py` (implemented and validated).
+Prepared 2026-09-03. **Updated 2026-09-05: the §7 fallback has been executed** — the analysis is
+now validated *and already run* on four published sociomatrices (`DOMINANCE_HODGE_RESULT.md`).
+That result does not remove the need for this request; it sharpens it, and changes what we should
+ask for. See §4a and the revised §5–§7. Companion analysis: `hodge_dominance.py`.
 
 ---
 
@@ -63,8 +66,11 @@ contact). For 53 groups × 4 days × 12 ordered pairs × ~5 behaviours this is o
 small file, and derivable from whatever pipeline produced the aggregate columns, since those
 columns are row-sums of exactly this table.
 
-**Also needed:** the per-pair total interaction count. The validation below shows the cyclic
-fraction has a sampling floor that depends on it, so the number is not interpretable without it.
+**Also needed, and now the decisive quantity:** the per-ordered-pair total interaction count. The
+cyclic fraction has a sampling floor set by that count (§4a), so the statistic is uninterpretable
+without it — and the published matrices fail precisely here, not on structure. Target density is
+≳100 interactions per ordered pair for a marginal test and ≳500 for a decisive one; four days of
+continuous video per group should be far above both, which is the whole reason for asking.
 
 **(b) Better — timestamped dyadic events.** One row per event: `(group, day, time, actor, target,
 behaviour)`. This additionally permits the sequence to be tested for time-reversibility, an
@@ -102,17 +108,60 @@ On raw counts a perfectly transitive group reads as 16% intransitive however muc
 collected. On log-odds the floor falls as it should. Any published claim of intransitive dominance
 based on a linear decomposition of counts should be checked against this.
 
+## 4a. The fallback has been run, and it identifies the binding constraint
+
+The `compete` R package (Curley lab) bundles four complete pairwise win–loss sociomatrices. We
+decomposed all four (`DOMINANCE_HODGE_RESULT.md`), computing for each a *matched* transitive
+floor: fit the rank potential, regenerate a perfectly transitive Bradley–Terry truth at that
+matrix's own per-pair counts, re-decompose, and take the resulting distribution as the null.
+
+| dataset | n | interactions | interactions per ordered pair | cyclic fraction | matched floor | z |
+|---|---:|---:|---:|---:|---:|---:|
+| mouse | 12 | 234 | **3.5** | 0.495 | 0.580 ± 0.054 | −1.6 |
+| caribou | 20 | 823 | **4.3** | 0.607 | 0.579 ± 0.028 | +1.0 |
+| bonobos | 6 | 739 | 49.3 | 0.341 | 0.228 ± 0.045 | +2.5 |
+| people | 6 | 474 | 31.6 | 0.664 | 0.290 ± 0.074 | +5.1 |
+
+Two things follow, and together they are the reason to make this request rather than to treat the
+question as settled.
+
+**First, the measurement works.** The two dense matrices have floors near 0.25, resolve cyclicity,
+and disagree with each other — so the statistic has real dynamic range when the counts support it.
+
+**Second, the scarce resource is not pairwise structure but interaction density.** The two sparse
+matrices sit at 3.5 and 4.3 interactions per ordered pair, where the matched floor is ≈0.58. At
+that density the estimator cannot distinguish a perfectly transitive hierarchy from a substantially
+cyclic one *in either direction*. The mouse z = −1.6 must therefore be read as "consistent with
+transitive, with low power", not as a positive finding of gradient structure.
+
+This is the constraint a round-robin tube test cannot escape: its interaction count per dyad is
+fixed by the protocol, typically at single digits, and no amount of additional published matrices
+of that design will lower the floor. Only **continuous observation of freely interacting animals**
+produces the density required — which is precisely what the Forkosh protocol (four days of
+continuous video per group) generates and what the aggregate table's row-sums imply has already
+been recorded.
+
+**How much density is needed.** Under a Bradley–Terry truth the log-odds floor falls with the
+per-pair count (n = 4 demo, `hodge_dominance.py`): 0.288 ± 0.114 at 5 per pair, 0.197 ± 0.079 at
+20, 0.094 ± 0.042 at 100, 0.044 ± 0.020 at 500. A cyclic fraction of 0.15 — a modest departure from
+transitivity — is therefore indistinguishable from the floor below ~100 interactions per ordered
+pair and cleanly resolved at ~500. That is the number the request should be framed around.
+
 ## 5. What we would predict, stated before seeing the data
 
-- **Cyclic fraction small but nonzero.** Rodent hierarchies are usually reported as largely
-  transitive, so we expect the gradient part to dominate. A cyclic fraction indistinguishable from
-  the matched sampling floor would be a clean negative result and would say that social dominance,
-  despite being manifestly nonreciprocal, is a *gradient* structure — reinforcing the manuscript's
-  central point that antisymmetry does not imply circulation.
+- **Cyclic fraction small but nonzero, and — critically — resolvable.** Rodent hierarchies are
+  usually reported as largely transitive, so we expect the gradient part to dominate. The public
+  mouse matrix is consistent with that but cannot demonstrate it (floor 0.580 at 3.5 interactions
+  per pair). With continuous-observation counts the floor should fall to ≈0.05–0.10, at which point
+  a cyclic fraction indistinguishable from it would be a genuine negative result: social dominance,
+  though manifestly nonreciprocal, would be a *gradient* structure — reinforcing the manuscript's
+  central point that antisymmetry does not imply circulation. That statement cannot currently be
+  made from any published matrix we have found.
 - **Cyclic fraction anti-correlated with hierarchy stability.** We found individual asymmetry to be
   a stable trait (ICC 0.58–0.78) while hierarchy steepness is labile (0.24–0.37). If the cyclic
   component is what fluctuates, groups with higher cyclic fraction should show less stable
-  steepness across days. This is testable with (a) alone.
+  steepness across days. This is testable with (a) alone, and the 53-group design gives it power
+  that no single published matrix has.
 - **Under (b): whether social irreversibility survives coarse-graining.** Colloids: no. Cilia: yes,
   but a synthetic flock can be made to do the same. A social system would be a third point, and the
   first where any cyclic mode present is neither imposed nor a single-particle property.
@@ -129,23 +178,57 @@ based on a linear decomposition of counts should be checked against this.
 > 0.18–0.68. The per-group asymmetries also sum to zero to machine precision, which is a nice
 > internal validation of the rate columns.
 >
-> We would like to ask whether ordered pairwise interaction counts — who chased whom, by group and
+> We are writing to ask whether ordered pairwise interaction counts — who chased whom, by group and
 > day — could be made available. The aggregate columns appear to be row-sums of exactly such a
-> table. Our specific interest is a Hodge decomposition of the dominance flow, which separates it
-> exactly into a transitive component derivable from a rank potential and an intransitive cyclic
-> residual. That distinction is central to a question in nonequilibrium physics about whether
-> antisymmetric couplings are gradient or circulating, and a small social group is one of the few
-> systems where it can be computed exactly rather than inferred.
+> table.
 >
-> The analysis is implemented and validated, and we would of course propose collaboration and
-> co-authorship on anything arising, rather than merely a data transfer. We are happy to send the
-> current analysis and results first if that is useful.
+> Our interest is a Hodge decomposition of the dominance flow, which separates it exactly into a
+> transitive component derivable from a rank potential and an intransitive cyclic residual. That
+> distinction is central to a question in nonequilibrium physics about whether antisymmetric
+> couplings are gradient or circulating, and a small social group is one of the few systems where it
+> can be computed exactly rather than inferred.
+>
+> We have already implemented the analysis and run it on the four complete sociomatrices bundled
+> with the `compete` package, and the outcome is what motivates this request. The statistic has real
+> range where the data are dense: the two matrices with ~30–50 interactions per ordered pair give
+> cyclic fractions well separated from a matched transitive null. But the two matrices built from
+> round-robin testing have only 3.5 and 4.3 interactions per ordered pair, and at that density the
+> null floor sits at ≈0.58 — high enough that a perfectly transitive hierarchy and a substantially
+> cyclic one are indistinguishable. The published rodent matrix is in that regime, so the question
+> simply cannot be answered from it.
+>
+> What breaks that limit is not more matrices of the same design but many interactions per dyad,
+> which only continuous observation provides. Four days of continuous video per group is exactly the
+> regime where the floor drops far enough for the measurement to mean something, and your 53-group
+> design would additionally let us test whether cyclicity tracks the stability of the hierarchy
+> across days — which the single published groups cannot address at all.
+>
+> We would of course propose collaboration and co-authorship on anything arising, rather than merely
+> a data transfer, and we are happy to send the current analysis and the four-dataset result first
+> if that is useful.
 
-## 7. Fallback if the data are unavailable
+## 7. Status of the fallback
 
-Several published rodent-dominance datasets report full pairwise win/loss matrices (tube tests,
-warm-spot competition, home-cage observation). These are smaller and lack the longitudinal
-behavioural breadth, but they support the Hodge measurement directly and would establish the
-cyclic-fraction result independently of any single group's data. That is the route to take if this
-request is declined or slow, and it is worth starting a literature search for such matrices in
-parallel rather than sequentially.
+**Executed 2026-09-03/05.** The literature/package search returned four complete pairwise
+sociomatrices, all four have been decomposed, and the result is in §4a and
+`DOMINANCE_HODGE_RESULT.md`. The fallback therefore no longer functions as a substitute for this
+request — it *is* the argument for it, because it quantifies exactly why the published data cannot
+answer the question and what property new data would need.
+
+Remaining fallback options, in order of value:
+
+1. **Other continuous-observation rodent datasets.** Curley-type protocols (1–3 h daily for 21
+   days) reach interaction densities comparable to the bonobo/people matrices. Any such dataset with
+   ordered dyadic counts preserved would support the measurement without a new request.
+2. **Dense non-rodent social data.** The bonobo and people matrices show the estimator resolving
+   cyclicity; more groups at that density, in any species, would establish whether the transitive
+   result generalises.
+3. **Aggregation of many sparse matrices from the same protocol.** Pooling does not lower the
+   per-group floor, but a meta-analysis of per-group cyclic fractions against their own matched
+   floors would have more power than any single group. This is the cheapest remaining option and
+   requires no new data.
+
+Caveats on everything above are in `DOMINANCE_HODGE_RESULT.md`: four single unreplicated groups,
+one per dataset; the floor is computed under a Bradley–Terry null; and the cyclic fraction is a
+structural statistic, not a thermodynamic one — it answers "is this antisymmetric coupling a
+gradient?", not "how much does this system dissipate?".
