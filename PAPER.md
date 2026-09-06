@@ -177,7 +177,7 @@ two dimensions with periodic boundaries, in nondimensional units (length λ = 9 
 
     dx_i/dt = ξ_i(t) + (1/s_i) [ Σ_j F^col_ij + Σ_j F^EHD_ij ]
 
-`F^col` is a reciprocal soft-core linear spring of natural length s_i + s_j. The EHD term is
+$F^{\rm col}$ is a reciprocal soft-core linear spring of natural length s_i + s_j. The EHD term is
 
     F^EHD_{i←j} = −α · l_j⁴ / (r² + l_j²)^{5/2} · **r**_ij ,    r ≤ 1
 
@@ -1736,6 +1736,10 @@ biased ring walk). Comparison systems: `cilia_analysis.py`, `single_cluster_circ
 `drift_control.py` (whether the collective-coordinate superdiffusion is whole-system drift) and
 `fdt_driftfree.py` (effective temperature with and without that drift, from the same starts).
 Figures: `make_figures.py`. Validation: `tests/test_reciprocity.py` (the χ construction).
+
+Supplementary figures, not reproduced here: `modularity_test.png` (baseline four-panel),
+`snapshots.png` (final-frame renders), `coarsening.png` (trajectories by χ), `chi_test.png`, and
+`sweep.png` (the two mis-specified sweeps, retained for the record).
 
 Supporting documents: `AUDIT.md` (observable validity), `EXPERIMENT.md` (pre-registered protocol
 with thresholds committed before running), `BOX_SCALING.md`, `COARSENING.md`, `ONSAGER_RESULT.md`,

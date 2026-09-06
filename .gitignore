@@ -5,3 +5,13 @@ __pycache__/
 .DS_Store
 data_actes/
 data_cilia/
+paper.aux
+paper.log
+paper.out
+paper.fls
+paper.fdb_latexmk
+paper.bbl
+paper.blg
+paper.synctex.gz
+paper.Notes.bib
+arxiv/

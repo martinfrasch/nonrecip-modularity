@@ -83,6 +83,22 @@ differ in both. The χ=0 arm is the control that separates them.
 
 </details>
 
+## Manuscript
+
+`PAPER.md` is the source of record. `build_tex.py` converts it to REVTeX 4.2 (APS/PRE) and the
+PDF is built with `latexmk`:
+
+```bash
+python build_tex.py && latexmk -pdf paper.tex     # -> paper.tex, paper.pdf
+```
+
+The conversion is mechanical: the markdown carries physics notation in Unicode rather than LaTeX,
+so `build_tex.py` protects code spans and citations, maps Unicode to math, escapes what remains,
+and emits the 20 tables as captioned floats and the 6 figures at the sections that discuss them.
+Equation blocks are hand-mapped (`EQ` in the script) and table captions live in `CAPS`.
+`arxiv-submission.tar.gz` is the arXiv package: single self-contained `.tex` with an inline
+bibliography plus the six PNGs, no `.bbl` needed.
+
 ## Setup
 
 ```bash
