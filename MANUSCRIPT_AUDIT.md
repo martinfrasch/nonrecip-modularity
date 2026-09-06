@@ -263,38 +263,49 @@ one-way implication: detailed balance ⇒ zero area rate for every observable pa
 sufficient evidence of broken time reversal, but zero establishes nothing because the current may
 lie outside the projection. Propagated to the abstract.
 
-## K. The superdiffusion result was an artifact — the most consequential change
+## K. The superdiffusion result — control run, original claim upheld, one new physical result
 
-Rev 2 conjectured that ⟨ΔX²⟩ ~ t^1.81 on the unnormalised species coordinate X = Σ_{i∈species} x_i
-might be the condensate simply translating, rather than anomalous diffusion. **Tested, and the
-conjecture is right.** `drift_control.py` and `fdt_driftfree.py` were written for this.
+Rev 2 conjectured that ⟨ΔX²⟩ ~ t^1.81 on the unnormalised species coordinate might be the
+condensate simply translating rather than anomalous diffusion. `drift_control.py` and
+`fdt_driftfree.py` were written to test it, over three windows and 150 starts per point.
 
-Nonreciprocal forces violate Newton's third law, so the system carries net momentum. Measured
-directly, the system centre of mass goes as t^1.96 at χ = 1.5 against t^1.01 at χ = 0 — ballistic
-against diffusive. The response in `fdt.py` is a *paired* difference under common random numbers,
-so the drift cancels from it; the fluctuation is a single unperturbed realisation, so it does not.
-Removing the system COM displacement from the fluctuation, both quantities from the same 150 starts:
+**The conjecture is half right, and acting on the half-complete data produced a wrong correction
+that had to be reverted.** An intermediate result, from windows T = 200 and 400 only, showed the
+drift-removed T_eff at 1.01 and 1.26 kT against a raw 5.18 and 9.54 — which looked like the whole
+effect being a coordinate artifact, and was written up and committed as such. The T = 800 window
+and the χ = 0 control together overturned that:
 
-| χ = 1.5, large species | raw | drift removed |
-|---|---:|---:|
-| ⟨ΔX²⟩ exponent | 1.93 | 1.40 |
-| T_eff/kT, T = 200 | 5.18 ± 0.45 | **1.01 ± 0.08** |
-| T_eff/kT, T = 400 | 9.54 ± 0.80 | **1.26 ± 0.10** |
+| T_eff/kT (large species) | T = 200 | T = 400 | T = 800 |
+|---|---:|---:|---:|
+| χ = 0, raw | 0.94 | 1.04 | 1.09 |
+| χ = 0, drift removed | **0.17** | **0.11** | **0.10** |
+| χ = 1.5, raw | 5.18 | 9.54 | 17.66 |
+| χ = 1.5, drift removed | 1.01 | 1.26 | **2.00** |
 
-So the "effective temperature does not exist" result — which after the previous round was the
-paper's *only* converged tier diagnostic — was largely a coordinate artifact. On the internal
-coordinate the ratio is close to kT.
+Two things are visible only with the full sweep. The drift-removed variant **fails its own
+equilibrium calibration**, returning 0.10–0.17 kT at χ = 0 where any valid estimator must return
+unity — because removing the drift from the fluctuation while leaving the paired response untouched
+breaks the conjugacy the Einstein relation requires. And its χ = 1.5 values do not plateau either;
+they double again by T = 800. Measured against each estimator's own equilibrium value, the excess
+grows at t^+0.78 raw and t^+0.88 drift-removed. Drift removal does not rescue the effective
+temperature.
 
-A second artifact was found in the same measurement. The species difference at χ = 1.5, previously
-read as a symptom of non-convergence, is a normalisation identity: X_rel(L) + X_rel(S) = 0 exactly,
-so the two drift-removed species coordinates are one degree of freedom up to sign, and their
-apparent temperatures must differ by (n_S/n_L)(μ_S/μ_L) = 6.85. Measured ratio 6.7; the variance
-ratio is 3.0000 to five figures. The single-temperature question cannot be posed by this route.
+**So A3's original conclusion stands**: no window-independent effective temperature exists at
+χ = 1.5. What the control genuinely adds is (i) a sharper diagnosis — removing whole-system drift
+takes the fluctuation exponent from 1.86 to 1.47, so roughly half the excess is the aggregate
+translating — and (ii) a clean physical result that stands on its own: **the system centre of mass
+is ballistic at χ = 1.5 (t^1.96) against diffusive at χ = 0 (t^1.01)**, a direct quantitative
+signature of the broken third law.
 
-§3.10's A3 was rewritten, and the correction propagated to §1, the §3.10 interpretation,
-conclusions 8 and 9, the Figure 5 caption and the abstract. One clean piece of physics survives and
-is now reported as such: **nonreciprocity makes the suspension's centre of mass ballistic**, a
-direct consequence of the broken third law.
+One genuine artifact was found and is discarded: the large–small species difference. Once system
+drift is removed, X_rel(L) + X_rel(S) = 0 identically, so the two species coordinates are one
+degree of freedom up to sign and their apparent temperatures must differ by (n_S/n_L)(μ_S/μ_L)
+= 6.85. Measured 6.7; variance ratio 3.0000 to five figures. The single-temperature question cannot
+be posed by this route at all.
+
+*Process note.* The intermediate wrong version was committed (95fa8a3) and corrected in the
+following commit. The failed control is reported in §3.10 rather than removed, since a control that
+fails its own calibration is worth recording.
 
 ## L. The χ³ / χ² tension resolved — reviewer's diagnosis half right
 

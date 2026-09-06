@@ -33,7 +33,8 @@ state is the reciprocal one. That fragmented state is a long-lived transient rat
 state: the largest cluster grows in proportion to system size (N^1.00 ± 0.07), and no stable
 characteristic cluster size is selected. Excess dissipation over the reciprocal control is positive
 and resolved, following aχ² + bχ with a negative linear cross-term, and nonreciprocity makes the
-suspension's centre of mass ballistic — a direct consequence of the broken third law. Yet no
+suspension's centre of mass ballistic (⟨ΔR²⟩ ~ t^1.96 against t^1.01 in the reciprocal limit) — a
+direct and quantitative consequence of the broken third law. Yet no
 circulation is detectable in any coarse observable we examined, at either the system-averaged or
 the single-cluster level. That is a statement about those projections rather than about the
 dynamics, since a vanishing projected current does not imply detailed balance even though the
@@ -137,14 +138,14 @@ and test three of them: quadratic dissipation, Onsager reciprocity, and a single
 temperature (Section 3.10). None returns a decisive positive. The quadratic dissipation is
 near-tautological at fixed structure and is better read as a validation of our entropy-production
 estimator; an apparent Onsager antisymmetry does not survive a control in which the two response
-channels are made structurally dissimilar; and the effective temperature, which at first appears to
-diverge with the observation window, turns out on control to be reporting the ballistic drift of
-the system's centre of mass rather than anything about its internal dynamics — with that drift
-removed the ratio sits close to kT. Tier membership is therefore undetermined by our measurements,
-and we regard this as a result about the difficulty of applying the taxonomy as much as about the
-system. The control does yield one clean piece of physics: because nonreciprocal forces violate
-Newton's third law, the suspension carries net momentum and its centre of mass is ballistic
-(⟨ΔX²⟩ ~ t^1.96) where the reciprocal limit is diffusive (t^1.01).
+channels are made structurally dissimilar; and the effective temperature grows without bound with
+the observation window, so no such temperature exists on the coordinate we can measure. Tier
+membership is therefore undetermined by our measurements, and we regard this as a result about the
+difficulty of applying the taxonomy as much as about the system. Chasing the third diagnostic did
+yield one clean piece of physics: because nonreciprocal forces violate Newton's third law, the
+suspension carries net momentum and its centre of mass is ballistic (⟨ΔR²⟩ ~ t^1.96) where the
+reciprocal limit is diffusive (t^1.01). That accounts for about half of the anomalous growth; the
+rest survives a control that removes it.
 
 The third question follows from the second, though it does not depend on how the second is
 resolved. Whatever tier the colloid suspension occupies, it is nonreciprocal, dissipative and
@@ -829,57 +830,58 @@ force applied to one species and the conjugate fluctuation from the collective c
 X = Σ_{i∈species} x_i, with perturbed and unperturbed runs sharing a noise stream. Linear response
 was verified separately: T_eff is independent of the perturbation strength down to f = 3 × 10⁻⁶.
 
-At equilibrium the estimator behaves as it must, returning T_eff/kT = 0.98 ± 0.07 for the large
-species and 0.94 ± 0.07 for the small, their difference consistent with zero (t = 1.01), and
-independent of the measurement window.
+At equilibrium the estimator behaves as it must, returning T_eff/kT = 0.94, 1.04 and 1.09 for the
+large species at measurement windows T = 200, 400 and 800 (150 starts each) — unity within error and
+window-independent to an exponent of +0.11. The small species agrees. That calibration is what makes
+the out-of-equilibrium result interpretable.
 
-Out of equilibrium the raw measurement appears to fail dramatically: T_eff at χ = 1.5 roughly
-doubles between windows of T = 200 and T = 400, from 5.2 to 9.5 kT for the large species, with no
-window-independent value. **A control shows that this is dominated by a coordinate artifact**, and
-the artifact is instructive.
+Out of equilibrium there is no window-independent value. At χ = 1.5 the same estimator gives
+**5.18 ± 0.45, 9.54 ± 0.80 and 17.66 ± 1.54** over the same three windows, growing as t^+0.89 with
+no sign of a plateau. The fluctuation is strongly superdiffusive (⟨ΔX²⟩ ~ t^1.86) while the response
+stays linear in time, so the apparent diffusion coefficient grows with the observation window.
 
+**Part of that superdiffusion is whole-system drift, and identifying it yields a physical result.**
 Nonreciprocal forces violate Newton's third law, so the suspension carries net momentum and its
-centre of mass translates. Measuring the mean-square displacement of the system centre of mass
-directly gives t^1.96 at χ = 1.5 against t^1.01 at χ = 0 — ballistic against diffusive. Our
-response is a *paired* difference under common random numbers, so that drift cancels from it; the
-fluctuation is a single unperturbed realisation, so it does not. Pairing a drift-contaminated
-fluctuation with a drift-free response inflates T_eff and makes it grow with the window, whatever
-the internal dynamics are doing. Removing the system centre-of-mass displacement from the
-fluctuation, with everything else identical and both quantities from the same 150 starts:
+centre of mass translates. Measured directly, the system centre of mass goes as t^1.96 at χ = 1.5
+against t^1.01 at χ = 0 — ballistic against diffusive. Since our response is a paired difference
+under common random numbers, that drift cancels from the response but not from the fluctuation.
+Removing the system centre-of-mass displacement from the fluctuation reduces the exponent from 1.86
+to 1.47, so roughly half the excess growth is the aggregate translating.
 
-| χ = 1.5, large species | raw coordinate | system drift removed |
+**It does not, however, rescue the effective temperature, and we report the failed control
+explicitly.** The drift-removed variant does not survive its own equilibrium calibration: at χ = 0
+it returns 0.17, 0.11 and 0.10 kT rather than unity, because removing the drift from the
+fluctuation while leaving the paired response untouched breaks the conjugacy the Einstein relation
+requires. Its absolute values are therefore not temperatures. Measured against its own equilibrium
+value — the only defensible way to use it — the excess at χ = 1.5 is 5.9, 11.5 and 20.0, growing at
+t^+0.88 against t^+0.78 for the raw estimator. The growth is not an artifact of the coordinate.
+
+| | χ = 0 | χ = 1.5 |
 |---|---:|---:|
-| ⟨ΔX²⟩ scaling | t^1.93 | t^1.40 |
-| T_eff/kT at T = 200 | 5.18 ± 0.45 | **1.01 ± 0.08** |
-| T_eff/kT at T = 400 | 9.54 ± 0.80 | **1.26 ± 0.10** |
+| system centre of mass, ⟨ΔR²⟩ | t^1.01 | **t^1.96** |
+| species coordinate, ⟨ΔX²⟩ | t^1.08 | t^1.86 |
+| species coordinate, drift removed | t^0.59 | t^1.47 |
+| T_eff/kT at T = 200 / 400 / 800 | 0.94 / 1.04 / 1.09 | **5.18 / 9.54 / 17.66** |
 
-On the internal coordinate the fluctuation–dissipation ratio is close to kT and only weakly
-window-dependent. The dramatic failure is therefore not a property of the system's internal
-dynamics but of measuring an unnormalised collective coordinate in a system whose centre of mass
-runs away.
+A3 therefore fails, and fails for the reason originally reported: out of equilibrium, in this
+system, the fluctuation–dissipation ratio on this coordinate is not a temperature. What the control
+adds is a sharper diagnosis — about half the effect is the trivial one of a self-propelled aggregate
+translating — and one clean piece of physics that stands on its own: **nonreciprocity makes the
+suspension's centre of mass ballistic**, α = 1.96 against 1.01 in the reciprocal limit, which is a
+direct and quantitative signature of the broken third law.
 
-Two things follow, pointing in different directions.
+We put the negative verdict carefully. What fails is the Einstein-ratio interpretation on this
+coordinate. That is not the same as demonstrating a nonlinear flux–force relation, and we do not
+claim the stronger statement.
 
-*There is a real physical result here, and it is not the one we set out to measure.* On the
-centre-of-mass coordinate no effective temperature exists, because that coordinate is ballistic:
-nonreciprocity gives the suspension net self-propulsion, and D/μ on it grows without bound. That is
-a direct consequence of third-law violation rather than a subtle failure of linear response — any
-self-propelled object behaves this way — and it is better stated as physics than as a diagnostic
-outcome: **nonreciprocity makes the suspension's centre of mass ballistic**, α = 1.96 against 1.01
-in the reciprocal limit.
-
-*The single-temperature question cannot be asked of this system by this route.* Once the system
-drift is removed, the two species' coordinates are no longer independent: X_rel(L) + X_rel(S) = 0
-identically, so they are one degree of freedom up to sign, and their apparent temperatures must
-differ by exactly (n_S/n_L)(μ_S/μ_L) = 6.85. The measured ratio is 6.7. The species difference we
-previously reported at χ = 1.5, and read as a symptom of non-convergence, is a normalisation
-artifact of the constraint. Testing whether one temperature is shared across degrees of freedom
-would require independent coordinates, which the collective species coordinates are not.
-
-A3 therefore returns no verdict. What it returns instead is a caution about coordinates: an
-unnormalised collective coordinate, in a system whose centre of mass drifts, reports a diverging
-effective temperature regardless of the internal dynamics. We report this at length because the
-previous version of this work drew a substantive conclusion from exactly that artifact.
+*The species comparison, by contrast, is an artifact and should be discarded.* An earlier version of
+this work read the large–small difference at χ = 1.5 as evidence bearing on whether one temperature
+is shared across degrees of freedom. It is not: once the system drift is removed,
+X_rel(L) + X_rel(S) = 0 identically, so the two species coordinates are one degree of freedom up to
+sign, and their apparent temperatures must differ by exactly (n_S/n_L)(μ_S/μ_L) = 6.85. The measured
+ratio is 6.7, and the variance ratio is 3.0000 to five figures. Testing whether a single temperature
+is shared would require genuinely independent coordinates, which collective species coordinates in a
+two-component mixture are not.
 
 **Interpretation: no tier-II signature is established.** We set out expecting these three
 diagnostics to place the system in a tier. They do not, and they fail in three different ways.
@@ -890,19 +892,18 @@ is not nothing, given the discretisation problems documented in Section 5 — ra
 independent evidence of linear response. The Onsager measurement returned a stable, plateau-tested
 antisymmetry that the dissimilar-channel control shows to be most parsimoniously a property of how
 we built the second channel; it does not survive as a physical reciprocity relation. The effective
-temperature appeared to diverge with the observation window, but the divergence is the ballistic
-drift of the system's centre of mass entering the fluctuation and not the paired response; on the
-internal coordinate the ratio is close to kT, and the single-temperature question cannot be posed
-at all, because the drift-removed species coordinates are one degree of freedom up to sign.
+temperature is the one that returns a definite negative: it grows without bound with the
+observation window, calibrates correctly at equilibrium, and survives a control that removes the
+whole-system drift responsible for about half of the growth.
 
-The honest summary is that **tier membership is undetermined by these measurements**, and that none
-of the three yields a usable verdict. We state this plainly because two earlier versions of this
-work did not. The first read all three as placing the system in the linear-response tier; the
-second, after the dissimilar-channel control, read the effective-temperature failure as the one
-converged diagnostic pointing away from it. Neither survives — the first fell to the Onsager
-control, the second to the drift control. Note also what each failure was *about*: none of the
-three was defeated by the physics under test. One is near-tautological given how χ is constructed,
-one by how we built a second response channel, one by a choice of coordinate.
+The honest summary is that **tier membership is undetermined by these measurements**. Two of the
+three diagnostics are defeated by their own construction rather than by the physics — one is
+near-tautological given how χ is built, the other an artifact of giving two response channels the
+same structure — and the third returns a negative whose interpretation is narrower than it looks:
+what fails is the Einstein-ratio reading on a particular coordinate, not linear response in the
+formal sense. An earlier version of this work read all three as placing the system in the
+linear-response tier. That reading did not survive the dissimilar-channel control, and we state the
+revised position rather than the original one.
 
 We none the less think the exercise was worth conducting, and record its outcome in this form
 deliberately. A framework asserting that "some variational principle applies" forbids nothing; what
@@ -1545,23 +1546,20 @@ estimate and is not monotonic at the top of the ATP range.
    construction of χ, so the measurement is best read as a validation of the entropy-production
    estimator. A differential cross-response between two nonreciprocal channels is predominantly
    antisymmetric when the channels share a structure, but a structurally dissimilar control inverts
-   the pattern, so we withdraw the reciprocity reading. The third appears to fail — the
-   fluctuation–dissipation ratio grows with the observation window — but a control shows the growth
-   is the ballistic drift of the system centre of mass entering the fluctuation and not the paired
-   response; with that removed the ratio is 1.0–1.3 kT. The single-temperature question is then
-   unaskable by this route, since the drift-removed species coordinates are one degree of freedom
-   up to sign. Whatever variational description applies, its scope is at most the dynamics at fixed
-   structure, since structure selection itself remains uncovered.
+   the pattern, so we withdraw the reciprocity reading. The third returns a definite negative: the
+   fluctuation–dissipation ratio grows as t^0.89 across a fourfold window (5.2 → 9.5 → 17.7 kT)
+   while calibrating to unity at equilibrium, so no effective temperature exists on this
+   coordinate. About half that growth is the ballistic translation of the whole aggregate; the rest
+   survives a control that removes it. Whatever variational description applies, its scope is at
+   most the dynamics at fixed structure, since structure selection itself remains uncovered.
 
-9. The difficulty in conclusion 8 is itself the finding: of three commonly invoked near-equilibrium
-   signatures, one is near-tautological given the construction, one is an artifact of building two
-   response channels with the same structure, and one is an artifact of measuring an unnormalised
-   collective coordinate in a system whose centre of mass drifts. Each failed for a different
-   reason, and none of the three failures is about the physics being tested. Tier taxonomies are
-   useful for deciding what to measure and harder than they appear to decide by measurement. One
-   clean physical result came out of chasing the third: nonreciprocity makes the suspension's
-   centre of mass ballistic (⟨ΔX²⟩ ~ t^1.96 against t^1.01 at χ = 0), a direct consequence of
-   third-law violation. The colloid suspension none the
+9. The difficulty in conclusion 8 is itself part of the finding: of three commonly invoked
+   near-equilibrium signatures, two are defeated by their own construction rather than by the
+   physics — one near-tautological given how χ is built, one an artifact of giving two response
+   channels the same structure. Tier taxonomies are useful for deciding what to measure and harder
+   than they appear to decide by measurement. One clean physical result came out of chasing the
+   third: nonreciprocity makes the suspension's centre of mass ballistic (⟨ΔR²⟩ ~ t^1.96 against
+   t^1.01 at χ = 0), a direct and quantitative consequence of third-law violation. The colloid suspension none the
    less serves as a control for systems that are driven but not alive, which requires only that it
    be far from equilibrium and demonstrably irreversible — both established independently.
 
@@ -1628,11 +1626,10 @@ identical structure the symmetric part is consistent with zero at every window w
 antisymmetric part is stable. The structurally dissimilar control is plotted alongside on the same
 axes: there the pattern inverts, the antisymmetric part decaying to zero while a symmetric part
 grows. The side-by-side comparison is the point of the panel — it is why the reciprocity reading is
-withdrawn. (c) Mean-squared
-displacement of the collective coordinate against window length, with and without the system
-centre-of-mass drift removed: the raw coordinate is near-ballistic at χ = 1.5 (t^1.93) and
-diffusive at χ = 0 (t^0.97), and most of the excess is the drift of the centre of mass itself
-(t^1.96), not internal dynamics.
+withdrawn. (c) Effective temperature against
+measurement window: flat at χ = 0, where it calibrates to kT, and growing as t^0.89 at χ = 1.5 with
+no plateau. Inset: mean-squared displacement of the system centre of mass, ballistic at χ = 1.5
+(t^1.96) and diffusive at χ = 0 (t^1.01), which accounts for about half of the growth.
 `fig5_thermo.png`
 
 **Figure 6 — Circulation at matched level of description.** (a) Median |z| of the signed area rate
