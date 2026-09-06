@@ -382,22 +382,29 @@ peak appears at any size tested.
 5,000:17,000 (22.7% type-I; our earlier runs used 25%, and type-I particles carry 5.1× the EHD
 strength, so the excess biases toward condensation):
 
-| window | lcf (4 seeds) | seed spread | n_cl |
-|---|---:|---:|---:|
-| t̂ = 0 – 3.6×10⁵ (**the source paper's duration**) | **0.458** ± 0.037 | 0.378, 0.453, 0.443, 0.556 | 431 |
-| t̂ = 3.6×10⁵ – 7.2×10⁵ | **0.726** ± 0.072 | 0.811, 0.852, 0.531, 0.709 | 458 |
+Four seeds, each carried forward until its largest-cluster fraction stopped drifting:
 
-Every seed condenses further in the second window, by between 20% and 115%; the paired increase is
-+0.268 ± 0.087, a 59% rise, with paired t = +3.1 and p = 0.054. Four seeds all moving in the same
-direction is the strongest evidence a sign test can give at that sample size (p = 0.0625), and we
-report the effect on that basis rather than on the marginal t-test.
+| seed | t̂ = 0 – 3.6×10⁵ (**source duration**) | 3.6 – 7.2×10⁵ | 7.2×10⁵ – 1.08×10⁶ | drift in final window |
+|---:|---:|---:|---:|---:|
+| 1 | 0.378 | **0.811** | — | +1.1% |
+| 2 | 0.453 | **0.852** | — | +0.8% |
+| 3 | 0.443 | 0.531 | **0.549** | +0.0% |
+| 4 | 0.556 | 0.709 | **0.870** | −0.0% |
+| mean | **0.458 ± 0.037** | | **0.770 ± 0.075** | |
 
-Two qualifications matter. First, an earlier two-seed estimate gave 0.415 → 0.831; the four-seed
-figures are lower and the spread is wider, so the two-seed version overstated the magnitude.
-Second, seeds 3 and 4 are **still drifting within the second window** (+10.6% and +12.3% across its
-halves, against +1.1% and +0.8% for seeds 1 and 2), so their window-2 values are lower bounds and
-the true asymptotic separation is larger than measured. A third window for those two seeds is
-running.
+Seeds 3 and 4 were still drifting after the second window (+10.6% and +12.3% across its halves)
+and were therefore extended to a third; all four are converged at the values shown. The paired
+increase from the source duration to the converged state is **+0.313 ± 0.073, a 68% rise**
+(paired t = +4.3, p = 0.024), and every seed moves in the same direction, by between 24% and 115%.
+
+Two features deserve comment. An earlier two-seed estimate gave 0.415 → 0.831; the four-seed
+figures are 0.458 → 0.770 with a wider spread, so the two-seed version somewhat overstated the
+magnitude. More interestingly, **the converged state is not unique**: three seeds settle at
+0.81–0.87 while seed 3 settles at 0.549 and stays there. That heterogeneity is consistent with the
+kinetic-arrest picture of Section 3.5 — a configuration that has separated into two large clusters
+which then cannot find each other has no route to a single condensate on any accessible timescale.
+The asymptotic largest-cluster fraction is therefore configuration-dependent, which is itself a
+statement about arrest rather than about coarsening.
 
 Two results follow. First, **composition does not explain the discrepancy**: at convergence
 22.7% type-I gives lcf = 0.831 against 0.786 for 25%, a 5.8% difference rather than the 47%
