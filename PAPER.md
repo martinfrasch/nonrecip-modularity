@@ -1,4 +1,4 @@
-# Isolating the antisymmetric sector of a nonreciprocal colloidal model: kinetic unjamming, transient arrested coarsening, and hidden irreversibility
+# Isolating the antisymmetric sector of a nonreciprocal colloidal model: kinetic unjamming, transient arrested coarsening, and irreversibility without coarse-grained circulation
 
 **Martin G. Frasch**
 

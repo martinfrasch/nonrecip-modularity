@@ -428,13 +428,15 @@ PREAMBLE = r"""\documentclass[aps,pre,preprint,superscriptaddress,nofootinbib,lo
 \hyphenpenalty=1000
 \begin{document}
 
-\title{Isolating the antisymmetric sector of a nonreciprocal colloidal model:\\
-kinetic unjamming, transient arrested coarsening, and hidden irreversibility}
+\title{Isolating the antisymmetric sector of a nonreciprocal colloidal model:
+kinetic unjamming, transient arrested coarsening, and irreversibility
+without coarse-grained circulation}
 
 \author{Martin G. Frasch}
 \email{mfrasch@uw.edu}
 \affiliation{Institute on Human Development and Disability, University of Washington,
 Seattle, Washington 98195, USA}
+\affiliation{Health Stream Analytics LLC, Seattle, Washington, USA}
 
 \date{\today}
 
