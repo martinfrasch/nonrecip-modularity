@@ -451,9 +451,16 @@ correct: the low-drive fit (a = 3.96(34)×10⁻³) and the high-drive fit (a = 2
 window a and b are strongly anticorrelated, so a larger a is exactly how a spurious negative b gets
 absorbed. §3.10 now says the data *require* a term beyond the pure quadratic at low drive, that its
 sign is negative, and that its magnitude is bounded rather than sharply determined — and the
-abstract no longer asserts the cross-term flatly. A run of `epr_probe.py` over the N = 4000 low-χ
-configurations was launched to permit the clean single-N joint fit Rev 2 asks for; if it supports a
-shared a and b at 3σ+, the stronger framing becomes available.
+abstract no longer asserts the cross-term flatly.
+
+The clean single-N joint fit Rev 2 asks for was **attempted and abandoned**. `epr_probe.py` was run
+over the twelve N = 4000 low-χ configurations to put the low- and high-drive points at a common
+system size; at 2×960,000 steps per configuration it completed roughly one of twelve in 2.2 hours
+of wall time, projecting to 13–26 hours, which was not worth the machine time for what it would
+change. The manuscript is therefore left at the conservative reading, which is correct as written
+and does not depend on the fit. Anyone repeating this should run the twelve configurations in
+parallel across seeds rather than in the serial loop `epr_probe.py` uses; that is the obvious fix
+and would bring it under an hour.
 
 ## R. Corrections applied
 
