@@ -239,3 +239,42 @@ interval and is flat at 0.89–0.91 from χ = 0.75 to χ = 8. This is the same t
 shedding and fission onset of track D (0.25 → 0.5 → 0.75). The two-term fit of §3.10 was
 describing this step with a negative linear term; the physical description is a threshold in χ
 below which the contact network holds the antisymmetric push statically.
+
+## Track B — effective temperature on single-particle coordinates (Q3)
+
+`hs_fdt.py` + `hs_analysis.py`: random-sign force f ε_i x̂ on every particle (f = 10⁻⁵, linear to
+t ≥ 200 against f = 10⁻⁶), shared noise stream with an unperturbed twin, T = 1000, positions every
+1.0. Twelve twins per χ (three seeds × four late starts), N = 4000. The diagonal response
+χ(t) = ⟨ε_i Δx_i⟩/f is conjugate to the single-particle MSD, so T_eff(t) = MSD/2χ is a proper
+Einstein ratio per degree of freedom — the object the species-coordinate measurement of §3.10
+could not provide. `hs_results.csv`.
+
+| χ | T_eff/T at t = 1–10 | t at which T_eff/T exceeds 1.1 / 1.2 | T_eff/T at t = 100 / 400 / 800 | L-species ÷ S-species at t = 400 / 800 |
+|---|---:|---:|---:|---:|
+| 0 | 1.00–1.04 | never / never | 1.00 / 0.98 / 0.99 | 1.00 / 1.02 |
+| 0.5 | 1.02–1.04 | 216 / 340 | 1.06 / 1.28 / 1.74 | 1.01 / 0.98 |
+| 1 | 1.01–1.05 | 37 / 74 | 1.33 / 2.60 / 3.94 | 1.03 / 0.93 |
+| 1.5 | 1.05–1.08 | 13 / 30 | 1.81 / 4.38 / 7.17 | 1.02 / 0.89 |
+
+Three findings, in order of strength.
+
+1. **The estimator calibrates exactly.** At χ = 0 the ratio is unity within 3 % at every lag from
+   1 to 800 on both species (twelve twins). The 0.21 and 0.11 that §2.5/fdt.py reported for
+   single-particle coordinates were the non-conjugate pairing of a species-wide force with a
+   single-particle MSD, not a property of the system.
+2. **There is a single effective temperature, and it equals T, over a drive-dependent window.**
+   FDT holds to within 10 % up to t ≈ 220 at χ = 0.5, 37 at χ = 1 and 13 at χ = 1.5, i.e. for
+   ω ≳ 1/t_FDT(χ). Below that frequency the ratio grows as (T_eff − 1) ∝ t^{1.0} at χ = 1 and 1.5
+   (the paper's t^0.89 on the species coordinate is this regime), without a plateau to t = 800.
+3. **The two species share the same T_eff(t) at every lag**, to 2 % at t = 400 and 10 % at
+   t = 800, despite mobilities differing by 1.5×. The single-temperature question §3.10 said it
+   could not ask — because its two coordinates were one degree of freedom — has an answer on
+   independent coordinates: one temperature, shared, but a function of the observation time,
+   not a number. Whether that is "tier II at fixed structure" is a matter of definition; what is
+   measured is FDT with T_eff = T above a cutoff frequency that falls as 1/χ² (t_FDT: 216, 37, 13
+   for χ = 0.5, 1, 1.5), and a shared, growing violation below it.
+
+The Harada–Sasa sum rule was not evaluated: a frequency-domain estimate from second differences
+of the MSD is too noisy at this sampling, and the time-domain result above carries the
+conclusion. The violation lives entirely below ω ≈ 1/t_FDT(χ), which places the dissipation of
+track A in cluster-scale motion rather than at contact scale.
