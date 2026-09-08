@@ -278,3 +278,11 @@ The Harada–Sasa sum rule was not evaluated: a frequency-domain estimate from s
 of the MSD is too noisy at this sampling, and the time-domain result above carries the
 conclusion. The violation lives entirely below ω ≈ 1/t_FDT(χ), which places the dissipation of
 track A in cluster-scale motion rather than at contact scale.
+
+**F3, all-pairs lag asymmetry** (`lag_asymmetry.py`, dense runs, 500 snapshots at Δt = 50, seven
+scalar observables, lags 1–40, 200 block-shuffle surrogates per run). The Frobenius norm of the
+antisymmetric lagged correlation, summed over lags, against its surrogate: z = −0.3 ± 1.7 (χ = 0),
+−0.2 ± 1.5 (0.25), −0.6 ± 0.5 (0.5), −0.6 ± 1.2 (0.75), +0.2 ± 1.1 (1), −0.8 ± 1.6 (1.5); the
+largest single-run |z| is 2.2 out of eighteen runs. No observable pair traces a cycle at any lag
+from 50 to 2000 at any χ. "No circulation in any projection examined" can be strengthened to
+"no cyclic mode among these seven observables at any lag", with the same reciprocal null.
