@@ -15,3 +15,6 @@ paper.blg
 paper.synctex.gz
 paper.Notes.bib
 arxiv/
+data_dense/
+logs/
+kinetics_events*.csv

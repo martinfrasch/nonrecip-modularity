@@ -41,13 +41,13 @@ def job(a):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("--pattern", required=True)
+    p.add_argument("--pattern", nargs="+", required=True)
     p.add_argument("--T", type=float, default=4e5)
     p.add_argument("--workers", type=int, default=3)
     p.add_argument("--nsnap", type=int, default=None, help="override snapshot count (dense sampling)")
     p.add_argument("--outdir", default="data_paper")
     a = p.parse_args()
-    jobs = [dict(src=f, T=a.T, outdir=a.outdir, nsnap=a.nsnap) for f in sorted(glob.glob(a.pattern))]
+    jobs = [dict(src=f, T=a.T, outdir=a.outdir, nsnap=a.nsnap) for f in sorted(set(x for pat in a.pattern for x in glob.glob(pat)))]
     print(f"{len(jobs)} continuation job(s), T={a.T:g}")
     with mp.Pool(a.workers) as pool:
         for m in pool.imap_unordered(job, jobs):
