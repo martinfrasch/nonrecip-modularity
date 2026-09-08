@@ -216,3 +216,26 @@ guessed from the N- and density-independence.
 
 **C4 at every χ.** The shed and reabsorbed size distributions are indistinguishable at all six
 χ (KS p ≥ 0.53). There is no circulating current in the cluster-size coordinate at any drive.
+
+### Track A, calibrated (`epr_static_calibtraj.csv`)
+
+Trajectory-mode calibration: from two late snapshots per file, 500 time units at dt = 0.005,
+100 configurations each, first fifth discarded (162 configurations per file, three seeds per
+χ). The stationarity residual Q̇_s falls from 4.4 to 0.35. **These supersede the production-
+timestep row above at low drive**, where the excess is a small residual of two cancelling terms
+and a 5 % shift in the screening term moves it by a factor of three.
+
+| χ | 0.25 | 0.5 | 0.75 | 1 |
+|---|---:|---:|---:|---:|
+| EPR/N, production dt (×10⁻³) | 0.02 | 0.05 | 0.58 | 2.26 |
+| **EPR/N, calibrated (×10⁻³)** | **−0.03 ± 0.02** | **0.24 ± 0.03** | **1.61 ± 0.17** | **2.32 ± 0.22** |
+| EPR/(Nχ²), calibrated (×10⁻³) | −0.5 | 0.95 | 2.87 | 2.32 |
+| screening −b̃/(χã), calibrated | 1.02 | 0.97 | 0.90 | 0.91 |
+
+The onset is sharper and earlier than the uncalibrated row suggested: zero at χ = 0.25 (three
+seeds, each within 1σ of zero), a third of the plateau at χ = 0.5, and the plateau of
+2.3–2.9 × 10⁻³ reached by χ = 0.75. The screening fraction steps from 1.0 to 0.90 across the same
+interval and is flat at 0.89–0.91 from χ = 0.75 to χ = 8. This is the same threshold as the
+shedding and fission onset of track D (0.25 → 0.5 → 0.75). The two-term fit of §3.10 was
+describing this step with a negative linear term; the physical description is a threshold in χ
+below which the contact network holds the antisymmetric push statically.
