@@ -176,3 +176,43 @@ first-moment length L_k of S(k) (k ≤ π), the mass-weighted mean cluster size 
    fitted on ≤ 9 pre-saturation points, so provisional): strong drive slows coarsening in the
    growth phase even though the condensate still forms. That is the "arrested coarsening" of
    the source paper appearing as a *rate*, not as a selected size.
+
+### Track D results (Q5) — dense reruns at every χ, `kinetics_events.csv`
+
+Δt = 50, t = 2.5 × 10⁴, three seeds per χ from the stored late configurations; the χ = 1.5 row is
+the existing `cont2_dense500` set. Fragments = clusters of size ≥ 2 other than the condensate.
+
+| χ | 0 | 0.25 | 0.5 | 0.75 | 1 | 1.5 |
+|---|---:|---:|---:|---:|---:|---:|
+| fragments per snapshot, observed | 9.2 | **1.1** | 15.0 | 57 | 91 | 140 |
+| condensate shedding rate (pieces per Δt) | 0.063 | 0.088 | 0.70 | 2.15 | 3.23 | 2.96 |
+| reabsorption probability per fragment per Δt | 0.0073 | **0.082** | 0.047 | 0.039 | 0.038 | 0.023 |
+| **fragments predicted = shedding / reabsorption** | 8.6 | 1.1 | 14.9 | 55 | 86 | 129 |
+| fission probability, S = 10–29 | — | — | 0.10 | 0.21 | 0.25 | 0.30 |
+| Becker–Döring drift zero S\* | — | — | 7.3 | 10.7 | 9.3 | 10.1 |
+| speed of clusters S ≥ 30 (×10⁻⁴) | 0.9 | 0.8 | 2.0 | 2.2 | 2.9 | 3.7 |
+| shed vs absorbed size, KS p | 1.00 | 1.00 | 0.99 | 0.86 | 0.53 | 0.97 |
+
+**The functional form that predicts the dip.** At every χ, including the reciprocal reference,
+the fragment count is the condensate's shedding rate divided by the per-fragment reabsorption
+probability, to within 8 %. That is a two-rate balance, n_frag = k_shed / p_abs, and the
+non-monotonic curve of §3.5 is the product of two monotone but *differently thresholded* rates:
+reabsorption switches on at χ = 0.25 (×11 over χ = 0, because weak activity mobilises fragments
+and the condensate) while shedding is still at its reciprocal value, so fragments are cleared
+faster than they are made and n_cl falls fivefold; shedding then switches on between χ = 0.25 and
+0.5 (×8) and again to 0.75 (×3), and n_frag rises by two orders of magnitude. The fission
+probability at fixed size follows the same onset (zero at χ ≤ 0.25, 0.10 at 0.5, 0.30 at 1.5).
+Structure is a **rate-balance fixed point**, and no static functional is needed to predict it.
+
+**The shedding onset and the dissipation onset coincide.** Track A puts the onset of excess
+dissipation between χ = 0.5 and 1, where the contact screening drops from 0.99 to 0.91; the
+fission and shedding onsets sit between 0.25 and 0.75. Both are the same threshold: the
+antisymmetric push exceeding what the contact network can hold statically. Below it the drive is
+stored as stress and neither fragments nor dissipates; above it it does both.
+
+**S\* is χ-independent above the onset**: 9–11 particles at χ = 0.75–1.5 (7 at χ = 0.5, with a
+tenth of the events). It is a property of the contact energetics, not of the drive, as §3.9
+guessed from the N- and density-independence.
+
+**C4 at every χ.** The shed and reabsorbed size distributions are indistinguishable at all six
+χ (KS p ≥ 0.53). There is no circulating current in the cluster-size coordinate at any drive.
