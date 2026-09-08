@@ -131,3 +131,17 @@ symmetry. The observable-plane signed-area rates of §2.4 are not pseudoscalars 
 covered; they remain empirical nulls. One paragraph for §4.2.
 
 **F3** waits on the dense reruns (the paper-scale series has 100 late points per seed).
+
+## Track G — cheap closures
+
+**G2, iAAFT surrogates for the cilia comparison** (`cilia_analysis.py --iaaft`, 30 surrogates
+per axoneme, 184 axonemes). The Limitations section predicted the stricter null "would likely
+reduce the reported z-scores". It barely does:
+
+| null | median \|z\| | frac \|z\| > 2 | frac \|z\| > 3 |
+|---|---:|---:|---:|
+| phase randomisation (paper) | 3.2 | 0.92 | 0.55 |
+| iAAFT (spectrum + amplitude distribution) | 3.0 | 0.92 | 0.51 |
+
+Per-ATP rows move by at most 0.3 in median |z|. The cilia circulation result stands under the
+amplitude-preserving null; the limitation can be closed with the second row.

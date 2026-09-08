@@ -55,6 +55,19 @@ def phase_surrogate(x, rng):
     return np.fft.irfft(np.abs(F)*np.exp(1j*ph), n=len(x)) + x.mean()
 
 
+def iaaft_surrogate(x, rng, niter=30):
+    """Iterative amplitude-adjusted Fourier transform (Schreiber & Schmitz 1996): preserves both the
+    power spectrum and the amplitude distribution of x. A stricter null than phase randomisation."""
+    xs = np.sort(x); amp = np.abs(np.fft.rfft(x)); y = rng.permutation(x)
+    for _ in range(niter):
+        y = np.fft.irfft(amp * np.exp(1j * np.angle(np.fft.rfft(y))), n=len(x))
+        y = xs[np.argsort(np.argsort(y))]
+    return y
+
+
+SURROGATE = phase_surrogate
+
+
 def analyse_axoneme(ax, nsurr=30, seed=0):
     psi = tangent_angles(np.atleast_1d(ax.XY_Data))
     if len(psi) < 200:
@@ -71,7 +84,7 @@ def analyse_axoneme(ax, nsurr=30, seed=0):
     var2 = (s[0]**2 + s[1]**2) / (s**2).sum()
     obs = area_rate(a1, a2, dt)
     rng = np.random.default_rng(seed)
-    null = np.array([area_rate(phase_surrogate(a1, rng), phase_surrogate(a2, rng), dt)
+    null = np.array([area_rate(SURROGATE(a1, rng), SURROGATE(a2, rng), dt)
                      for _ in range(nsurr)])
     sd = null.std(ddof=1)
     # beat frequency from the dominant spectral peak of mode 1
@@ -83,6 +96,10 @@ def analyse_axoneme(ax, nsurr=30, seed=0):
 
 
 if __name__ == "__main__":
+    import sys
+    if "--iaaft" in sys.argv:
+        SURROGATE = iaaft_surrogate
+        print("  surrogate: iAAFT (spectrum + amplitude distribution preserved)")
     files = sorted(glob.glob('data_cilia/**/WT_*uM-ATP.mat', recursive=True),
                    key=lambda p: int(re.search(r'WT_(\d+)uM', p).group(1)))
     print("=== coarse-grained circulation in cilia shape space ===")
