@@ -84,12 +84,16 @@ def one_file(a):
     if calib_dt:
         idx = np.linspace(lo, len(sn) - 1, calib_n, dtype=int)
         before, after = [], []
+        nsamp = a.get("calib_nsamp")            # trajectory mode: many small-dt configurations per start
         for t in idx:
             pos = np.ascontiguousarray(sn[t]).copy()
             before.append(terms(pos, sv, lv, L, al, chi))
-            ns = int(calib_T / calib_dt); snaps = np.zeros((2, len(sv), 2)); heat = np.zeros(2)
-            _run(pos, sv, lv, lv**2, lv**4, ns, calib_dt, L, al, chi, SIGMA, 4242 + int(t), ns, snaps, heat)
-            after.append(terms(pos, sv, lv, L, al, chi))
+            ns = int(calib_T / calib_dt); se = ns // nsamp if nsamp else ns
+            snaps = np.zeros((ns // se + 1, len(sv), 2)); heat = np.zeros(len(snaps))
+            _run(pos, sv, lv, lv**2, lv**4, ns, calib_dt, L, al, chi, SIGMA, 4242 + int(t), se, snaps, heat)
+            first = len(snaps) // 5 if nsamp else len(snaps) - 1     # drop the first fifth as dt-switch transient
+            after += [terms(snaps[k], sv, lv, L, al, chi) for k in range(first, len(snaps))]
+        calib_n = len(after)
         b, c = pd.DataFrame(before), pd.DataFrame(after)
         out.update(calib_dt=calib_dt, calib_n=calib_n,
                    epr_calib=c.epr.mean(), epr_calib_sem=c.epr.std(ddof=1) / np.sqrt(calib_n),
@@ -105,11 +109,13 @@ def main():
     p.add_argument("--calib-dt", type=float, default=None)
     p.add_argument("--calib-n", type=int, default=4)
     p.add_argument("--calib-T", type=float, default=50.0)
+    p.add_argument("--calib-nsamp", type=int, default=None,
+                   help="trajectory mode: store this many configurations along each small-dt run of length calib-T")
     p.add_argument("--workers", type=int, default=2)
     a = p.parse_args()
     files = sorted(set(f for pat in a.pattern for f in glob.glob(pat)))
     done = set(pd.read_csv(a.out).file) if os.path.exists(a.out) else set()
-    jobs = [dict(file=f, calib_dt=a.calib_dt, calib_n=a.calib_n, calib_T=a.calib_T)
+    jobs = [dict(file=f, calib_dt=a.calib_dt, calib_n=a.calib_n, calib_T=a.calib_T, calib_nsamp=a.calib_nsamp)
             for f in files if os.path.basename(f) not in done]
     print(f"{len(files)} files, {len(jobs)} to do, calib_dt={a.calib_dt}", flush=True)
     with mp.Pool(a.workers) as pool:

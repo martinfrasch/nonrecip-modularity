@@ -18,3 +18,4 @@ arxiv/
 data_dense/
 logs/
 kinetics_events*.csv
+data_hs/

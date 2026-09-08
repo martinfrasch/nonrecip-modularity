@@ -102,3 +102,32 @@ the same script.
 ## Track E — coarsening law
 
 `coarsening_law.py` running over all chained runs; output `coarsening.csv`.
+
+## Track F — directed contact graph (Q8) and what circulation is allowed (Q7)
+
+**F1, Hodge decomposition of the antisymmetric edge flow** (`hodge_contact.py`, six late snapshots
+per file, N = 4000). The flow w_ij = (a_j − a_i)/2 on contact edges, decomposed on the contact
+graph itself into a node potential and a cycle-space residual:
+
+| χ | 0 | 0.25 | 1 | 1.5 | 8 |
+|---|---:|---:|---:|---:|---:|
+| cyclic fraction ‖w − ∇s‖/‖w‖ | 0.077 | 0.079 | 0.075 | 0.071 | 0.063 |
+| permuted-magnitude null | 0.738 | 0.742 | 0.729 | 0.735 | 0.740 |
+| L–S-support null | 0.749 | 0.747 | 0.739 | 0.741 | 0.749 |
+| CV of \|w\| on L–S edges | 0.12 | 0.13 | 0.12 | 0.12 | 0.11 |
+
+The antisymmetric sector of this model, as an edge function on the contact graph, is **99.4 %
+gradient in squared norm at every χ**, against 45 % for a random flow on the same graph. The
+residual 6–8 % is what the 11–13 % spread of the kernel over the contact shell predicts: the flow
+is a two-level potential (S → L on every mixed contact) up to the r-dependence of g. This is the
+directed-graph test the Limitations section named, and it comes out on the side of Conclusion 11:
+the antisymmetric coupling of this model is not circulating, it is a gradient, and the reason no
+coarse observable circulates is that nothing in the pair law does. The caveat of §4.2 stands: this
+is a Hodge decomposition of a static edge function, not of the configuration-space current.
+
+**F2, parity.** The force law, noise and geometry are reflection-invariant, so every spatial
+pseudoscalar (cluster spin, vorticity of the coarse velocity field) has zero mean at every χ by
+symmetry. The observable-plane signed-area rates of §2.4 are not pseudoscalars and are not
+covered; they remain empirical nulls. One paragraph for §4.2.
+
+**F3** waits on the dense reruns (the paper-scale series has 100 late points per seed).
