@@ -225,14 +225,17 @@ Trajectory-mode calibration: from two late snapshots per file, 500 time units at
 timestep row above at low drive**, where the excess is a small residual of two cancelling terms
 and a 5 % shift in the screening term moves it by a factor of three.
 
-| χ | 0.25 | 0.5 | 0.75 | 1 |
-|---|---:|---:|---:|---:|
-| EPR/N, production dt (×10⁻³) | 0.02 | 0.05 | 0.58 | 2.26 |
-| **EPR/N, calibrated (×10⁻³)** | **−0.03 ± 0.02** | **0.24 ± 0.03** | **1.61 ± 0.17** | **2.32 ± 0.22** |
-| EPR/(Nχ²), calibrated (×10⁻³) | −0.5 | 0.95 | 2.87 | 2.32 |
-| screening −b̃/(χã), calibrated | 1.02 | 0.97 | 0.90 | 0.91 |
+| χ | 0.25 | 0.5 | 0.75 | 1 | 1.5 | 2 |
+|---|---:|---:|---:|---:|---:|---:|
+| EPR/N, production dt (×10⁻³) | 0.02 | 0.05 | 0.58 | 2.26 | 6.31 | 12.2 |
+| **EPR/N, calibrated (×10⁻³)** | **−0.03 ± 0.02** | **0.24 ± 0.03** | **1.61 ± 0.17** | **2.32 ± 0.22** | **7.40 ± 0.32** | **12.8 ± 0.3** |
+| paired trajectory probe (paper) | — | — | 0.80 (N = 1000) | 2.0 (N = 1000) | 6.53 (N = 1000) | 12.2 |
+| EPR/(Nχ²), calibrated (×10⁻³) | −0.5 | 0.95 | 2.87 | 2.32 | 3.29 | 3.20 |
+| screening −b̃/(χã), calibrated | 1.02 | 0.97 | 0.90 | 0.91 | 0.87 | 0.88 |
 
-The onset is sharper and earlier than the uncalibrated row suggested: zero at χ = 0.25 (three
+At χ = 1.5 and 2 the calibrated values sit 5 % above the paired trajectory probe at the same N,
+within the probe's own seed spread, so the two estimators agree where both resolve. The onset is
+sharper and earlier than the uncalibrated row suggested: zero at χ = 0.25 (three
 seeds, each within 1σ of zero), a third of the plateau at χ = 0.5, and the plateau of
 2.3–2.9 × 10⁻³ reached by χ = 0.75. The screening fraction steps from 1.0 to 0.90 across the same
 interval and is flat at 0.89–0.91 from χ = 0.75 to χ = 8. This is the same threshold as the
