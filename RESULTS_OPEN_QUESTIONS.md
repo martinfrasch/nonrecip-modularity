@@ -145,3 +145,34 @@ reduce the reported z-scores". It barely does:
 
 Per-ATP rows move by at most 0.3 in median |z|. The cilia circulation result stands under the
 amplitude-preserving null; the limitation can be closed with the second row.
+
+### Track E results (Q6) — `coarsening.csv`, `coarsening_fits.csv`
+
+Chained base + continuation runs, every second snapshot, three observables per snapshot: the
+first-moment length L_k of S(k) (k ≤ π), the mass-weighted mean cluster size S_w = ΣS²/ΣS, and lcf.
+
+1. **The condensation time scales linearly with N.** Time to lcf = 0.5 at χ = 1.5: 5.5 × 10⁴
+   (N = 4000), 1.44 × 10⁵ (9000), 2.52 × 10⁵ (16 000), i.e. t_½ ∝ N^{1.0–1.2}; at χ = 1: 5.7 × 10⁴
+   and 1.26 × 10⁵ for N = 4000 and 9000 (N^0.97). The lcf(t) curves collapse in t/N and not in
+   t/√N:
+
+   | t/N | 5 | 10 | 20 | 40 |
+   |---|---:|---:|---:|---:|
+   | lcf, N = 4000 | 0.30 | 0.47 | 0.55 | 0.77 |
+   | lcf, N = 9000 | 0.30 | 0.44 | 0.60 | 0.77 |
+   | lcf, N = 16 000 | 0.21 | 0.32 | 0.55 | 0.75 |
+
+   So the transient's lifetime is t_x ∝ L², a diffusive crossing of the box, *measured* over a
+   fourfold range of N. Conclusion 7's conditional "N^(1/z) with 1/z between 2.4 and 3.7" should
+   be replaced by this.
+2. **Growth law.** In the growth phase (t = 10⁴–2 × 10⁵) S_w grows as t^{0.5–1.0} at χ = 1–1.5 and
+   saturates (exponent ≈ 0.05) once the condensate has formed; the largest N = 22 000 replicate
+   shows S_w ∝ t^{0.55} over 95 points with no saturation before lcf = 0.5. A power law that only
+   the box cuts off is a transient, not an arrested state — the conventional test, and it agrees
+   with §3.8.
+3. **Unjamming is a change of growth exponent.** At χ = 0 the gel ages with S_w ∝ t^{0.11} and
+   never reaches lcf = 0.5; at χ = 0.25 the same initial ensemble grows with exponent 0.58 and
+   condenses by t = 4 × 10⁴. Above χ = 3 the exponent falls again (0.43 at χ = 5, 0.20 at χ = 8,
+   fitted on ≤ 9 pre-saturation points, so provisional): strong drive slows coarsening in the
+   growth phase even though the condensate still forms. That is the "arrested coarsening" of
+   the source paper appearing as a *rate*, not as a selected size.
