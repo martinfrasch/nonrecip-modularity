@@ -115,23 +115,38 @@ def fig3_scaling():
 
 
 # ---------------------------------------------------------------- Fig 4
+def _sticks(ax, ticks):
+    from matplotlib.ticker import FixedLocator, NullLocator, ScalarFormatter
+    ax.xaxis.set_major_locator(FixedLocator(ticks)); ax.xaxis.set_minor_locator(NullLocator())
+    ax.xaxis.set_major_formatter(ScalarFormatter()); ax.set_xticklabels([str(t) for t in ticks])
+
+
 def fig4_rates():
-    """Split and merge rates crossing: the event-rate crossover scale."""
-    S = np.array([2, 5, 10, 19, 45, 74])
-    sp = np.array([0.3326, 0.4525, 0.2542, 0.1812, 0.0813, 0.0857])
-    mg = np.array([0.3190, 0.3118, 0.3335, 0.2831, 0.2686, 0.1454])
+    """The critical nucleus: Becker-Doring drift sign change and the committor."""
+    from cluster_kinetics import BINS
+    ev = pd.read_csv("kinetics_events.csv"); ev = ev[(ev.chi == 1.5) & (ev.S >= 2)]
+    bd = ev[ev.kind.isin(["intact", "evaporate"]) | ((ev.kind == "merge") & (ev.dS <= 2))].copy()
+    bd["bin"] = pd.cut(bd.S, BINS, right=False)
+    g = bd.groupby("bin", observed=True).agg(S=("S", "mean"), d=("dS", "mean"), e=("dS", "sem")).reset_index()
+    g = g[g.S < 100]
+    cm = pd.read_csv("committor_summary.csv"); cm = cm[cm.S < 100]
     fig, ax = plt.subplots(1, 2, figsize=(5.0, 2.3))
-    ax[0].semilogx(S, sp, "o-", ms=4, color=C["nonrecip"], label="split rate")
-    ax[0].semilogx(S, mg, "s-", ms=4, color=C["recip"], label="merge rate")
-    ax[0].axvspan(5, 10, color=C["third"], alpha=.15)
-    ax[0].annotate("$S^*\\approx 7\\!-\\!8$", (7.5, 0.42), fontsize=7, ha="center")
-    ax[0].set(xlabel="cluster size $S$", ylabel="rate per cluster per interval",
-              title="a  event-rate crossover")
-    ax[0].legend(frameon=False)
-    ax[1].semilogx(S, mg-sp, "o-", ms=4, color=C["third"])
-    ax[1].axhline(0, color="k", lw=.7)
-    ax[1].set(xlabel="cluster size $S$", ylabel="merge − split",
-              title="b  sign change at $S^*$")
+    ax[0].errorbar(g.S, g.d, g.e, marker="o", ms=4, color=C["nonrecip"], capsize=2, lw=1)
+    ax[0].axhline(0, color="k", lw=.7); ax[0].axvline(10.1, color=C["third"], lw=.8, ls="--")
+    ax[0].axvspan(9.7, 10.7, color=C["third"], alpha=.2)
+    ax[0].set_xscale("log"); _sticks(ax[0], [2, 3, 5, 10, 20, 50])
+    ax[0].annotate("$S^*=10.1$", (11.5, g.d.min() * 0.9), fontsize=7)
+    ax[0].set(xlabel="cluster size $S$", ylabel="⟨ΔS⟩ per interval (monomer exchange)",
+              title="a  size drift changes sign")
+    ax[1].errorbar(cm.S, cm.q, cm.q_err, marker="o", ms=4, color=C["nonrecip"], capsize=2, lw=1, label="$q$")
+    ax[1].errorbar(cm.S, cm.q_free, cm.q_free_err, marker="s", ms=3.5, color=C["recip"], capsize=2, lw=1,
+                   label="$q$, absorption excluded")
+    ax[1].plot(cm.S, cm.open_frac, ":", color=C["null"], lw=1.2, label="undecided at $\\hat t=1000$")
+    ax[1].axhline(0.5, color="k", lw=.7); ax[1].axvline(10.1, color=C["third"], lw=.8, ls="--")
+    ax[1].set_xscale("log"); _sticks(ax[1], [3, 5, 10, 20, 50])
+    ax[1].set(xlabel="initial cluster size $S_0$", ylabel="committor $q(S_0)$", ylim=(0, 1.02),
+              title="b  committor is ½ at the nucleus")
+    ax[1].legend(frameon=False, loc="upper left")
     fig.tight_layout(); fig.savefig("fig4_rates.png", bbox_inches="tight")
     print("  fig4_rates.png")
 
@@ -140,12 +155,16 @@ def fig4_rates():
 def fig5_thermo():
     """Entropy production, the Onsager window scan, and the T_eff exponent breakdown."""
     fig, ax = plt.subplots(1, 3, figsize=(7.2, 2.3))
-    chi = np.array([1.5, 2, 3, 5, 8]); epr = np.array([6.53e-3, 1.217e-2, 2.632e-2, 7.254e-2, 1.877e-1])
-    ax[0].loglog(chi, epr, "o", ms=5, color=C["nonrecip"])
-    xx = np.linspace(1.3, 9, 50)
-    ax[0].loglog(xx, 2.93e-3*xx**2, "-", color=C["recip"], lw=1, label="$k\\chi^2$")
-    ax[0].set(xlabel="χ", ylabel="EPR per particle", title="a  dissipation (fixed structure)")
-    ax[0].legend(frameon=False, loc="upper left")
+    cal = pd.read_csv("epr_static_calibtraj.csv").groupby("chi").epr_calib.agg(["mean", "sem"])
+    st = pd.read_csv("epr_static.csv"); st = st[(st.N == 4000) & (st.L == 24) & (st.chi >= 3)]
+    st = st.groupby("chi").epr.agg(["mean", "sem"])
+    d = pd.concat([cal, st]); chi = d.index.values; epr = d["mean"].values; err = d["sem"].values
+    y = epr / chi**2; ye = err / chi**2
+    ax[0].errorbar(chi, y * 1e3, ye * 1e3, marker="o", ms=4, color=C["nonrecip"], capsize=2, lw=0, elinewidth=1)
+    ax[0].axhspan(2.3, 3.3, color=C["recip"], alpha=.12); ax[0].axhline(0, color="k", lw=.7)
+    ax[0].axvspan(0.25, 0.75, color=C["third"], alpha=.15)
+    ax[0].set_xscale("log"); _sticks(ax[0], [0.25, 0.5, 1, 2, 4, 8])
+    ax[0].set(xlabel="χ", ylabel="excess dissipation / χ²  (×10⁻³)", title="a  a threshold, then quadratic")
 
     T = np.array([200, 400, 800])
     sym = np.array([-1.08e-8, -6.81e-8, -3.96e-7]); syme = np.array([6.5e-7, 8.6e-7, 9.9e-7])
@@ -154,19 +173,28 @@ def fig5_thermo():
                    label="antisymmetric")
     ax[1].errorbar(T, sym, syme, marker="s", ms=4, color=C["recip"], capsize=2,
                    label="symmetric")
+    ax[1].errorbar(T, [2.16e-6, 1.17e-6, 1.18e-8], [4.2e-7, 5.1e-7, 5.9e-7], marker="o", ms=4, mfc="none",
+                   color=C["nonrecip"], capsize=2, ls=":", label="antisym., dissimilar channel")
+    ax[1].errorbar(T, [8.67e-7, 1.62e-6, 2.70e-6], [4.3e-7, 5.2e-7, 5.9e-7], marker="s", ms=4, mfc="none",
+                   color=C["recip"], capsize=2, ls=":", label="sym., dissimilar channel")
     ax[1].axhline(0, color="k", lw=.7)
     ax[1].set(xlabel="measurement window $T$", ylabel="cross-coefficient",
-              title="b  cross-response is antisymmetric")
+              title="b  cross-response: identical vs dissimilar channels")
     ax[1].legend(frameon=False)
 
-    tt = np.array([100, 200, 400])
-    ax[2].loglog(tt, [1.557e-3, 2.311e-3, 5.145e-3], "o-", ms=4, color=C["recip"],
-                 label="χ=0  ⟨ΔX²⟩ ~ $t^{0.86}$")
-    ax[2].loglog([200, 400], [2.284e-2, 8.035e-2], "o-", ms=4, color=C["nonrecip"],
-                 label="χ=1.5 ⟨ΔX²⟩ ~ $t^{1.81}$")
-    ax[2].set(xlabel="window $t$", ylabel="⟨ΔX²⟩ per particle",
-              title="c  collective coordinate goes ballistic")
-    ax[2].legend(frameon=False, loc="upper left")
+    hs = pd.read_csv("hs_results.csv"); hs = hs[hs.species.isin(["L", "S"]) & hs.t.notna()]
+    cols = {0.0: C["recip"], 0.5: C["null"], 1.0: C["third"], 1.5: C["nonrecip"]}
+    for chi_, g in hs.groupby("chi"):
+        for sp, mk, ls in (("L", "o", "-"), ("S", "s", "--")):
+            h = g[g.species == sp].sort_values("t")
+            ax[2].loglog(h.t, h.Teff, marker=mk, ms=3, ls=ls, color=cols.get(chi_, "k"), lw=1,
+                         label=f"χ={chi_:g}" if sp == "L" else None)
+    ax[2].axhline(1, color="k", lw=.7)
+    from matplotlib.ticker import FixedLocator, NullLocator, ScalarFormatter
+    ax[2].yaxis.set_major_locator(FixedLocator([1, 2, 4, 8])); ax[2].yaxis.set_minor_locator(NullLocator())
+    ax[2].yaxis.set_major_formatter(ScalarFormatter())
+    ax[2].set(xlabel="lag $t$", ylabel="$T_{\\rm eff}(t)/T$", title="c  one shared $T_{\\rm eff}$, equal to $T$ above $1/t_{\\rm FDT}$")
+    ax[2].legend(frameon=False, loc="upper left", title="L (solid) / S (dashed)")
     fig.tight_layout(); fig.savefig("fig5_thermo.png", bbox_inches="tight")
     print("  fig5_thermo.png")
 

@@ -197,6 +197,8 @@ c_i&=(1-\chi)\bar g+\chi a_i, &\qquad c_j&=(1-\chi)\bar g+\chi a_j,\\
  r"\theta_i(t+dt)=\arg\big\langle e^{i\theta_j}\big\rangle_{j\in\mathcal{N}_i}+\omega\,dt+\eta\,U(-\pi,\pi)",
 "T · EPR = χ J₁ + χ₂ J₂,    J₁ = Σ f₁ · v,   J₂ = Σ f₂ · v,":
  r"T\,\dot S=\chi J_1+\chi_2 J_2,\qquad J_1=\sum \mathbf{f}_1\!\cdot\!\mathbf{v},\qquad J_2=\sum \mathbf{f}_2\!\cdot\!\mathbf{v},",
+"χ ⟨F_a∘ẋ⟩ = χ Σ_i (1/s_i) ⟨F_a,i · F_i⟩ + χ Σ_i D_i ⟨∇_i · F_a,i⟩ ,":
+ r"\chi\,\langle\mathbf{F}_a\circ\dot{\mathbf{x}}\rangle=\chi\sum_i\frac{1}{s_i}\langle\mathbf{F}_{a,i}\cdot\mathbf{F}_i\rangle+\chi\sum_i D_i\langle\nabla_i\cdot\mathbf{F}_{a,i}\rangle,",
 "S_NW = ∫ (E − I + A·C) dt":
  r"S_{\rm NW}=\int (E-I+A\cdot C)\,dt",
 }
@@ -204,24 +206,25 @@ c_i&=(1-\chi)\bar g+\chi a_i, &\qquad c_j&=(1-\chi)\bar g+\chi a_j,\\
 CAPS = {
 1:"The simulation campaign.",
 2:"Structural observables against $\\chi$ at paper scale ($N=4000$, three seeds), with the monodisperse reference for comparison.",
-3:"Excess dissipation per particle against $\\chi$, paired-bias-subtracted, at pilot scale.",
-4:"Attribution of the monodisperse-to-bidisperse difference between polydispersity and reciprocity, at paper scale.",
-5:"Box scaling at fixed density $6.944$ particles per unit area, $\\chi=1.5$, all points continued to a late-time plateau.",
-6:"Replicate at the source specification ($N=22{,}000$, $22.7\\%$ type-I): largest-cluster fraction by seed and observation window.",
-7:"Per-cluster split and merge rates against cluster size, measured at $\\Delta t=50$ from equilibrated configurations.",
-8:"Density dependence at fixed $N=4000$ and $\\chi=1.5$: the condensate is strongly density-dependent, the fragment scale much less so.",
-9:"A working taxonomy of commonly invoked variational tiers and the experimental signatures usually associated with them.",
-10:"Excess dissipation at high drive and its ratio to $\\chi^2$.",
-11:"Weighted fits of the excess dissipation to a pure quadratic and to the two-term form the construction predicts.",
+3:"Excess dissipation per particle against $\\chi$ at $N=4000$ from the configurational estimator on re-equilibrated configurations (three seeds), with its ratio to $\\chi^2$ and the contact-screening fraction. Parenthesised uncertainties apply to the last digits.",
+4:"Condensate shedding rate and fragment reabsorption probability against $\\chi$ from the dense continuations, and the fragment count their ratio predicts against the count observed.",
+5:"Attribution of the monodisperse-to-bidisperse difference between polydispersity and reciprocity, at paper scale.",
+6:"Box scaling at fixed density $6.944$ particles per unit area, $\\chi=1.5$, all points continued to a late-time plateau.",
+7:"Replicate at the source specification ($N=22{,}000$, $22.7\\%$ type-I): largest-cluster fraction by seed and observation window.",
+8:"Becker--D\\\"oring size drift per interval against cluster size at $\\chi=1.5$, from monomer and dimer exchange events only ($\\Delta t=50$, three seeds).",
+9:"Committor of fragment clusters at $\\chi=1.5$ from 300 relaunches with fresh noise, with and without absorption into the condensate counted as the condensed outcome.",
+10:"Density dependence at fixed $N=4000$ and $\\chi=1.5$: the condensate is strongly density-dependent, the fragment scale much less so.",
+11:"A working taxonomy of commonly invoked variational tiers and the experimental signatures usually associated with them.",
 12:"Differential cross-response between two nonreciprocal channels of \\emph{identical} structure, at the operating point $(\\chi,\\chi_2)=(0.5,0.5)$.",
 13:"The same measurement with a structurally \\emph{dissimilar} second channel. The pattern inverts, which is why the reciprocity reading is withdrawn.",
-14:"Displacement scaling and effective temperature at $\\chi=0$ and $\\chi=1.5$, raw and with the system centre-of-mass drift removed.",
-15:"\\emph{Chlamydomonas} axonemes by ATP concentration: beat frequency, circulation $z$-scores, and enclosed area per cycle.",
-16:"Circulation at a matched level of description: single tracked colloidal clusters against single axonemes.",
-17:"Vicsek-type ensembles in four variants: polar order against circulation.",
-18:"Sampling floor of the Hodge cyclic fraction on synthetic perfectly transitive groups, raw counts against log-odds.",
-19:"Hodge decomposition of four published sociomatrices, each against a matched Bradley--Terry floor.",
-20:"Pre-registered predictions against outcomes. Thresholds were committed in \\texttt{EXPERIMENT.md} before any $\\chi$ run.",
+14:"Single-particle effective temperature against lag and $\\chi$ from random-sign forcing with a shared noise stream (twelve twins per $\\chi$).",
+15:"For the record: displacement scaling and effective temperature on species coordinates at $\\chi=0$ and $\\chi=1.5$, raw and with the system centre-of-mass drift removed.",
+16:"\\emph{Chlamydomonas} axonemes by ATP concentration: beat frequency, circulation $z$-scores, and enclosed area per cycle.",
+17:"Circulation at a matched level of description: single tracked colloidal clusters against single axonemes.",
+18:"Vicsek-type ensembles in four variants: polar order against circulation.",
+19:"Sampling floor of the Hodge cyclic fraction on synthetic perfectly transitive groups, raw counts against log-odds.",
+20:"Hodge decomposition of four published sociomatrices, each against a matched Bradley--Terry floor.",
+21:"Pre-registered predictions against outcomes. Thresholds were committed in \\texttt{EXPERIMENT.md} before any $\\chi$ run.",
 }
 
 FIGS = {  # anchor heading -> (file, label, caption)
