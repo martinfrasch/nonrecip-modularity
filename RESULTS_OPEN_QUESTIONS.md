@@ -289,3 +289,48 @@ antisymmetric lagged correlation, summed over lags, against its surrogate: z = �
 largest single-run |z| is 2.2 out of eighteen runs. No observable pair traces a cycle at any lag
 from 50 to 2000 at any χ. "No circulation in any projection examined" can be strengthened to
 "no cyclic mode among these seven observables at any lag", with the same reciprocal null.
+
+### Track C, committor (C3) — `committor.csv`, `committor_summary.csv`
+
+300 launches (three seeds × four late starts × 25 noise realisations, T = 1000) from the χ = 1.5
+dense configurations, 23 800 fragment fates. Fates: reach S ≥ 20 (grow), fall to S ≤ 2 (shrink),
+plurality successor is the condensate (absorbed), or still open at T = 1000.
+
+| S₀ | 3 | 4 | 5 | 6 | 7 | 8–9 | 10–11 | 12–14 | 15–19 | 20–29 | ≥ 30 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| q = P(grow ∪ absorbed) | 0.12 | 0.20 | 0.24 | 0.24 | 0.36 | 0.57 | 0.62 | 0.81 | 0.94 | 0.99 | 1.00 |
+| ± | 0.004 | 0.007 | 0.010 | 0.012 | 0.016 | 0.017 | 0.021 | 0.015 | 0.009 | 0.004 | — |
+| q_free (absorption excluded) | 0.09 | 0.14 | 0.18 | 0.18 | 0.31 | 0.49 | 0.55 | 0.74 | 0.94 | 0.99 | 1.00 |
+| still open at T = 1000 | 0.10 | 0.15 | 0.23 | 0.33 | 0.29 | 0.42 | 0.55 | 0.41 | 0.28 | 0.03 | 0.00 |
+
+**q(S) is monotone and crosses ½ at S = 8.0 (8.8 with absorption excluded)**, against the
+Becker–Döring drift zero at 10.1 (9.7–10.7). The two independent definitions of the critical
+size agree to within one bin, and the undecided fraction peaks at S = 8–12: fragments of that size
+linger longest, which is the signature of a saddle. The plan's decision rule is met. **S\* ≈ 8–10
+is a critical nucleus in the standard sense** — an unstable fixed point of the size dynamics with
+committor ½ — and §3.9's "event-rate crossover" can be upgraded to that, with the qualification
+that the crossing the manuscript reported (7–8, from rates that counted evaporation as splitting)
+was the right number for a different reason.
+
+## Synthesis — each open question, its answer, and where the manuscript changes
+
+| # | question | answer | evidence | manuscript |
+|---|---|---|---|---|
+| Q1 | Two-term dissipation real, or an N confound? | Neither. The single-N grid shows a **threshold**: zero excess at χ ≤ 0.25, plateau of EPR/χ² ≈ 2.3–3.3 × 10⁻³ from χ = 0.75, at N = 4000 and consistent across N = 4000–16 000. | track A, calibrated | §3.10 two-term paragraph, Concl. 5 and 10, §2.4 caveat, §5 "subtracted artifact" |
+| Q2 | What is the negative linear term? | Contact-force **screening** of the antisymmetric push: 100 % below the threshold, 87–91 % above, a quadratic structural term. A genuine b < 0 is forbidden by EPR ≥ 0. | track A | §3.10, Concl. 5 |
+| Q3 | Any coordinate with an effective temperature? | Yes. On single-particle coordinates T_eff = T for t < t_FDT(χ) (216, 37, 13 at χ = 0.5, 1, 1.5), shared by both species at all lags; below that frequency a shared T_eff(t) grows ∝ t. | track B | §3.10 A3, Concl. 8; retire the species-coordinate measurement |
+| Q4 | Is S\* a critical nucleus? | Yes: drift zero 10.1 (9.7–10.7), committor ½ at 8.0–8.8, saddle-like dwell at 8–12. | track C | §3.9, Concl. 7 |
+| Q5 | What predicts the dip in n_cl? | n_frag = k_shed / p_abs at every χ (within 8 %); reabsorption switches on at 0.25, shedding at 0.25–0.75. A rate-balance fixed point, and the shedding threshold is the dissipation threshold. | track D | §3.5, §4.7 |
+| Q6 | Transient or arrested? | Transient with a measured lifetime: t_½ ∝ N^1.0, lcf collapses in t/N; growth exponent set by χ (0.11 at 0, 0.4–0.7 at 0.25–3, falling again above 3). | track E | §3.8, Concl. 7 |
+| Q7 | Does irreversibility project on any coarse observable? | No, in three more places: cluster-size cycle (KS p ≥ 0.53 at six χ), all-pairs lag asymmetry (|z| ≤ 2.2, eighteen runs), and spatial pseudoscalars by parity. | tracks C4, F2, F3 | §3.4, §4.2, Concl. 5 and 12 |
+| Q8 | The directed contact graph | Built. Its antisymmetric flow is 99.4 % gradient at every χ (null 45 %); the residual is the kernel's r-dependence. | track F1 | §5 Limitations → §4.2 |
+| Q9 | A defensible linear-response test | Partly: FDT with T_eff = T holds above 1/t_FDT(χ) on independent coordinates (track B); the Green–Kubo prediction of the low-χ curvature was not computed. | track B | §3.10 |
+
+Closed limitations: σ²_v (data in `data_dense/` incl. one monodisperse run, not yet analysed),
+iAAFT surrogates (cilia result unchanged). Not done: Green–Kubo at χ = 0 (G3), the Harada–Sasa
+sum rule, the rectangular box at N = 22 000, and anything in track H.
+
+The single sentence that ties the tracks together: **the antisymmetric sector does nothing until
+the push exceeds what the contact network holds statically; above that threshold it dissipates,
+fragments the condensate, and violates FDT at frequencies below 1/t_FDT(χ), all at once, and none
+of it circulates.**
