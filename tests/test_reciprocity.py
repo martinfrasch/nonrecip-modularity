@@ -7,7 +7,7 @@ the original Hara et al. force. Run: python tests/test_reciprocity.py
 import sys, os
 import numpy as np
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-from simulate import _run
+from sim.simulate import _run
 
 
 def pair_com_drift(chi, nsteps=2000, dt=0.05, L=6.0):
