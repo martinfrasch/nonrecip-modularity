@@ -199,6 +199,8 @@ c_i&=(1-\chi)\bar g+\chi a_i, &\qquad c_j&=(1-\chi)\bar g+\chi a_j,\\
  r"T\,\dot S=\chi J_1+\chi_2 J_2,\qquad J_1=\sum \mathbf{f}_1\!\cdot\!\mathbf{v},\qquad J_2=\sum \mathbf{f}_2\!\cdot\!\mathbf{v},",
 "χ ⟨F_a∘ẋ⟩ = χ Σ_i (1/s_i) ⟨F_a,i · F_i⟩ + χ Σ_i D_i ⟨∇_i · F_a,i⟩ ,":
  r"\chi\,\langle\mathbf{F}_a\circ\dot{\mathbf{x}}\rangle=\chi\sum_i\frac{1}{s_i}\langle\mathbf{F}_{a,i}\cdot\mathbf{F}_i\rangle+\chi\sum_i D_i\langle\nabla_i\cdot\mathbf{F}_{a,i}\rangle,",
+"B(r) = (μ_L − μ_S) [ (2h + r h′) + h h_s r²/T ] ,":
+ r"B(r)=(\mu_L-\mu_S)\Big[(2h+r\,h')+\frac{h\,h_s\,r^{2}}{T}\Big],",
 "S_NW = ∫ (E − I + A·C) dt":
  r"S_{\rm NW}=\int (E-I+A\cdot C)\,dt",
 }
@@ -253,24 +255,28 @@ FIGS = {  # anchor heading -> (file, label, caption)
  "system sizes, with the phase-separation ($N^1$) and finite-characteristic-size ($N^0$) "
  "expectations. The measured exponent is $1.00\\pm0.07$. (b) The largest-cluster fraction is flat "
  "across a fourfold range of $N$, which is the same statement without a fit."),
-"### 3.9 The selected scale is an event-rate crossover, not a stable cluster size": ("fig4_rates",
+"### 3.9 The selected scale is a critical-size crossover, not a stable cluster size": ("fig4_rates",
  "fig:rates",
- "\\textbf{The event-rate crossover.} (a) Per-cluster split and merge rates against cluster size, "
- "measured at $\\Delta t=50$ from equilibrated configurations ($105{,}708$ cluster observations). "
- "The rates cross between the size-5 and size-10 bins. (b) Their difference, showing the sign "
- "change. Splitting dominates below the crossing, merging above it."),
+ "\\textbf{The critical-size crossover.} (a) Channel-resolved size drift $\\langle\\Delta S\\rangle$ "
+ "per interval against cluster size at $\\chi=1.5$, from monomer and dimer exchange events only "
+ "($\\Delta t=50$, three seeds, $209{,}748$ cluster observations), with the sign change at "
+ "$S^*=10.1$ (68\\% bootstrap $9.7$--$10.7$). (b) Committor $q(S_0)$ of the full fragment-size "
+ "dynamics from 72 relaunches of $\\hat t=3000$ with fresh noise ($5{,}664$ fragment fates, 93\\% "
+ "decided near the crossover), with and without absorption into the condensate counted as the "
+ "condensed outcome, crossing one half at $S_0=7.9$ ($8.4$); the dotted curve is the fraction still "
+ "undecided at $\\hat t=3000$."),
 "### 3.10 The limits of three commonly used nonequilibrium diagnostics": ("fig5_thermo",
  "fig:thermo",
- "\\textbf{Dissipation and response.} (a) Excess dissipation per particle against $\\chi$, each "
- "point probed from a configuration equilibrated at that $\\chi$, with the quadratic form. "
- "(b) Symmetric and antisymmetric parts of the differential cross-response between two "
- "nonreciprocal channels, against measurement window. For channels of identical structure the "
- "symmetric part is consistent with zero at every window while the antisymmetric part is stable; "
- "the structurally dissimilar control is plotted alongside on the same axes, where the pattern "
- "inverts. (c) Effective temperature against measurement window: flat at $\\chi=0$, where it "
- "calibrates to $k_BT$, and growing as $t^{0.89}$ at $\\chi=1.5$ with no plateau. Inset: "
- "mean-squared displacement of the system centre of mass, near-ballistic at $\\chi=1.5$ over these "
- "windows ($t^{1.96}$) and diffusive at $\\chi=0$ ($t^{1.01}$)."),
+ "\\textbf{Dissipation and response.} (a) Excess dissipation per particle divided by $\\chi^2$, "
+ "against $\\chi$ (ordinate in units of $10^{-3}$), from the configurational estimator at $N=4000$; "
+ "the shaded band is the plateau of $2.3$--$3.3\\times10^{-3}$ and the shaded interval in $\\chi$ "
+ "the crossover of Section 3.4. (b) Symmetric and antisymmetric components of the differential "
+ "cross-response against measurement-window duration, for structurally identical (filled) and "
+ "dissimilar (open) perturbation channels. (c) The single-particle fluctuation--response ratio, "
+ "expressed as an effective temperature relative to the bath temperature, against lag, for the "
+ "large (solid) and small (dashed) species at $\\chi=0$, $0.5$, $1$ and $1.5$. Agreement with the "
+ "equilibrium value over short lags is an operational time-domain result, not a frequency-resolved "
+ "test of fluctuation--dissipation relations."),
 "### 3.11 A biological comparison: does irreversibility survive coarse-graining?": ("fig6_circulation",
  "fig:circulation",
  "\\textbf{Circulation at matched level of description.} (a) Median $|z|$ of the signed area rate "

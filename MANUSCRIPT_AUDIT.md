@@ -589,3 +589,49 @@ and not acted on**: the one-paper decision stands (2026-09-06).
 - Spectral FDT (§6A): not computed; the claim was narrowed to the time domain instead.
 - Harada–Sasa sum rule and Green–Kubo curvature: not computed; listed as limitations.
 - Splitting the paper: author's decision, unchanged.
+
+# Round 5 (2026-09-08): final pre-arXiv consistency pass
+
+One reviewer, three instalments, verdict "conditional go for arXiv after targeted corrections".
+No further simulation asked for; the split explicitly not a prerequisite for posting.
+
+## X. Corrections applied
+
+- **Figure 4 was missing from the PDF and the old Figure 5 caption had been reused.** Root
+  cause: `build_tex.py` keys figures by section heading, and the §3.9 heading changed in
+  round 4. Both figure captions are now rewritten from the plotted panels (drift and committor;
+  excess/χ², both cross-response channels, single-particle T_eff(t) by species) and the source
+  caption matches.
+- **Pair-bracket algebra.** "Nonzero at every separation" replaced by "not identically zero"
+  (the sign change at the spring contact r = 0.278 is now stated); the radial coefficients h and
+  h_s defined in place; the expression corrected to the bracket itself,
+  B = (μ_L − μ_S)[(2h + r h′) + h h_s r²/T], in units of inverse time, and the quoted numbers
+  checked against `static_epr.terms` (they are B, not T·B). Generator property and finite-time
+  simulation results kept distinct in one added sentence.
+- **Boltzmann density vs detailed balance** propagated to the introduction and §3.10.
+- **Frequency-resolved FDT language** removed from the introduction, §3.10 interpretation, §4.6
+  and Conclusion 8; replaced by "tested single-particle fluctuation–response relation … short-lag
+  agreement window", with the explicit qualification that it is not a demonstration of
+  near-equilibrium response for every observable.
+- **"Zero below the threshold"** removed from §4.2 and §4.4; the reciprocal reference now
+  distinguishes zero nonconservative work by construction from zero stationary entropy
+  production. Units of −dU/dt made explicit (per particle, T per unit t̂, against table entries
+  of 10⁻³).
+- **Fragment budget** causal language tempered: approximately stationary over the window,
+  approximately balanced channel pairs, a kinetic interpretation rather than a predictive law;
+  propagated to abstract, §4.7 and Conclusion 10.
+- **Hodge**: "predominantly gradient, approximately 99 % or more in squared norm, with a small
+  non-gradient residual" in §4.2, §5 and Conclusions 5 and 11.
+- **Blocked-design statistics** reworded (three independent seed blocks; dependence not
+  accounted for by nominal tests); the H3 p-value in the pre-registration table labelled nominal.
+- **Response-plateau claim** in §5 replaced by the converged/window-dependent distinction, naming
+  the dissimilar-channel measurement as window-dependent.
+- **Conclusion 10** narrowed: the decomposition was a useful control; the NWAP functional is not
+  validated; the three mechanism predictions are unsupported.
+
+## Y. Not done
+
+- Moving the history of superseded fits and diagnostics to an appendix (reviewer's "where to
+  stop"): a presentation decision left to the author.
+- The repository is currently **private**; the availability statement names it. It must be made
+  public, or the statement changed, before posting.
