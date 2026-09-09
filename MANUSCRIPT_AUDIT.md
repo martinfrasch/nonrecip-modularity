@@ -517,3 +517,75 @@ this paper are the pre-registration working, and the table makes that legible.
   note. Not acted on — author's decision.
 - **Journal.** All three now agree PRE for the (or a) colloid paper; the earlier PRX suggestion is
   withdrawn by every reviewer who made it.
+
+# Round 4 (2026-09-08): re-review of the second revision
+
+Two internal reviews of the 64-page PDF at commit b862b25. Reviewer 1 verified the committor
+methodology and the configurational estimator and judged the revision to have strengthened the
+colloid paper; Reviewer 2 was more critical and identified where interpretation had run ahead of
+validation. Both renewed the recommendation to split off §3.10 onward. **The split is recorded
+and not acted on**: the one-paper decision stands (2026-09-06).
+
+## U. Computations added in response
+
+- **Density preservation (Rev 2 §2).** The bracket ∇·(ρ_eq v_a)/ρ_eq was evaluated: for an
+  isolated L–S pair it is (μ_L − μ_S)[h h_s r² + (2h + rh′)T], nonzero at every separation, and
+  over the χ = 0 late configurations its per-particle value has mean +0.001 ± 0.0008 and
+  standard deviation 0.006 (21 % of ã). The antisymmetric drift does not preserve the reciprocal
+  stationary density. Added to §3.2, which no longer infers stationary-density change from
+  equal-time structure.
+- **Committor censoring (Rev 2 §3A).** 72 relaunches of t̂ = 3000 (93 % of fates near the
+  crossover decided). The half-committor crossing moves 7.3 → 7.5 → 7.8 → 7.9 for horizons
+  250 → 500 → 1000 → 1500 and is flat at 7.9 to 3000 (8.4 without absorption). Launch-level
+  bootstrap 7.8–8.1; parent-level 7.6–8.3. Reported as a horizon table in §3.9.
+- **Channel-conditioned drift (Rev 2 §3B).** Stated explicitly; the all-channel drift with
+  absorption excluded is positive at every size (fusion-dominated mean). §3.9 retitled
+  "critical-size crossover"; "critical nucleus in the standard sense" withdrawn from the abstract
+  and conclusions; the committor criterion is stated as met at converged horizon, the mean-drift
+  criterion as met only within the monomer-exchange channel.
+- **Fragment budget (Rev 2 §5).** `fragment_budget.py`: all six channels per snapshot, closure to
+  within 0.26 events. Fission/fusion and formation/dissolution are each several times larger than
+  shedding/absorption and each pair balances separately. The ratio law n_f = k_shed/p_abs is
+  restated as the condensate's exchange balance, not a prediction; "two monotone rates" corrected.
+- **Screening decomposition (Rev 2 §4C).** $\tilde b$ split into steric, symmetric-EHD and
+  divergence parts: steric 99 % at χ = 1.5 and 107 % at χ = 8; symmetric EHD 92 % at χ = 0.5.
+  "Contact screening" is now confined to above the crossover; below it the pair well does it.
+- **Timestep convergence at low drive (Rev 2 §4D).** dt = 0.0025 on seed 1: χ = 0.25
+  +0.03 ± 0.09, 0.5 +0.40 ± 0.19, 0.75 +1.33 ± 0.29 × 10⁻³ against −0.03, +0.21, +1.94 at
+  dt = 0.005; stationarity residual 0.34 → 0.18. "Zero below the threshold" replaced by
+  "unresolved below the crossover" throughout; "nine tenths" replaced by "87–91 % of the unopposed
+  contribution in the configurational work-rate decomposition".
+- **Centre-of-mass share of the single-particle MSD (Rev 2 §6C).** 0.2–1.0 % at every lag and
+  χ; |Σε|/√N = 0.98. The "no drift confound" claim is now quantitative.
+
+## V. Corrections applied
+
+- Direction error: t_FDT falls with drive, so the cutoff *frequency* rises; all "falls as the
+  drive grows" wording replaced, and the claim restated as a time-domain short-lag window rather
+  than a spectral boundary (Rev 2 §6A–B).
+- "Provably zero current" for the finite-time χ = 0 ensemble corrected to "detailed balance,
+  zero stationary current" (Rev 2 §4A); medium heat vs total entropy production distinguished in
+  §3.4.
+- Opening generalisation: nonconservative driving excludes detailed balance, not a
+  Boltzmann-shaped density in general (Rev 2 §2).
+- §3.8: extreme-value comparison added (log N would give ×1.2 against the ×4.04 measured);
+  "configuration-dependent asymptotic states" → late-time plateaus; composition "ruled out" →
+  "the corrected-composition replicate also condenses" (Rev 2 §7). §4.5 "near 1/3" replaced by
+  the mass-weighted exponents.
+- MAL paragraph: a potential is not a conserved energy in overdamped dynamics; the
+  energy-conservation criterion cannot be applied as stated (Rev 2 §8).
+- Pair validation: equal mobilities stated; the (μ_i − μ_j)F_i/2 drift of a reciprocal pair with
+  unequal mobilities noted (Rev 2 §8).
+- KS comparison of shed vs absorbed sizes restated as a marginal-distribution result, not a
+  test of current balance (Rev 2 §8).
+- Conclusion 11: the two densely sampled dominance matrices show cyclic excess at 2.5σ and
+  5.1σ; "consistent with a gradient" confined to the underpowered pair (Rev 2 §9).
+- §3.2 trend-test p-values qualified as treating blocked runs as independent (Rev 2 §9).
+- Run inventory extended with the second-revision runs; repository URL added; Fig. 3 panel
+  title 1.01 → 1.00 ± 0.07 (Rev 2 §9).
+
+## W. Reviewer 2 items not acted on, with reasons
+
+- Spectral FDT (§6A): not computed; the claim was narrowed to the time domain instead.
+- Harada–Sasa sum rule and Green–Kubo curvature: not computed; listed as limitations.
+- Splitting the paper: author's decision, unchanged.

@@ -9,8 +9,10 @@
 ## Abstract
 
 Nonreciprocal interactions do not derive from a scalar potential, which removes the equilibrium
-apparatus — Boltzmann statistics, structure selected by energy minimisation, detailed balance —
-even though a path-space variational representation survives. A widely held intuition holds that
+apparatus — detailed balance, and with it structure selected by energy minimisation — even
+though a path-space variational representation survives; a Boltzmann-shaped stationary density is
+not excluded in general, only detailed balance is, and whether the density survives is a question
+for each model. A widely held intuition holds that
 such a coupling can be split into a symmetric sector that selects structure and an antisymmetric
 sector that merely adds circulation without disturbing it. We test that intuition in the
 agent-based model of Hara et al. [Phys. Rev. Lett. **137**, 068302 (2026)] for size-asymmetric
@@ -33,13 +35,17 @@ the majority phase, so that cluster count depends non-monotonically on χ and th
 state is the reciprocal one. That fragmented state is a long-lived transient rather than a steady
 state: the largest cluster grows in proportion to system size (N^1.00 ± 0.07), the time to
 condense scales linearly with N, and no stable characteristic cluster size is selected. The scale
-that is selected, S* ≈ 8–10 particles, is a critical nucleus in the standard sense: the
-cluster-size drift changes sign there and the committor is one half. Excess dissipation over the
-reciprocal control, measured with a configurational estimator that requires no trajectory, is zero
-within error for χ ≤ 0.25 and reaches a quadratic plateau by χ = 0.75. Below that threshold the
-contact network absorbs the antisymmetric push entirely; above it, nine tenths, and the residue
-dissipates. The same threshold governs structure: at every χ the number of fragments is the ratio
-of the condensate's shedding rate to the fragments' reabsorption probability, and the two rates
+that is selected, S* ≈ 8–10 particles, is a critical-size crossover: the committor of the
+fragment-size dynamics, converged in the observation horizon, is one half at S ≈ 8, and the
+monomer-exchange drift changes sign at S ≈ 10. Excess dissipation over the reciprocal control,
+measured with a configurational estimator that requires no trajectory and agrees with the
+trajectory estimator to 5–10 % where both resolve, is unresolved for χ ≤ 0.25 and reaches a
+quadratic plateau by χ = 0.75; the configurational decomposition cancels 87–91 % of the unopposed
+antisymmetric contribution above that crossover, through the steric contact force, and all of it
+within error below, through the pair attraction. The same crossover governs structure: the
+fragment population is a steady state whose every channel pair — shedding and reabsorption,
+fission and fusion, nucleation and dissolution — balances separately, so its size is fixed by
+the condensate's exchange rate and the per-fragment reabsorption probability, and those two
 switch on at different χ, which is what makes the cluster count non-monotonic. Because the
 nonreciprocal forces do not sum to zero, the suspension also acquires a net internal force and a
 centre-of-mass drift, near-ballistic over short windows but finite-size in amplitude. Yet no
@@ -52,8 +58,8 @@ detect nonreciprocity at all.
 Three auxiliary strands are reported more briefly. Of three commonly invoked near-equilibrium
 diagnostics, two fail for reasons concerning the instrument rather than the system; the third,
 measured on single-particle coordinates, gives a single effective temperature equal to the bath
-temperature above a drive-dependent cutoff frequency, shared by both species, with a shared and
-growing violation below it.
+temperature over a drive-dependent short-lag window, shared by both species, with a shared and
+growing violation at longer lags.
 Comparisons with beating *Chlamydomonas* axonemes, with a synthetic ensemble given an imposed
 turning rate, and with published social-dominance matrices bound how far the circulation result
 generalises — in particular, the axoneme contrast cannot be read as biological, since the synthetic
@@ -147,14 +153,14 @@ The second question is which variational tier the system occupies. Rather than a
 principle applies, we treat tier membership as an experimental matter with measurable signatures,
 and test three of them: quadratic dissipation, Onsager reciprocity, and a single effective
 temperature (Section 3.10). Two cannot decide it. The quadratic dissipation is near-tautological
-at fixed structure; what it does establish is a threshold in χ, below which the contact network
-absorbs the antisymmetric push entirely and nothing dissipates, and above which nine tenths of it
-is screened and the residue is quadratic. An apparent Onsager antisymmetry does not survive a
+at fixed structure; what it does establish is a crossover in χ, below which the excess is
+unresolved and the configurational decomposition cancels all of the unopposed contribution within
+error, and above which it cancels 87–91 % and the residue is quadratic. An apparent Onsager antisymmetry does not survive a
 control in which the two response channels are made structurally dissimilar. The third, measured
 on single-particle coordinates with a force pattern conjugate to the single-particle fluctuation,
 does decide something: a single effective temperature equal to the bath temperature, shared by
-both species, holds above a cutoff frequency that falls as the drive grows, and a shared, growing
-violation replaces it below. Near-equilibrium behaviour thus has a measured frequency of validity
+both species, holds over a short-lag window that shrinks as the drive grows, and a shared, growing
+violation replaces it at longer lags. Near-equilibrium behaviour thus has a measured frequency of validity
 rather than a tier, and we regard the route to that statement as a result about the difficulty of
 applying the taxonomy as much as about the system. Chasing the third diagnostic on species
 coordinates also turned up a mechanism: because nonreciprocal forces do not sum to zero over the system, there is a
@@ -227,7 +233,10 @@ kernel (`simulate.py`) these coefficients appear as `gi` and `gj`, with `gi` bui
 the same convention is used in `fdt.py`, `onsager.py` and `simulate_rect.py`.
 
 Validation against the compiled kernel (`tests/test_reciprocity.py`): an isolated noise-free
-pair shows centre-of-mass drift 0.000×10⁰ at χ=0, 3.95×10⁻² at χ=1, and exactly half that at
+pair of equal steric radii, hence equal mobilities (so that zero net force implies a fixed
+arithmetic centre; with unequal mobilities a reciprocal pair's arithmetic centre drifts as
+(μ_i − μ_j)**F**_i/2 and only the friction-weighted centre is fixed), shows centre-of-mass drift
+0.000×10⁰ at χ=0, 3.95×10⁻² at χ=1, and exactly half that at
 χ=0.5 (1.975×10⁻², linear in χ to four digits); an equal-radius pair follows identical
 trajectories at χ=0 and χ=1 to 10⁻¹⁴. Against the pre-χ code at χ=1, trajectories are bitwise
 identical for 1000 steps, diverging only to 9.8×10⁻¹⁵ by 5000 steps (floating-point rounding
@@ -331,9 +340,15 @@ replicates.
 | High-drive series, χ ∈ {2, 3, 5, 8} | 4,000 | L = 24 | 8×10⁵ | 12 |
 | Rectangular-box control, aspect 1.8 : 1 | 4,000 | 32.20 × 17.89 | 8×10⁵ | 3 |
 | Replicate at the source specification, 22.7% type-I | 22,000 | L = 53.67 | 3.6×10⁵ | 4 |
+| Dense continuations, five χ (rev. 2) | 4,000 | L = 24 | 2.5×10⁴ | 16 |
+| Committor relaunches, χ = 1.5 (rev. 2) | 4,000 | L = 24 | 10³ / 3×10³ | 300 / 72 |
+| Fluctuation–response twins, four χ (rev. 2) | 4,000 | L = 24 | 10³ | 48 |
+| Small-dt re-equilibrations (rev. 2) | 4,000 | L = 24 | 5×10² | 42 |
 
 Continuation runs extend selected conditions to t̂ = 8×10⁵, and the replicate to 7.2×10⁵ or
-1.08×10⁶. Paper-scale runs store 200 snapshots. Analyses use the late half of each run.
+1.08×10⁶. The four "rev. 2" rows are the runs added in the second revision (dense continuations at
+χ ∈ {0, 0.25, 0.5, 0.75, 1} × 3 seeds plus one monodisperse seed; committor relaunches; twins at
+χ ∈ {0, 0.5, 1, 1.5}; re-equilibrations for the configurational estimator), described below. Paper-scale runs store 200 snapshots. Analyses use the late half of each run.
 
 Tier-membership measurements (Section 3.10) add: entropy production probes at dt = 6.25e-4 from
 equilibrated configurations, with a paired same-configuration control; Onsager cross-coefficients
@@ -461,7 +476,9 @@ Paper scale, 3 seeds per level, all other parameters fixed:
 | Q | 0.930 | 0.911 | 0.910 | 0.909 | 0.906 | 0.901 | 0.936 |
 | σ²_v | 4.19e-10 | 4.28e-10 | 3.65e-09 | 1.37e-08 | 2.76e-08 | 5.57e-08 | 3.07e-10 |
 
-Trend tests across χ (18 runs): n_cl ρ=+0.931 (p=2.1×10⁻⁸); σ²_v ρ=+0.975 (p=7.1×10⁻¹²).
+Rank correlations across χ (18 runs): n_cl ρ = +0.931; σ²_v ρ = +0.975 (the nominal p-values,
+2 × 10⁻⁸ and 7 × 10⁻¹², treat the 18 runs as independent, which the blocked design makes them
+not, so we do not rest on them).
 χ = 0 → 1.5: n_cl 11.1 ± 0.5 → 137.3 ± 0.5 (a factor of 12.4); σ²_v × 133. We quote effect sizes
 with seed-level scatter rather than p-values here: with three blocked seeds per level, and
 within-run fluctuations of up to 30% (Section 2.5), formal significance tests on run-level means
@@ -487,9 +504,25 @@ have sampled. The result here is about the first: n_cl and lcf are single-snapsh
 observables; they move by an order of magnitude under a change confined to the antisymmetric
 coupling. The premise that a solenoidal coupling cannot alter the stationary density holds only
 when ∇·(ρ_eq **v**) = 0, which generic nonreciprocal couplings do not satisfy. Our measurement is
-of equal-time structure at late times rather than of a verified stationary density, but that is the
-weaker requirement: a coupling that leaves the stationary density invariant cannot move an
-equal-time observable at late times either.
+of equal-time structure at late times rather than of a verified stationary density, and the two
+must be kept apart: two dynamics can share a stationary distribution and approach it at very
+different rates, so from a common nonequilibrium initial condition they can show very different
+equal-time structure throughout any accessible window. Section 3.5 supplies exactly that
+alternative — one dynamics escapes a kinetic trap that the other cannot. What the structural
+contrast establishes on its own is therefore that scaling the antisymmetric coupling changes the
+finite-time structure and the kinetics of condensation at fixed symmetric pair law. Whether it
+also changes the stationary density is a separate, mathematical question, and it can be answered
+directly for this model. The reciprocal stationary density is ρ_eq ∝ e^{−U/T}, the added drift is
+**v**_a = μ**F**_a, and the drift preserves ρ_eq iff ∇·(ρ_eq **v**_a) = ρ_eq[∇·**v**_a −
+**v**_a·∇U/T] vanishes identically. For an isolated L–S pair the bracket is
+(μ_L − μ_S)[h h_s r² + (2h + r h′)T] in the notation of Section 2.4, nonzero at every separation
+(−3.3 T per pair at r = 0.25, +0.019 at r = 0.28, +7 × 10⁻⁴ at r = 0.5) and vanishing only for
+equal mobilities, in which case the pair propulsion is a rigid translation of the pair. Over the
+χ = 0 late configurations its per-particle value has mean +0.001 ± 0.0008 (the integration-by-parts
+identity, Section 2.4) but a standard deviation of 0.006, i.e. 21 % of ã, across configurations.
+The antisymmetric drift of this model does not preserve the reciprocal stationary density; it is
+not a density-preserving perturbation, and the solenoidal premise fails for it as a matter of
+algebra and not only of finite-time observation.
 
 ### 3.3 Newman modularity is degenerate on these networks
 
@@ -531,14 +564,41 @@ calibration shifts the excess by less than its error). The paired trajectory pro
 N = 1000, gave −0.06, −0.02, 0.80, 2.0 and 6.5 × 10⁻³ at χ = 0.25 to 1.5, and 12.2 × 10⁻³ at
 χ = 2 and N = 4000: consistent where it resolves, and unable to resolve the low-drive rows.
 
-Three features of the table carry the argument of Section 3.10. The excess is zero within error at
-χ = 0.25 (each of three seeds within 1σ of zero), a third of its plateau value at χ = 0.5, and on
-the plateau of 2.3–3.3 × 10⁻³ per χ² from χ = 0.75 to χ = 8. The unopposed term $\tilde a$ is nearly
-constant in χ (0.025–0.030; it counts L–S contacts, not drive), so the entire χ-dependence sits in
-the screening fraction, which is 1.0 below the threshold and 0.87–0.91 above it: nine tenths of
-the antisymmetric push is balanced by contact forces at every drive from 0.75 to 8, and all of it
-below 0.5. At N = 1000, 9000 and 16 000 the plateau per χ² is 3.7, 2.4 and 2.4 × 10⁻³ at χ = 1.5,
-so the pilot-scale value is about 30 % high and the larger boxes agree with N = 4000.
+Three features of the table carry the argument of Section 3.10. The excess per χ² sits on a
+plateau of 2.3–3.3 × 10⁻³ from χ = 0.75 to χ = 8; at χ = 0.5 it is 0.35 ± 0.05 of the value that
+plateau would give, and at χ = 0.25 it is unresolved, −0.03 ± 0.02 × 10⁻³ against a
+plateau-extrapolated 0.17 × 10⁻³. We say *unresolved below the crossover* and not zero: a
+finite-noise system can carry a small activated dissipation below an apparent yielding crossover,
+and the measurement does not distinguish that from an exact threshold. The unopposed term
+$\tilde a$ is nearly constant in χ (0.025–0.030; it counts L–S contacts, not drive), so the
+χ-dependence sits in the ratio $-\tilde b/(\chi\tilde a)$, which is 0.97–1.02 at χ ≤ 0.5 and
+0.87–0.91 at every drive from 0.75 to 8: **the configurational work-rate decomposition cancels
+87–91 % of the unopposed antisymmetric contribution above the crossover and, within error, all of
+it below.** Which force does the cancelling changes across the crossover. Separating
+$\tilde b$ into its steric, symmetric-electrohydrodynamic and divergence parts, at χ = 1.5 the
+steric contact force carries 99 % of it (−0.034 of −0.034, with the symmetric EHD attraction at
+−0.002 and the divergence term at +0.002), and at χ = 8 the same (107 %, −6 %, −1 %); at χ = 0.5
+the symmetric EHD attraction carries 92 % (−0.013 of −0.014) and the contact force 25 %, with the
+divergence term at −17 %. Above the crossover the push is held by compressed contacts; below it
+the pair sits in the electrohydrodynamic well and the well holds it. At N = 1000, 9000 and 16 000
+the plateau per χ² is 3.7, 2.4 and 2.4 × 10⁻³ at χ = 1.5, so the pilot-scale value is about 30 %
+high and the larger boxes agree with N = 4000.
+
+Two more cautions attach to the low-drive rows. First, what the estimator returns is the
+nonconservative work rate χ⟨**F**_a∘**ẋ**⟩, and the medium heat is that plus −dU/dt; only the
+total entropy production, which adds the system entropy change, is non-negative by theorem, and
+away from stationarity neither the medium heat nor a difference between probes inherits that
+bound automatically. We use the identity ⟨**F**_s∘**ẋ**⟩ = −d⟨U⟩/dt with −dU/dt measured at
+10⁻⁶ in these windows, so the distinction is numerically immaterial here, but the low-drive
+ensembles are aging and we do not claim a stationary identity holds for them exactly. Second, the
+small residual is what has to converge with the timestep, not the large cancelling terms. On the
+seed-1 configurations the χ = 0.25 excess is −0.20 (production dt), −0.03 ± 0.10 (dt = 0.005) and
++0.03 ± 0.09 × 10⁻³ (dt = 0.0025); at χ = 0.5, −0.01, +0.21 ± 0.18 and +0.40 ± 0.19; at χ = 0.75,
++0.67, +1.94 ± 0.26 and +1.33 ± 0.29, with the stationarity residual falling 4.5 → 0.34 → 0.18.
+The two small-dt values agree within their errors at each χ; the statistical error of a single
+seed at dt = 0.0025 (±0.1–0.3 × 10⁻³) is now the larger of the two uncertainties, and the numbers
+in the table above, at dt = 0.005 over three seeds, should be read with a systematic uncertainty
+of that order at χ ≤ 0.75.
 
 **The dynamics are genuinely irreversible, and that irreversibility does not appear as
 circulation in any network observable measured.** Dissipation is the standard measure of how
@@ -576,7 +636,7 @@ reciprocal 11.1) as weak activity completes the arrested phase separation, then 
 strong activity drives fission. Fluctuations peak in this crossover region (sd/mean of n_cl:
 7.2% at χ=0, 29.7% at χ=0.25, 18.6% at χ=0.5, 7.1% at χ=1.5).
 
-**The dip has a quantitative account.** Dense continuations (Δt = 50, three seeds per χ) resolve
+**The dip has a kinetic account.** Dense continuations (Δt = 50, three seeds per χ) resolve
 the individual events that make and remove fragments — clusters of size ≥ 2 other than the
 condensate. Tracking every cluster to its plurality successor, the condensate's *shedding rate*
 (pieces of size ≥ 2 detaching per interval) and the fragments' *reabsorption probability* (per
@@ -590,16 +650,42 @@ fragment per interval, successor is the condensate) are:
 | fragments predicted, k_shed / p_abs | 8.6 | 1.1 | 14.9 | 55 | 86 | 129 |
 | fission probability per interval, S = 10–29 | — | — | 0.10 | 0.21 | 0.25 | 0.30 |
 
-At every χ, including the reciprocal reference, the fragment count is the shedding rate divided by
-the reabsorption probability to within 8 %. The non-monotonic curve is the product of two monotone
-rates with different thresholds. Reabsorption switches on at χ = 0.25 — eleven times its
-reciprocal value, because weak activity mobilises fragments and condensate alike — while shedding
-is still at its reciprocal level, so fragments are cleared faster than they are made and the
-cluster count falls fivefold. Shedding then switches on between χ = 0.25 and 0.5 (eightfold) and
-again to 0.75 (threefold), the fission probability of an existing fragment rises from zero to
-0.30 over the same interval, and the fragment count climbs two orders of magnitude. Structure is a
-rate-balance fixed point. We note for Section 3.10 that the shedding threshold, between χ = 0.25
-and 0.75, is where the excess dissipation of Section 3.4 switches on.
+At every χ, including the reciprocal reference, the fragment count equals the shedding rate
+divided by the reabsorption probability to within 8 %. We are careful about what that is. The
+reabsorption probability is absorptions per fragment-interval, so k_shed/p_abs = n_f holds
+exactly when the condensate sheds as many fragments as it absorbs — it is the condensate's
+exchange balance, not a prediction from independent quantities — and it can only *set* n_f if the
+other channels that change the fragment number net to zero. A complete budget over the same
+intervals (seed 1 at each χ; `fragment_budget.py`, closure to within 0.26 events per snapshot)
+shows that they do, channel by channel:
+
+| per snapshot, χ = | 0 | 0.25 | 0.5 | 0.75 | 1 | 1.5 |
+|---|---:|---:|---:|---:|---:|---:|
+| shed / absorbed | 0.07 / 0.08 | 0.06 / 0.06 | 0.63 / 0.61 | 2.08 / 2.12 | 2.92 / 2.98 | 2.74 / 2.75 |
+| fission / fusion | 0.17 / 0.18 | 0.03 / 0.03 | 1.27 / 1.25 | 5.45 / 5.33 | 7.58 / 7.34 | 12.1 / 12.0 |
+| formation / dissolution | 0.03 / 0.02 | 0.00 / 0.00 | 1.03 / 1.03 | 6.36 / 6.43 | 12.6 / 12.9 | 19.1 / 19.3 |
+| fragments | 8.3 | 2.1 | 18.5 | 61 | 98 | 138 |
+
+Fission and fusion among fragments, and formation of dimers from monomers against complete
+dissolution, are each several times larger than the condensate exchange at χ ≥ 0.75, and each
+pair balances separately to within a few per cent. The fragment population is a steady state in
+which all three channel pairs are individually in balance, and the count it settles at is fixed by
+the one pair that couples it to the condensate. What carries the χ-dependence is therefore the
+shedding rate and the per-fragment reabsorption probability, and they do not switch on together:
+reabsorption is already eleven times its reciprocal value at χ = 0.25, because weak activity
+mobilises fragments and condensate alike, while shedding is still at its reciprocal level, so
+fragments are cleared faster than they are made and the cluster count falls fivefold; shedding
+then rises eightfold between χ = 0.25 and 0.5 and threefold more to 0.75, the fission probability
+of an existing fragment rises from zero to 0.30 over the same interval, and the fragment count
+climbs two orders of magnitude. Neither rate is monotone over the whole range — reabsorption
+peaks at χ = 0.25 and declines, shedding saturates above χ = 1 — but their onsets are at different
+χ, and that is what makes n_cl non-monotonic. Structure here is a balance of kinetic rates, and no
+static functional enters the account. The budget is from one seed per χ and one window; it
+should be read as demonstrating closure and the ordering of the channels, not as a precision
+measurement of any of them.
+
+We note for Section 3.10 that the shedding onset, between χ = 0.25
+and 0.75, is where the excess dissipation of Section 3.4 rises to its quadratic plateau.
 
 ### 3.6 Attributing the reciprocal/nonreciprocal difference
 
@@ -616,7 +702,7 @@ The monodisperse-versus-bidisperse comparison confounds reciprocity with polydis
 ### 3.7 Observable reliability
 
 Edge Jaccard turnover fails as a dynamical probe on four counts: about 70% of its χ=1 value
-survives at χ=0 where the current is provably zero (69% at paper scale, 71% at pilot scale); it
+survives at χ=0 where the dynamics obey detailed balance and carry no stationary current (69% at paper scale, 71% at pilot scale); it
 correlates with morphology (Spearman ρ = +0.77 at pilot scale, +0.62 at paper scale, against n_cl);
 its lag-1 value is dominated by hard-cutoff flicker (0.274 at equilibrium, rising to 0.475 by
 lag 32 without plateau); and it is **non-monotonic in χ at paper scale**, peaking at χ=0.75.
@@ -650,8 +736,10 @@ rectangular-box control of Section 5 is compared against. All scale-selection cl
 continued runs.
 
 **Largest cluster ∝ N^1.00 ± 0.07**, where the uncertainty is the spread over all twelve
-combinations of one seed per system size (range 0.93 to 1.07), against 0.00 for a finite
-characteristic size and 1.00 for phase separation. We do not treat this as a precisely resolved
+combinations of one seed per system size (range 0.93 to 1.07), against 1.00 for phase separation
+and, for a finite characteristic size, the subextensive growth of the sample maximum — a
+distribution with an exponential tail would give a largest cluster growing as log N, a ratio of
+about 1.2 over this range of N, against the 4.04 measured. We do not treat this as a precisely resolved
 exponent: it rests on three system sizes, and the two N = 16,000 seeds converge to appreciably
 different largest-cluster fractions (0.709 and 0.857). The robust statement, which needs no fit, is
 that the largest-cluster fraction stays approximately constant — mean 0.79, range 0.71 to 0.86
@@ -690,22 +778,26 @@ magnitude. More interestingly, **the converged state is not unique**: three seed
 0.81–0.87 while seed 3 settles at 0.549 and stays there. That heterogeneity is consistent with the
 kinetic-arrest picture of Section 3.5 — a configuration that has separated into two large clusters
 which then cannot find each other has no route to a single condensate on any accessible timescale.
-The asymptotic largest-cluster fraction is therefore configuration-dependent, which is itself a
-statement about arrest rather than about coarsening.
+The late-time largest-cluster fraction is therefore configuration-dependent over the windows
+reached, which is itself a statement about arrest rather than about coarsening; we do not claim
+the asymptotic states differ.
 
 Two results follow. First, **composition does not explain the discrepancy**. At convergence the
 22.7% replicate reaches lcf = 0.771 ± 0.075, squarely within the 0.78–0.79 seen across our 25%
 runs at N = 4,000 to 16,000, rather than the 47% shortfall the underequilibrated comparison
 suggested. This is a coarse comparison rather than a controlled one — the replicate differs from
-those runs in system size and in χ as well as in composition — but it is enough to rule composition
-out as the explanation, since correcting it moved the converged value by a few per cent and not in
-the direction that would reconcile us with the source. Second, **at the
+those runs in system size and in χ as well as in composition — so it cannot rule composition out;
+what it shows is that the corrected-composition replicate also develops a large condensate, with
+a late-time fraction a few per cent from the 25 % runs and not in the direction that would
+reconcile us with the source. Second, **at the
 source paper's own simulation duration this reimplementation reproduces its reported state** — a
 majority of particles outside the largest cluster, median cluster size 3 — and the same system
 continued to twice that duration phase-separates.
 
-The small-cluster state is therefore a long-lived transient of this model rather than its steady
-state. This is both a validation of the reimplementation (it reaches the published state under
+The small-cluster state is therefore a long-lived transient of this model on the timescales
+reached rather than its steady state — the plateaus are within-run and the seed heterogeneity
+means we cannot call them configuration-dependent asymptotic states, only late-time plateaus.
+This is both a validation of the reimplementation (it reaches the published state under
 the published conditions) and a limitation of the model (that state does not persist).
 
 **The transient's lifetime scales linearly with N.** Chaining each run with its continuations, the
@@ -722,7 +814,7 @@ lcf = 0.5, and above χ = 3 the growth exponent falls again (0.43 at χ = 5, 0.2
 fewer than ten pre-saturation points, so provisional): strong drive slows coarsening in the
 growth phase even though the condensate still forms.
 
-### 3.9 The selected scale is a critical nucleus, not a stable cluster size
+### 3.9 The selected scale is a critical-size crossover, not a stable cluster size
 
 Two further measurements resolve what the system selects. **Fragments** — all clusters except
 the largest — have size statistics independent of system size: mean 5.02, 4.78, 5.34 particles
@@ -742,8 +834,9 @@ the fission probability rises monotonically with size (0.03 at S ≈ 3, 0.24 at 
 S ≈ 23, 0.54 above 100) while fusion is flat at 0.17–0.26, so there is no rate crossing to
 report. Two other measurements settle what the scale is.
 
-**The size drift changes sign.** Restricting to monomer and dimer exchange — the Becker–Döring
-channel, with fission and fusion excluded — the mean size change per interval is
+**The channel-resolved size drift changes sign.** Restricting to monomer and dimer exchange
+— the Becker–Döring channel, with fission and fusion excluded — the mean size change per interval
+is
 
 | S | 2 | 3–4 | 5–6 | 7–9 | 10–13 | 14–19 | 20–29 | 30–49 | 50–99 |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -751,31 +844,59 @@ channel, with fission and fusion excluded — the mean size change per interval 
 | s.e.m. | 0.003 | 0.004 | 0.009 | 0.012 | 0.017 | 0.022 | 0.032 | 0.041 | 0.055 |
 
 negative from S = 3 to about 9 and positive above, with a zero at **S\* = 10.1** (68 % block-
-bootstrap interval 9.7–10.7, defined in every resample). Absorption into the condensate, kept
-separate, is a small flat hazard of 1.5–3.5 % per interval at every size; folded into the drift
-it returns condensate size at every S, which is the artefact the coarse-interval attempt had
-produced. Dimers are the one exception to the sign pattern and gain on net.
+bootstrap interval 9.7–10.7, defined in every resample). This is a zero of a *channel-conditioned*
+drift, not of the full size dynamics: with all channels included and only absorption into the
+condensate excluded, the mean drift is positive at every size (+1.6 at S = 2 to +34 at S ≈ 40),
+because rare fusions with larger fragments dominate the mean, and with absorption included it
+returns condensate size at every S, which is the artefact the coarse-interval attempt had
+produced. Absorption itself is a small flat hazard of 1.5–3.5 % per interval at every size.
+Dimers are the one exception to the sign pattern and gain on net.
 
-**The committor is one half there.** From the same configurations, 300 relaunches with fresh
-noise (t̂ = 1000) followed 23 800 fragments to the first of: reaching S ≥ 20, falling to S ≤ 2, or
-being absorbed. The probability of the condensed outcome, q($S_0$) = P(grow $\cup$ absorbed) among decided
-fates, is
+**The committor of the full size dynamics is one half at $S_0$ ≈ 8, and the value is converged in
+the horizon.** From the same configurations, relaunches with fresh noise followed every fragment
+of size ≥ 3 to the first of: reaching S ≥ 20, falling to S ≤ 2, or being absorbed by the
+condensate, with every size-change channel operating. Two sets were run: 300 relaunches of
+t̂ = 1000 (25 noise realisations × 4 starts × 3 seeds, 23 800 fragments) and 72 of t̂ = 3000
+(12 × 2 × 3, 5 664 fragments). The probability of the condensed outcome, q($S_0$) = P(grow $\cup$
+absorbed) among decided fates, from the longer set:
 
 | $S_0$ | 3 | 4 | 5 | 6 | 7 | 8–9 | 10–11 | 12–14 | 15–19 | 20–29 |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| q | 0.12 | 0.20 | 0.24 | 0.24 | 0.36 | 0.57 | 0.62 | 0.81 | 0.94 | 0.99 |
-| q, absorption excluded | 0.09 | 0.14 | 0.18 | 0.18 | 0.31 | 0.49 | 0.55 | 0.74 | 0.94 | 0.99 |
-| still undecided at t̂ = 1000 | 0.10 | 0.15 | 0.23 | 0.33 | 0.29 | 0.42 | 0.55 | 0.41 | 0.28 | 0.03 |
+| q | 0.14 | 0.25 | 0.26 | 0.21 | 0.36 | 0.58 | 0.53 | 0.63 | 0.87 | 0.97 |
+| decided fates | 1899 | 939 | 594 | 360 | 309 | 332 | 269 | 252 | 169 | 180 |
 
-with binomial errors of 0.01–0.02 per entry. q is monotone in $S_0$ and crosses ½ at $S_0$ = 8.0 (8.8
-with absorption excluded), one bin below the drift zero; the fraction still undecided after
-t̂ = 1000 peaks at $S_0$ = 8–12, where clusters linger longest, which is the signature of a saddle.
-Two independent definitions of the critical size therefore agree to within a bin: **S\* ≈ 8–10
-particles is a critical nucleus in the standard sense**, an unstable fixed point of the size
-dynamics at which the committor is one half. It is a property of the contact energetics rather
-than of the drive: the drift zero is 10.7, 9.3 and 10.1 at χ = 0.75, 1 and 1.5 (7.3 at χ = 0.5,
-with a tenth of the events), and Section 3.8 has already shown it independent of N. The fragment
-population (mean ≈ 5) sits below it and is, in the usual language, subcritical.
+with binomial errors of 0.01–0.03 per entry. The fate estimate is conditioned on a decision within
+the horizon, and that matters near the crossover: shrink fates take longer than growth (median
+first-passage 950 against 700 at $S_0$ = 8–11), so short horizons bias q upward and the crossing
+downward. The crossing is therefore reported as a function of the horizon τ:
+
+| τ | 250 | 500 | 1000 | 1500 | 2000 | 2500 | 3000 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| $S_0$ at q = ½ | 7.3 | 7.5 | 7.8 | 7.9 | 7.9 | 7.9 | 7.9 |
+| $S_0$ at q = ½, absorption excluded | 7.5 | 7.7 | 8.2 | 8.3 | 8.3 | 8.4 | 8.4 |
+| fraction of $S_0$ = 8–11 fates decided | 0.20 | 0.32 | 0.56 | 0.73 | 0.83 | 0.89 | 0.93 |
+
+It moves by 0.7 between τ = 250 and 1500 and by less than 0.05 thereafter, with 93 % of the fates
+near the crossover decided at τ = 3000. The converged value is **$S_0$ = 7.9** (68 % bootstrap over
+launches 7.8–8.1; over the six parent configurations 7.6–8.3), or 8.4 (8.2–9.3) when absorption
+into the condensate is not counted as the condensed outcome; the 300-launch set at τ = 1000 gave
+8.0 and 8.8, within 0.1 and 0.4 of these. Errors that treat fragments as independent understate
+the true uncertainty, since fragments in one launch share a parent configuration and a noise
+stream; the launch- and parent-level bootstraps above are the ones to quote.
+
+The two criteria therefore bracket the scale rather than coincide: the committor of the full
+dynamics is one half at $S_0$ ≈ 8 (8.4 without absorption), and the drift of the monomer-exchange
+channel changes sign at S ≈ 10. We call S\* ≈ 8–10 a **critical-size crossover**. The committor
+criterion, which is the one that involves every channel, is met at converged horizon, and on that
+evidence the crossover is a critical nucleus of the fragment-size dynamics; the mean-drift
+criterion of classical nucleation theory is met only within the monomer-exchange channel, and the
+mean drift of the full process has no zero because rare fusions dominate it. Absorption into an
+existing condensate is also a different event from a fragment growing into a supercritical
+nucleus of its own, which is why both definitions of q are given. The crossover is a property of
+the contact energetics rather than of the drive: the channel-resolved drift zero is 10.7, 9.3 and
+10.1 at χ = 0.75, 1 and 1.5 (7.3 at χ = 0.5, with a tenth of the events), and Section 3.8 has
+already shown the fragment scale independent of N. The fragment population (mean ≈ 5) sits below
+it and, on the committor evidence, is subcritical.
 
 **The fragment scale is independent of density as well as of system size.** Holding N = 4000 and
 χ = 1.5 fixed while expanding the box dilutes the suspension from the baseline 6.944 particles per
@@ -797,10 +918,11 @@ fragment scale stays within a narrow band — the same band it occupies over a f
 system size (Section 3.8) — while the condensate fraction changes by a factor of six. The lowest-
 density point was not continued and is the least converged of the four.
 
-The state is thus a condensate coexisting with a subcritical population of small clusters that
-form by shedding and dissolve by evaporation, with the nucleus at S\* ≈ 8–10 separating the two.
-No mechanism caps cluster size, consistent with §3.8: anything above S\* grows, the largest cluster
-grows as N^1.00 ± 0.07, and the system phase-separates.
+The state is thus a condensate coexisting with a population of small clusters, subcritical on the
+committor evidence, that form by shedding from the condensate and by nucleation from monomers and
+are removed by reabsorption and dissolution, with the crossover at S\* ≈ 8–10 separating the two
+populations. No mechanism caps cluster size, consistent with §3.8: above S\* the committor rises
+to one, the largest cluster grows as N^1.00 ± 0.07, and the system phase-separates.
 
 ### 3.10 The limits of three commonly used nonequilibrium diagnostics
 
@@ -830,8 +952,8 @@ We tested three tier-II signatures.
 from χ = 0.25 to 8, on a single system size and with a single estimator. Above χ = 0.75 it is
 quadratic: per χ² it is 2.3–3.3 × 10⁻³ across an elevenfold range of drive and a hundredfold
 range of signal, and at χ = 2–8 alone it is flat to 4.8 %. Below χ = 0.75 it is not a quadratic
-with a correction; it is zero. The excess at χ = 0.25 is −0.03 ± 0.02 × 10⁻³ on three seeds, and
-at χ = 0.5 a third of the plateau.
+with a correction; it falls below the quadratic plateau, to a third of it at χ = 0.5, and is
+unresolved at χ = 0.25 (−0.03 ± 0.02 × 10⁻³ on three seeds against a plateau-extrapolated 0.17).
 
 We are careful about what this does and does not test, and two things have to be separated.
 
@@ -853,23 +975,26 @@ version of this work fitted the low-drive data as aχ² + bχ and reported a neg
 resolved at 5.6σ. That form cannot be right at the origin: the excess is non-negative for every χ
 and zero at χ = 0, so its slope at χ = 0 cannot be negative, and the fitted form goes negative
 below χ = 0.45. The configurational decomposition shows what the fit was describing. The unopposed
-term $\tilde a$ is nearly constant in χ; $\tilde b$ is proportional to −χ$\tilde a$ with coefficient 0.87–0.91 at every drive
-from χ = 0.75 to 8, and with coefficient 1.0 at χ ≤ 0.5. The "linear term" is a quadratic
+term $\tilde a$ is nearly constant in χ; $\tilde b$ is proportional to $-\chi\tilde a$ with coefficient 0.87–0.91 at every drive
+from χ = 0.75 to 8, and with coefficient 0.97–1.02 at χ ≤ 0.5. The "linear term" is a quadratic
 structural screening: $\tilde b$ vanishes identically in a Boltzmann ensemble, and its measured value at
 χ = 0 is indeed zero within noise (+0.0003 on $\tilde a$ = 0.030), so it is a response of the structure to
-the drive and not a property of the reference. Nine tenths of the antisymmetric push is balanced
-by contact forces above the threshold, and all of it below.
+the drive and not a property of the reference. Above the crossover the configurational decomposition cancels 87–91 % of the unopposed
+antisymmetric contribution, almost entirely through the steric contact force; below it the
+cancellation is complete within error and is carried by the symmetric electrohydrodynamic
+attraction instead (Section 3.4).
 
-*The threshold is structural.* The screening fraction steps from 1.0 to 0.90 between χ = 0.25
-and 0.75, which is exactly where Section 3.5 puts the onset of condensate shedding and fragment
-fission. Below it the condensate is a jammed solid in which the antisymmetric push is stored as
-contact stress and neither fragments nor dissipates; above it the contacts yield, the condensate
-sheds, and the residue of the push that the contacts no longer hold is what dissipates. The
+*The crossover is structural.* The cancellation steps from ≈ 1.0 to 0.90 between χ = 0.25
+and 0.75, which is where Section 3.5 puts the onset of condensate shedding and fragment fission,
+and where the cancelling force changes from the electrohydrodynamic well to the steric contact.
+Below it the push is held by the pair well and the excess is unresolved; above it particles are
+pushed onto their contacts, the condensate sheds, and the residue the contacts do not hold is
+what dissipates. The
 measurement is therefore best read as establishing that dissipation and fragmentation share one
 threshold, and as a validation of the configurational estimator against the trajectory probe
 across a hundredfold range of signal, rather than as an independent test of linear response:
-above the threshold the quadratic form is built into the construction, and below it there is
-nothing to fit.
+above the crossover the quadratic form is built into the construction, and below it the excess
+is too small to fit a form to.
 
 **Onsager reciprocity.** This requires a second, independent drive. A uniform field applied to one
 species is unsuitable: the system is isotropic, so the species drift vanishes at zero field for
@@ -973,17 +1098,20 @@ t̂ = 1000):
 The estimator calibrates exactly: at χ = 0 the ratio is unity within 3 % at every lag from 1 to
 800 on both species. Out of equilibrium three things are established. First, a single effective
 temperature exists and equals T over a window that shrinks with drive: FDT holds to within 10 % up
-to t ≈ 220 at χ = 0.5, 37 at χ = 1 and 13 at χ = 1.5, that is, for frequencies above 1/t_FDT(χ)
-with t_FDT falling roughly as χ⁻². Second, below that frequency the ratio grows as
+to t ≈ 220 at χ = 0.5, 37 at χ = 1 and 13 at χ = 1.5, with t_FDT falling roughly as χ⁻². This is an
+operational short-lag agreement window in the time domain — a displacement-based ratio is an
+integrated quantity, and agreement over short lags does not establish FDT at every frequency
+above 1/t_FDT; a spectral statement would need the correlation and dissipative response spectra,
+which we did not compute. Second, below that frequency the ratio grows as
 (T_eff/T − 1) ∝ t^{1.0} at χ = 1 and 1.5 without a plateau to t = 800; the t^0.89 growth of the
 species-coordinate measurement is this regime. Third, **the two species share the same T_eff(t)
 at every lag**, to 2 % at t = 400 and 10 % at t = 800, although their bare mobilities differ by a
 factor of 1.5. The single-temperature question therefore has an answer on independent
-coordinates: one temperature, shared, equal to the bath temperature above a cutoff frequency, and
-a shared function of the observation time rather than a number below it. The violation lives
-entirely at frequencies below 1/t_FDT(χ), which places the dissipation of Section 3.4 in
-cluster-scale motion rather than at contact scale; we did not evaluate the Harada–Sasa sum rule
-that would make that quantitative.
+coordinates: one temperature, shared, equal to the bath temperature over a short-lag window, and
+a shared function of the observation time rather than a number beyond it. The violation appears
+only at lags longer than t_FDT(χ), which places the dissipation of Section 3.4 in cluster-scale
+motion rather than at contact scale; we did not evaluate the Harada–Sasa sum rule that would make
+that quantitative.
 
 *For the record, the species-coordinate measurement.* Mobility from the drift under a small force
 on one species, fluctuation from the collective coordinate, perturbed and unperturbed runs sharing
@@ -1000,17 +1128,20 @@ a noise stream, verified linear down to f = 3 × 10⁻⁶; at equilibrium T_eff/
 About half of the growth on that coordinate is the aggregate translating under a net internal
 force — a finite-size, window-limited effect rather than a new phenomenon (its amplitude falls
 roughly as N^−1/2 and it decorrelates over long runs) — and the residue is internal. The
-single-particle measurement above contains the same physics without the drift confound, since a
-random-sign force pattern exerts no net force on the aggregate. The large–small difference on
+single-particle measurement above is free of that confound quantitatively rather than by
+construction: a random-sign pattern still carries a net force of order f√N (|Σε_i|/√N = 0.98 in
+our draws), but the centre-of-mass mean-squared displacement is below 1 % of the single-particle
+value at every lag and every χ in the same runs (0.2–1.0 %), so neither the spontaneous
+centre-of-mass motion nor the residual net force contributes at the level of the numbers above. The large–small difference on
 species coordinates reported earlier should be discarded for the reason given above.
 
-**Interpretation: tier membership is frequency-dependent, and the boundary is measured.** We set
+**Interpretation: tier membership is timescale-dependent, and the boundary is measured.** We set
 out expecting these three diagnostics to place the system in a tier. Two of them cannot, for
 reasons of construction, and the third places it in two tiers at once, separated by a frequency.
 
 The quadratic dissipation is real and cleanly measured, but weakly diagnostic on its own: above
-the threshold the quadratic form is built into the construction, and below it there is nothing to
-fit. What it establishes is a threshold in χ shared with the structural transition, and a
+the crossover the quadratic form is built into the construction, and below it the excess is
+unresolved. What it establishes is a crossover in χ shared with the structural transition, and a
 validation of the configurational estimator. The Onsager measurement returned a stable,
 plateau-tested antisymmetry that the dissimilar-channel control shows to be most parsimoniously a
 property of how we built the second channel; it does not survive as a physical reciprocity
@@ -1019,9 +1150,10 @@ a definite answer, and it is not the negative reported in an earlier version of 
 single effective temperature equal to T exists, shared by both species, at all frequencies above
 1/t_FDT(χ), and a shared, growing violation below.
 
-The honest summary is that **the near-equilibrium description applies above a cutoff frequency
-that falls as the drive grows, and fails below it**, with the failure carried by cluster-scale
-motion. The earlier reading of these three diagnostics as placing the system in the
+The honest summary is that **the near-equilibrium description applies over a lag window that
+shrinks as the drive grows, and fails beyond it**, with the failure carried by cluster-scale
+motion; the agreement is established in the time domain, over lags shorter than t_FDT(χ), and we
+do not claim it frequency by frequency. The earlier reading of these three diagnostics as placing the system in the
 linear-response tier did not survive the dissimilar-channel control; the subsequent reading, that
 no tier-II signature exists, did not survive a measurement on conjugate coordinates. We state the
 position the measurements support: FDT with a shared temperature at contact and intra-cluster
@@ -1069,7 +1201,7 @@ coarse-graining caveats extensively [13, 14]. Our contribution here is not the o
 circulation in cilia but the *controlled comparison*: the same estimator, the same surrogate
 protocol, and — following the control below — the same level of description, applied to a synthetic
 system whose entropy production is independently known to be positive and whose reciprocal limit is
-a provable equilibrium reference.
+a reciprocal reference whose stationary current vanishes.
 
 We asked whether a biological system differs on that specific axis, using published high-speed
 recordings of reactivated *Chlamydomonas* axonemes [6, 22]: 184 usable axonemes imaged at 1000 frames
@@ -1353,9 +1485,11 @@ against a block-shuffled surrogate, gives z = −0.3 ± 1.7, −0.2 ± 1.5, −0
 +0.2 ± 1.1 and −0.8 ± 1.6 at χ = 0, 0.25, 0.5, 0.75, 1 and 1.5 (three runs each; largest single
 |z| = 2.2 of eighteen). No pair of these observables traces a cycle at any lag. And in the
 cluster-size coordinate itself, what the condensate sheds and what it reabsorbs have the same
-size distribution at all six χ (two-sample KS p ≥ 0.53), so the shedding–reabsorption loop carries
-no circulating current either. "No circulation in any projection examined" therefore stands with
-three more projections examined, one of them the natural coordinate of the structural transition.
+size distribution at all six χ (two-sample KS p ≥ 0.53). That is a marginal-distribution result:
+it does not test the full transition-current balance of the loop, and it cannot establish that the
+loop carries no circulating current, only that the one-dimensional projection onto fragment size
+shows none. "No circulation in any projection examined" therefore stands with three more
+projections examined, one of them the natural coordinate of the structural transition.
 
 What the antisymmetric sector does uniquely contribute is a positive excess dissipation above a
 structural threshold, quadratic in χ there and zero below (Section 3.10). Nine tenths of the push
@@ -1383,7 +1517,7 @@ degree-preserving null moreover *decreases* with nonreciprocity and is highest i
 reference, inverting the predicted ordering.
 
 Edge turnover fails for four independent reasons: about 70% of its value at χ = 1 survives at χ = 0,
-where the probability current is provably zero; it correlates strongly with cluster morphology; its
+where the dynamics obey detailed balance and the stationary current vanishes; it correlates strongly with cluster morphology; its
 lag-one value is dominated by flicker at the contact threshold rather than by rewiring; and it
 becomes non-monotonic in χ at paper scale, a trend reversal that only appeared after
 equilibration.
@@ -1434,8 +1568,9 @@ difficult to draw operationally, and it reconciles our result with the source re
 accurate for its own system size and duration.
 
 A related inversion deserves explicit statement, because the phrase "arrested coarsening" invites
-the opposite reading. The reciprocal case has by far the *slowest* coarsening (z = 0.089), and every
-nonreciprocal case sits near the diffusion-limited value of 1/3. Nonreciprocity accelerates growth
+the opposite reading. The reciprocal case has by far the *slowest* coarsening (mass-weighted
+cluster size growing as t^{0.11}, Section 3.8), and every nonreciprocal case up to χ = 3 grows
+with an exponent between 0.4 and 1.0 on the same measure. Nonreciprocity accelerates growth
 of the majority phase — it unjams the gel — while sustaining a population of small fragments.
 "Arrest" in this model therefore denotes a persistent fragment population, not a slowed majority
 phase, and the genuinely arrested state is the reciprocal one.
@@ -1514,7 +1649,7 @@ with the source experiment, whose central result — nonreciprocity arrests coar
 statement that nonreciprocity changes steady-state structure.
 
 *Circulation.* No circulation is detectable in any coarse network observable, at either system
-size, against a provable equilibrium null. The "circulating partition" half of the prediction has
+size, against a reciprocal null whose stationary current vanishes. The "circulating partition" half of the prediction has
 no empirical support in this system, notwithstanding that the system is genuinely irreversible.
 
 *The modularity signature.* This is the one prediction with a published pedigree. Ref. [30]
@@ -1534,8 +1669,8 @@ the excess is measured against a different null on a different topology.
 
 **What the antisymmetric sector actually contributes is dissipation, above a threshold.**
 Section 3.10 establishes that it produces a positive entropy production, quadratic in the coupling
-once the contact network yields and zero before, with nine tenths of the push it exerts screened
-by contact forces throughout. A positive quadratic in the drive is the functional form of a
+once the contact network yields and unresolved before, with 87–91 % of the unopposed
+contribution cancelled by the symmetric forces throughout. A positive quadratic in the drive is the functional form of a
 dissipation functional, not of an action extremum. We had also reported an antisymmetric, hence non-dissipative, cross-coupling to a
 second nonreciprocal channel; that result did not survive its control and is withdrawn, so the
 claim here rests on the dissipation alone.
@@ -1567,22 +1702,22 @@ A framework asserting that "some variational principle applies" forbids nothing;
 tier-II membership predicts quadratic dissipation, Onsager reciprocity, and a single effective
 temperature, each of which can fail independently. In this system the first is near-tautological
 at fixed structure, the second does not survive a structurally dissimilar control, and the third
-passes above a cutoff frequency and fails below it. That is a harder outcome to accommodate than a
+passes over a short-lag window and fails beyond it. That is a harder outcome to accommodate than a
 clean pass or a clean fail, and it is one that no amount of
 reinterpretation could have produced from the framework alone. It also suggests that the tier
 taxonomy, useful as a way of organising what to measure, is not straightforwardly decidable by
 measurement in a system like this one.
 
 Third, the boundary of applicability should be stated rather than obscured, and it can now be
-stated in two measured forms. In frequency: fluctuation–dissipation with a single shared
-temperature holds above 1/t_FDT(χ) and fails below it, with t_FDT falling roughly as χ⁻²
+stated in two measured forms. In time: fluctuation–dissipation with a single shared temperature
+holds over lags shorter than t_FDT(χ) and fails beyond, with t_FDT falling roughly as χ⁻²
 (Section 3.10), so a near-equilibrium description covers contact- and intra-cluster-scale
-dynamics and not cluster-scale motion. In structure: the selected state is a rate-balance fixed
-point, the fragment count being the condensate's shedding rate over the fragments' reabsorption
-probability at every χ (Section 3.5), and the nucleus that separates fragments from condensate is
-a genuine critical nucleus with committor one half (Section 3.9). Whatever variational description
+dynamics and not cluster-scale motion. In structure: the selected state is a kinetic steady state
+in which each channel pair balances separately, with the fragment count fixed by the condensate's
+exchange rate and the reabsorption probability at every χ (Section 3.5), and the crossover that
+separates fragments from condensate has a horizon-converged committor of one half (Section 3.9). Whatever variational description
 turns out to apply — and Section 3.10 does not establish that a Rayleighian does — its scope can
-extend at most to the dynamics at fixed structure above the cutoff frequency. Structure selection
+extend at most to the dynamics at fixed structure within that lag window. Structure selection
 is not explained by the equilibrium-like or Rayleighian constructions tested here. We put it that way rather than claiming no variational principle covers
 it: nonequilibrium quasipotentials, large-deviation theory, macroscopic fluctuation theory and
 model-specific constructions all address aspects of structure selection, and we have not tested
@@ -1593,12 +1728,14 @@ coverage would have been.
 
 **Connection to minimum-action learning.** The same programme has a computational arm,
 Minimum-Action Learning [31], whose discriminating criterion is energy conservation under dynamical
-rollout. That criterion presupposes a conserved energy, which exists precisely when the force is
-reciprocal — exactly at χ = 0 here, and nowhere above it. The method should therefore succeed at
-χ = 0 and degrade as χ grows, with the conservation residual it computes being, up to
-normalisation, the dissipation measured in Section 3.10. Replacing energy conservation with a
-dissipation-consistency criterion would be the natural extension, and the trajectories generated
-here are a ready benchmark for it. We test none of this and note it only as an implication.
+rollout. That criterion presupposes a conserved energy. Overdamped dynamics have none: at χ = 0 a
+potential U exists but is not conserved, since even without noise dU/dt = −Σ_i μ_i|∇_iU|² ≤ 0, and
+with noise it fluctuates and exchanges with the bath. What χ = 0 does provide is a potential
+whose dissipation is entirely the relaxation −dU/dt, whereas above χ = 0 there is a second,
+nonconservative contribution — the excess of Section 3.4 — that no potential accounts for. A
+criterion built on a conserved energy therefore cannot be applied as stated; one built on
+consistency with the measured excess dissipation could be, and the trajectories generated here
+are a ready benchmark for it. We test none of this and note it only as an implication.
 
 **A note on the empirical hook.** The reanalysis originally proposed to connect NWAP to this
 literature — computing modularity excess on published trajectory data — should not be attempted;
@@ -1624,15 +1761,18 @@ large fraction at low drive. The production-timestep configurations carry such a
 this paper is taken from configurations re-equilibrated at dt = 0.005, where the stationarity
 residual is 8 % of its production-timestep value. Residual bias of order that 8 % of the correction
 cannot be excluded, and the χ = 0.5 entry in particular should be read as "a third of the plateau,
-give or take a third of itself". The trajectory probe, where we use it, remains a subtracted
+give or take a third of itself"; at dt = 0.0025 on one seed the χ ≤ 0.75 values agree with the
+dt = 0.005 values within their statistical errors (Section 3.4), which are now the larger
+uncertainty. Below the crossover the excess is unresolved, not shown to vanish. The trajectory probe, where we use it, remains a subtracted
 artifact with the caveats previously stated.
 
-**Tier membership is established only as a frequency boundary.** Of the three near-equilibrium
+**Tier membership is established only as a lag-window boundary.** Of the three near-equilibrium
 diagnostics tested in Section 3.10, one is near-tautological at fixed structure, one does not
 survive a structurally-dissimilar control, and the third — fluctuation–dissipation on
-single-particle coordinates — holds with a single shared temperature above 1/t_FDT(χ) and fails
-below. We make no claim about which variational tier the system as a whole occupies; the claim is
-that the near-equilibrium description has a measured frequency of validity that falls with drive.
+single-particle coordinates — holds with a single shared temperature over lags shorter than
+t_FDT(χ) and fails beyond, as a time-domain statement that has not been resolved in frequency. We make no claim about which variational tier the system as a whole occupies; the claim is
+that the near-equilibrium description has a measured lag window of validity that shrinks with
+drive.
 The Harada–Sasa sum rule, which would tie the frequency-resolved violation to the dissipation of
 Section 3.4 quantitatively, was not evaluated, and the Green–Kubo prediction of the low-drive
 curvature from the χ = 0 reference was not computed.
@@ -1643,6 +1783,12 @@ to be wrong, and in each case only a scan against the measurement window or the 
 strength revealed the problem. We therefore report no response coefficient that has not been shown
 to plateau. Readers should treat any such coefficient reported without that check, in this
 literature generally, with corresponding caution.
+
+**The critical-size crossover rests on two criteria that do not coincide.** The committor of the
+full fragment dynamics is converged in the horizon and crosses one half at $S_0$ ≈ 8, but the
+mean-drift criterion of classical nucleation theory is met only within the monomer-exchange
+channel (zero at S ≈ 10), and the mean drift of the full process has no zero. Both are measured
+at one system size and density, with six parent configurations at the longer horizon.
 
 **The directed contact graph is a static object.** Section 4.2 builds it and finds its
 antisymmetric flow 99.4 % gradient, but that is a Hodge decomposition of an edge function at one
@@ -1738,10 +1884,11 @@ pre-registration working as intended, not evidence against the design.
 5. No circulation is detectable in the coarse network observables examined — nor in an all-pairs
    lag test on seven observables, nor in the cluster-size coordinate, nor, by parity, in any
    spatial pseudoscalar — yet the excess dissipation over the reciprocal control is positive and
-   resolved. It is zero within error for χ ≤ 0.25 and quadratic from χ = 0.75 to 8, with nine
-   tenths of the antisymmetric push screened by contact forces above that threshold and all of it
-   below; the negative linear term reported in an earlier version is this screening, quadratic and
-   structural. The dynamics are genuinely irreversible; that irreversibility did not appear in
+   resolved above a crossover. It is unresolved for χ ≤ 0.25, a third of the quadratic plateau at
+   χ = 0.5 and on it from χ = 0.75 to 8; the configurational decomposition cancels 87–91 % of the
+   unopposed antisymmetric contribution above the crossover, through the steric contact force,
+   and all of it within error below, through the pair attraction. The negative linear term
+   reported in an earlier version is this cancellation, quadratic and structural. The dynamics are genuinely irreversible; that irreversibility did not appear in
    any projection we examined, which is a statement about those projections rather than about
    the dynamics, and the antisymmetric pair law is itself 99.4 % gradient on the contact graph.
 
@@ -1752,9 +1899,12 @@ pre-registration working as intended, not evidence against the design.
 7. No finite characteristic cluster size is selected: the largest cluster grows as N^1.00 ± 0.07
    across a fourfold range of system size, and the largest-cluster fraction is flat (0.79, range
    0.71–0.86) across that range without any fit. The scale that is selected, S* ≈ 8–10 particles,
-   is a **critical nucleus**: the Becker–Döring size drift changes sign at 10.1 (9.7–10.7) and the
-   committor crosses one half at 8.0–8.8, with the longest-lingering clusters at 8–12. It is
-   independent of N, of density within a band, and of χ above the threshold. The finite-cluster
+   is a **critical-size crossover**: the committor of the fragment-size dynamics, converged in the
+   observation horizon, crosses one half at $S_0$ = 7.9 (7.6–8.3 over parent configurations; 8.4
+   without absorption), and the monomer-exchange drift changes sign at 10.1 (9.7–10.7). On the
+   committor evidence it is a critical nucleus of the fragment dynamics; the mean-drift criterion
+   holds only within the monomer-exchange channel. It is independent of N, of density within a
+   band, and of χ above the crossover. The finite-cluster
    state is a long-lived transient whose lifetime is measured, not extrapolated: the condensation
    time scales as N^{1.0} and the largest-cluster-fraction curves collapse in t/N over a fourfold
    range of N.
@@ -1766,12 +1916,12 @@ pre-registration working as intended, not evidence against the design.
    a structurally dissimilar control inverts the pattern, so we withdraw the reciprocity reading.
    The third, measured on single-particle coordinates with a random-sign force conjugate to the
    single-particle fluctuation, calibrates to unity within 3 % at every lag at χ = 0 and, out of
-   equilibrium, gives a single effective temperature equal to T shared by both species above a
-   cutoff frequency 1/t_FDT(χ) — t_FDT = 216, 37 and 13 at χ = 0.5, 1 and 1.5 — with a shared
-   violation growing as t below it. The earlier verdict that no effective temperature exists was an
+   equilibrium, gives a single effective temperature equal to T shared by both species over lags shorter
+   than t_FDT(χ) — 216, 37 and 13 at χ = 0.5, 1 and 1.5 — with a shared violation growing as t
+   at longer lags; this is a time-domain statement, not a frequency-resolved one. The earlier verdict that no effective temperature exists was an
    artefact of a non-conjugate pairing on species coordinates. Whatever variational description
-   applies, its scope is at most the dynamics at fixed structure above that frequency, since
-   structure selection is a rate-balance fixed point that no functional tested here reproduces.
+   applies, its scope is at most the dynamics at fixed structure within that lag window, since
+   structure selection is a kinetic balance that no functional tested here reproduces.
 
 9. The difficulty in conclusion 8 is itself part of the finding: of three commonly invoked
    near-equilibrium signatures, two are defeated by their own construction rather than by the
@@ -1790,19 +1940,20 @@ pre-registration working as intended, not evidence against the design.
     its quantitative prediction is borne out though non-monotonically, while the mechanism attributed to
     the antisymmetric sector — solenoidality, circulation, and a modularity signature — fails on all
     three counts. The sector's measurable contribution is a positive excess dissipation above a structural
-    threshold, quadratic there and zero below, with nine tenths of the push screened by contact
-    forces throughout. That form is naturally represented by a dissipation functional; it does not
+    crossover, quadratic there and unresolved below, with 87–91 % of the unopposed contribution
+    cancelled by the symmetric forces throughout. That form is naturally represented by a dissipation functional; it does not
     support the stronger claim that the antisymmetric sector merely adds a structure-preserving
-    term to an equilibrium action. The structure the sector selects is a rate-balance fixed point
-    — fragment count equal to shedding rate over reabsorption probability at every χ — which is
-    the concrete thing a functional for structure selection would have to reproduce.
+    term to an equilibrium action. The structure the sector selects is a kinetic steady state in which shedding and
+    reabsorption, fission and fusion, and nucleation and dissolution each balance separately,
+    which is the concrete thing a functional for structure selection would have to reproduce.
 
 11. In published social-dominance matrices, where the symmetric/antisymmetric decomposition is
-    exact and finite-dimensional rather than inferred, the measured antisymmetric coupling is
-    consistent with a pure gradient and shows no detectable circulating component — though at an
-    interaction density per ordered pair where the measurement has limited power, so this is
-    "consistent with a gradient", not a demonstration of one. It none the less points the same way
-    as the colloid result, by an independent route: antisymmetry does not imply circulation.
+    exact and finite-dimensional rather than inferred, the two sparsely sampled matrices (mouse,
+    caribou) are consistent with a pure gradient at an interaction density where the measurement
+    has limited power, while the two densely sampled ones (bonobos, people) show a cyclic excess
+    over their transitive floor at 2.5σ and 5.1σ. The dominance evidence is therefore mixed, and
+    "consistent with a gradient" applies to the underpowered pair only; it is not an independent
+    confirmation of the colloid result.
     On the colloid's own contact graph the same decomposition is exact and gives a 99.4 %
     gradient at every χ. Separately, the Hodge decomposition of dominance
     must be computed on log-odds: on raw counts a perfectly transitive group reads as 16%
@@ -1841,12 +1992,13 @@ system sizes, with the phase-separation (N¹) and finite-characteristic-size (N�
 measured exponent is 1.00 ± 0.07. (b) The largest-cluster fraction is flat across a fourfold range of N,
 which is the same statement without a fit. `fig3_scaling.png`
 
-**Figure 4 — The critical nucleus.** (a) Becker–Döring size drift ⟨ΔS⟩ per interval against
-cluster size at χ = 1.5, from monomer and dimer exchange events only (Δt = 50, three seeds,
-209,748 cluster observations), with the sign change at S* = 10.1 (68 % bootstrap 9.7–10.7).
-(b) Committor q($S_0$) from 300 relaunches with fresh noise (23,800 fragment fates), crossing one
-half at $S_0$ = 8.0, and the fraction still undecided at t̂ = 1000, which peaks at the nucleus.
-`fig4_rates.png`
+**Figure 4 — The critical-size crossover.** (a) Channel-resolved size drift ⟨ΔS⟩ per interval
+against cluster size at χ = 1.5, from monomer and dimer exchange events only (Δt = 50, three
+seeds, 209,748 cluster observations), with the sign change at S* = 10.1 (68 % bootstrap
+9.7–10.7). (b) Committor q($S_0$) of the full fragment-size dynamics from 72 relaunches of
+t̂ = 3000 with fresh noise (5,664 fragment fates, 93 % decided near the crossover), with and
+without absorption into the condensate counted as the condensed outcome, crossing one half at
+$S_0$ = 7.9 (8.4); the dotted curve is the fraction still undecided at t̂ = 3000. `fig4_rates.png`
 
 **Figure 5 — Dissipation and response.** (a) Entropy production per particle against χ, each point
 probed from a configuration equilibrated at that χ, with the quadratic form. (b) Symmetric and antisymmetric parts of the differential
@@ -1875,7 +2027,8 @@ mis-specified sweeps, retained for the record).
 
 ## Data and code availability
 
-All code, per-run summaries and figures are in the repository. Simulation: `simulate.py` (model,
+All code, per-run summaries and figures are in the repository
+`github.com/martinfrasch/nonrecip-modularity`. Simulation: `simulate.py` (model,
 reciprocity parameter, sweeps), `simulate_par.py` (thread-parallel force kernel, validated to
 8.9 × 10⁻¹⁵ against the serial kernel), `simulate_rect.py` (rectangular box, bitwise identical to
 the square kernel at L_x = L_y), `continue_run.py` (run continuation). Analysis: `analyze.py`

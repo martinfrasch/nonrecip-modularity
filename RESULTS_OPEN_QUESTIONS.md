@@ -334,3 +334,22 @@ The single sentence that ties the tracks together: **the antisymmetric sector do
 the push exceeds what the contact network holds statically; above that threshold it dissipates,
 fragments the condensate, and violates FDT at frequencies below 1/t_FDT(χ), all at once, and none
 of it circulates.**
+
+## Round-4 review response (2026-09-08)
+
+Computations added: density-preservation bracket at χ = 0 (pair analytic, nonzero; configurational
+sd 21 % of ã); committor at t̂ = 3000 (72 launches, 93 % decided near the crossover; half-crossing
+converges to 7.9 from τ = 1500, 8.4 without absorption; launch bootstrap 7.8–8.1, parent 7.6–8.3);
+fragment budget with closure ≤ 0.26 events/snapshot, every channel pair balanced separately
+(`fragment_budget.py`, `fragment_budget.csv`); screening decomposition (steric 99 % at χ = 1.5,
+symmetric EHD 92 % at χ = 0.5); dt = 0.0025 calibration on seed 1 (agrees with dt = 0.005 within
+error, residual 0.34 → 0.18); centre-of-mass share of single-particle MSD 0.2–1.0 %.
+
+Manuscript consequences: §3.9 retitled "critical-size crossover", committor reported as a
+horizon table, drift stated as channel-conditioned; "zero below the threshold" → "unresolved below
+the crossover"; "nine tenths" → "87–91 % of the unopposed contribution in the configurational
+work-rate decomposition"; rate law restated as the condensate's exchange balance with the budget
+table; FDT claim narrowed to a time-domain short-lag window and the frequency direction error
+fixed; §3.2 no longer infers stationary-density change from equal-time structure and instead
+computes the bracket. Full list in `MANUSCRIPT_AUDIT.md` round 4. Both reviewers again
+recommended splitting; recorded, not acted on.

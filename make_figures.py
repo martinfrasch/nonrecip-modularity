@@ -105,7 +105,7 @@ def fig3_scaling():
                  label="finite $S^*$ ($N^{0}$)")
     sl = np.polyfit(np.log(N), np.log(big), 1)[0]
     ax[0].set(xlabel="$N$ (fixed density)", ylabel="largest cluster",
-              title=f"a  measured exponent {sl:.2f}")
+              title="a  measured exponent 1.00 ± 0.07")
     ax[0].legend(frameon=False, loc="upper left")
     ax[1].semilogx(N, big/N, "o-", ms=5, color=C["nonrecip"])
     ax[1].set(xlabel="$N$", ylabel="largest-cluster fraction", ylim=(0, 1),
@@ -129,7 +129,18 @@ def fig4_rates():
     bd["bin"] = pd.cut(bd.S, BINS, right=False)
     g = bd.groupby("bin", observed=True).agg(S=("S", "mean"), d=("dS", "mean"), e=("dS", "sem")).reset_index()
     g = g[g.S < 100]
-    cm = pd.read_csv("committor_summary.csv"); cm = cm[cm.S < 100]
+    d3 = pd.read_csv("committor_T3000.csv"); bins = [3, 4, 5, 6, 7, 8, 10, 12, 15, 20, 30, 1000]
+    dec = d3[d3.fate != "open"].copy(); dec["bin"] = pd.cut(dec.S0, bins, right=False)
+    up = dec.fate.isin(["grow", "absorbed"])
+    gc = dec.groupby("bin", observed=True)
+    cm = pd.DataFrame({"S": gc.S0.mean(), "q": up.groupby(dec.bin, observed=True).mean(), "n": gc.size()})
+    cm["q_err"] = np.sqrt(cm.q * (1 - cm.q) / cm.n)
+    df_ = dec[dec.fate != "absorbed"]; gf = df_.groupby(pd.cut(df_.S0, bins, right=False), observed=True)
+    cm["q_free"] = (df_.fate == "grow").groupby(pd.cut(df_.S0, bins, right=False), observed=True).mean()
+    cm["q_free_err"] = np.sqrt(cm.q_free * (1 - cm.q_free) / gf.size())
+    allc = d3.groupby(pd.cut(d3.S0, bins, right=False), observed=True)
+    cm["open_frac"] = (d3.fate == "open").groupby(pd.cut(d3.S0, bins, right=False), observed=True).mean()
+    cm = cm[cm.S < 100]
     fig, ax = plt.subplots(1, 2, figsize=(5.0, 2.3))
     ax[0].errorbar(g.S, g.d, g.e, marker="o", ms=4, color=C["nonrecip"], capsize=2, lw=1)
     ax[0].axhline(0, color="k", lw=.7); ax[0].axvline(10.1, color=C["third"], lw=.8, ls="--")
@@ -141,12 +152,15 @@ def fig4_rates():
     ax[1].errorbar(cm.S, cm.q, cm.q_err, marker="o", ms=4, color=C["nonrecip"], capsize=2, lw=1, label="$q$")
     ax[1].errorbar(cm.S, cm.q_free, cm.q_free_err, marker="s", ms=3.5, color=C["recip"], capsize=2, lw=1,
                    label="$q$, absorption excluded")
-    ax[1].plot(cm.S, cm.open_frac, ":", color=C["null"], lw=1.2, label="undecided at $\\hat t=1000$")
+    ax[1].plot(cm.S, cm.open_frac, ":", color=C["null"], lw=1.2, label="undecided at $\\hat t=3000$")
     ax[1].axhline(0.5, color="k", lw=.7); ax[1].axvline(10.1, color=C["third"], lw=.8, ls="--")
+    ax[1].axvline(7.9, color=C["nonrecip"], lw=.8, ls=":")
+    ax[1].annotate("$q=1/2$ at $S_0=7.9$", (12.5, 0.30), fontsize=6.5, color=C["nonrecip"])
+    ax[1].annotate("drift zero 10.1", (12.5, 0.22), fontsize=6.5, color=C["third"])
     ax[1].set_xscale("log"); _sticks(ax[1], [3, 5, 10, 20, 50])
     ax[1].set(xlabel="initial cluster size $S_0$", ylabel="committor $q(S_0)$", ylim=(0, 1.02),
-              title="b  committor is ½ at the nucleus")
-    ax[1].legend(frameon=False, loc="upper left")
+              title="b  committor of the full size dynamics")
+    ax[1].legend(frameon=False, loc="upper left", fontsize=6.5)
     fig.tight_layout(); fig.savefig("fig4_rates.png", bbox_inches="tight")
     print("  fig4_rates.png")
 
