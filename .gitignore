@@ -21,3 +21,4 @@ kinetics_events*.csv
 data_hs/
 coarsening.csv
 committor.csv
+*.m4a
