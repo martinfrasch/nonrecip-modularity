@@ -8,7 +8,7 @@ Code, data summaries and manuscript for
 > unjamming, transient arrested coarsening, and irreversibility without coarse-grained
 > circulation* (2026). Zenodo, DOI [10.5281/zenodo.22759185](https://doi.org/10.5281/zenodo.22759185)
 > (concept DOI 10.5281/zenodo.22759184 resolves to the latest version). Source `paper/PAPER.md`,
-> typeset `paper/paper.pdf`, submission package `paper/arxiv-submission.tar.gz`.
+> typeset `paper/paper.pdf`.
 
 ## Why this study exists
 
@@ -89,7 +89,7 @@ analysis/   measurements: analyze.py, static_epr.py, cluster_kinetics.py, fragme
 external/   comparison systems and their open data: cilia_analysis.py, vicsek.py,
             hodge_dominance.py, forkosh_asymmetry.py, data_dominance/, data_forkosh/
 figures/    make_figures.py and the manuscript figures
-paper/      PAPER.md (source of record), build_tex.py, paper.tex, paper.pdf, arXiv package,
+paper/      PAPER.md (source of record), build_tex.py, paper.tex, paper.pdf,
             EXPERIMENT.md (pre-registration), MANUSCRIPT_AUDIT.md (review rounds and corrections)
 results/    per-run summaries (CSV), pilot/ and baseline_out/
 notes/      working notes and per-analysis result records

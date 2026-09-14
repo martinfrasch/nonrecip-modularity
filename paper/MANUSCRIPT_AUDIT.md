@@ -590,9 +590,9 @@ and not acted on**: the one-paper decision stands (2026-09-06).
 - Harada–Sasa sum rule and Green–Kubo curvature: not computed; listed as limitations.
 - Splitting the paper: author's decision, unchanged.
 
-# Round 5 (2026-09-08): final pre-arXiv consistency pass
+# Round 5 (2026-09-08): final pre-submission consistency pass
 
-One reviewer, three instalments, verdict "conditional go for arXiv after targeted corrections".
+One reviewer, three instalments, verdict "conditional go for submission after targeted corrections".
 No further simulation asked for; the split explicitly not a prerequisite for posting.
 
 ## X. Corrections applied

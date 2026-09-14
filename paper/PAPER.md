@@ -2024,7 +2024,7 @@ coupling-strength and size-ratio sweeps of Section 3.1).
 All code, per-run summaries and figures are in the repository
 `github.com/martinfrasch/nonrecip-modularity`, organised as `sim/` (model and integrators),
 `analysis/` (measurements), `external/` (comparison systems and their open data), `figures/`,
-`paper/` (this manuscript, its LaTeX build and the arXiv package), `results/` (per-run summaries
+`paper/` (this manuscript and its LaTeX build), `results/` (per-run summaries
 as CSV, the pilot and baseline outputs) and `notes/` (working notes and per-analysis records).
 Scripts run as modules from the repository root, e.g. `python -m analysis.static_epr`.
 
