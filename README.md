@@ -1,11 +1,14 @@
 # Isolating the antisymmetric sector of a nonreciprocal colloidal model
 
+[![DOI](https://zenodo.org/badge/1342195574.svg)](https://doi.org/10.5281/zenodo.22759184)
+
 Code, data summaries and manuscript for
 
 > M. G. Frasch, *Isolating the antisymmetric sector of a nonreciprocal colloidal model: kinetic
 > unjamming, transient arrested coarsening, and irreversibility without coarse-grained
-> circulation* (2026). Source `paper/PAPER.md`, typeset `paper/paper.pdf`, arXiv package
-> `paper/arxiv-submission.tar.gz`.
+> circulation* (2026). Zenodo, DOI [10.5281/zenodo.22759185](https://doi.org/10.5281/zenodo.22759185)
+> (concept DOI 10.5281/zenodo.22759184 resolves to the latest version). Source `paper/PAPER.md`,
+> typeset `paper/paper.pdf`, submission package `paper/arxiv-submission.tar.gz`.
 
 ## Why this study exists
 

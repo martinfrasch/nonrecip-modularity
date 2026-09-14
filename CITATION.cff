@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: If you use this code or data, please cite the archived version.
+title: "Isolating the antisymmetric sector of a nonreciprocal colloidal model: kinetic unjamming, transient arrested coarsening, and irreversibility without coarse-grained circulation"
+authors:
+  - family-names: Frasch
+    given-names: Martin G.
+doi: 10.5281/zenodo.22759185
+date-released: 2026-09-14
+repository-code: https://github.com/martinfrasch/nonrecip-modularity
